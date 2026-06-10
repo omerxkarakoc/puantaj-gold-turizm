@@ -5,327 +5,394 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gold Turizm — Puantaj</title>
 <style>
-:root {
-  --bg:#0c0e14;--surface:#13151f;--surface2:#1c1f2e;--border:#2a2d3e;--border2:#363a52;
-  --accent:#5b8dee;--accent-dim:rgba(91,141,238,.12);
-  --green:#34d399;--green-dim:rgba(52,211,153,.12);
-  --red:#f87171;--red-dim:rgba(248,113,113,.1);
-  --yellow:#fbbf24;--yellow-dim:rgba(251,191,36,.1);
-  --purple:#a78bfa;--text:#e2e5f0;--text2:#7c82a0;--text3:#454963;
+:root{
+  --bg:#0c0e14;--sf:#13151f;--sf2:#1c1f2e;--sf3:#232640;
+  --bd:#2a2d3e;--bd2:#363a52;
+  --ac:#5b8dee;--acd:rgba(91,141,238,.13);
+  --gn:#34d399;--gnd:rgba(52,211,153,.12);
+  --rd:#f87171;--rdd:rgba(248,113,113,.1);
+  --yw:#fbbf24;--ywd:rgba(251,191,36,.1);
+  --pu:#a78bfa;
+  --tx:#e2e5f0;--tx2:#7c82a0;--tx3:#454963;
   --r:8px;--r2:12px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
-.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center}
-.auth-box{width:380px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:36px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.auth-logo{text-align:center;margin-bottom:28px}
-.auth-logo-t{font-size:22px;font-weight:800;letter-spacing:6px;color:var(--accent)}
-.auth-logo-s{font-size:10px;color:var(--text3);letter-spacing:3px;margin-top:4px}
-.auth-title{font-size:18px;font-weight:700;margin-bottom:20px;text-align:center}
-.auth-err{background:var(--red-dim);border:1px solid var(--red);border-radius:var(--r);padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:14px;display:none}
-.auth-err.show{display:block}
-.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
-.fl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.6px}
-.fi,.fs{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--r);padding:9px 12px;font-size:13px;font-family:inherit;width:100%;transition:border-color .15s}
-.fi:focus,.fs:focus{outline:none;border-color:var(--accent)}
-.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fg-full{grid-column:1/-1}
-.btn{padding:9px 18px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
-.btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:#4a7de0}
-.btn-g{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}.btn-g:hover{color:var(--text)}
-.btn-d{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,.2)}
-.btn-sm{padding:5px 11px;font-size:12px}.btn-xs{padding:3px 8px;font-size:11px;border-radius:6px}
+body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+
+/* AUTH */
+.aw{min-height:100vh;display:flex;align-items:center;justify-content:center}
+.ab{width:360px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.al{text-align:center;margin-bottom:24px}
+.alt{font-size:20px;font-weight:800;letter-spacing:6px;color:var(--ac)}
+.als{font-size:10px;color:var(--tx3);letter-spacing:3px;margin-top:3px}
+.aerr{background:var(--rdd);border:1px solid var(--rd);border-radius:var(--r);padding:9px 13px;font-size:13px;color:var(--rd);margin-bottom:12px;display:none}
+.aerr.show{display:block}
+
+/* FORMS */
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.fl{font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.6px}
+.fi,.fs{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);border-radius:var(--r);padding:8px 11px;font-size:13px;font-family:inherit;width:100%;transition:border-color .15s}
+.fi:focus,.fs:focus{outline:none;border-color:var(--ac)}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.fgf{grid-column:1/-1}
+
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.bp{background:var(--ac);color:#fff}.bp:hover{background:#4a7de0}
+.bg2{background:var(--sf2);color:var(--tx2);border:1px solid var(--bd)}.bg2:hover{color:var(--tx)}
+.bd2{background:var(--rdd);color:var(--rd);border:1px solid rgba(248,113,113,.2)}.bd2:hover{background:rgba(248,113,113,.2)}
+.bsm{padding:5px 10px;font-size:12px}.bxs{padding:3px 7px;font-size:11px;border-radius:6px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* LAYOUT */
 .app{display:flex;min-height:100vh}
-.sidebar{width:230px;min-width:230px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
-.main{margin-left:230px;flex:1;display:flex;flex-direction:column;min-height:100vh}
-.sb-logo{padding:22px 18px 16px;border-bottom:1px solid var(--border)}
-.sb-logo-t{font-size:16px;font-weight:800;letter-spacing:5px;color:var(--accent)}
-.sb-logo-s{font-size:10px;color:var(--text3);letter-spacing:2px;margin-top:3px}
-.sb-nav{padding:12px 0;flex:1;overflow-y:auto}
-.sb-sec{font-size:10px;color:var(--text3);letter-spacing:2px;padding:10px 18px 5px;text-transform:uppercase}
-.sb-item{display:flex;align-items:center;gap:9px;padding:8px 18px;cursor:pointer;color:var(--text2);font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all .12s}
-.sb-item:hover{color:var(--text);background:var(--accent-dim)}
-.sb-item.active{color:var(--accent);background:var(--accent-dim);border-left-color:var(--accent)}
-.sb-item svg{width:15px;height:15px;flex-shrink:0}
-.sb-bottom{padding:14px;border-top:1px solid var(--border)}
-.sb-label{font-size:10px;color:var(--text3);letter-spacing:2px;margin-bottom:7px;text-transform:uppercase}
-.sb-user{padding:12px 14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:9px}
-.sb-user-info{flex:1;min-width:0}
-.sb-email{font-size:11px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sb-logout{background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;border-radius:5px}
-.sb-logout:hover{color:var(--red)}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 26px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.header-t{font-size:16px;font-weight:700}
-.header-s{font-size:12px;color:var(--text2);margin-top:1px}
-.content{padding:22px 26px;flex:1}
+.sidebar{width:225px;min-width:225px;background:var(--sf);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;overflow-y:auto}
+.main{margin-left:225px;flex:1;display:flex;flex-direction:column}
+
+/* SIDEBAR */
+.sbl{padding:20px 16px 14px;border-bottom:1px solid var(--bd)}
+.sblt{font-size:15px;font-weight:800;letter-spacing:5px;color:var(--ac)}
+.sbls{font-size:10px;color:var(--tx3);letter-spacing:2px;margin-top:3px}
+.sbn{padding:10px 0;flex:1}
+.sbsc{font-size:10px;color:var(--tx3);letter-spacing:2px;padding:8px 16px 4px;text-transform:uppercase}
+.sbi{display:flex;align-items:center;gap:8px;padding:7px 16px;cursor:pointer;color:var(--tx2);font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all .12s}
+.sbi:hover{color:var(--tx);background:var(--acd)}
+.sbi.active{color:var(--ac);background:var(--acd);border-left-color:var(--ac)}
+.sbi svg{width:14px;height:14px;flex-shrink:0}
+.sbb{padding:12px;border-top:1px solid var(--bd)}
+.sbbl{font-size:10px;color:var(--tx3);letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+.sbu{padding:10px 12px;border-top:1px solid var(--bd);display:flex;align-items:center;gap:8px}
+.sbue{font-size:11px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.sblout{background:none;border:none;color:var(--tx3);cursor:pointer;padding:3px}.sblout:hover{color:var(--rd)}
+
+/* HEADER */
+.hdr{background:var(--sf);border-bottom:1px solid var(--bd);padding:13px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.hdrt{font-size:16px;font-weight:700}
+.hdrs{font-size:12px;color:var(--tx2);margin-top:1px}
+
+/* CONTENT */
+.cnt{padding:20px 24px;flex:1}
 .view{display:none}.view.active{display:block}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
-.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:14px 18px}
-.stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.stat-v{font-size:24px;font-weight:800}
-.stat-s{font-size:11px;color:var(--text3);margin-top:3px}
-.tabs{display:flex;gap:2px;background:var(--surface2);border-radius:var(--r);padding:3px;width:fit-content;margin-bottom:16px}
-.tab{padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .12s}
-.tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3)}
-.tw{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--border)}
+
+/* STATS */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:16px}
+.sc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:13px 16px}
+.scl{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.scv{font-size:22px;font-weight:800}
+.scs{font-size:11px;color:var(--tx3);margin-top:2px}
+
+/* TABS */
+.tabs{display:flex;gap:2px;background:var(--sf2);border-radius:var(--r);padding:3px;width:fit-content;margin-bottom:14px}
+.tab{padding:6px 13px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;color:var(--tx2);transition:all .12s}
+.tab.active{background:var(--sf);color:var(--tx);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+/* TABLE */
+.tw{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--bd)}
 .pt{width:100%;border-collapse:collapse;font-size:12px}
-.pt th{background:var(--surface2);padding:9px 5px;text-align:center;border:1px solid var(--border);color:var(--text2);font-size:10px;font-weight:700;white-space:nowrap;position:sticky;top:0;z-index:10}
-.pt th.lh{text-align:left;padding-left:10px;min-width:200px;position:sticky;left:0;z-index:20}
-.pt td{border:1px solid var(--border);padding:0;text-align:center}
-.pt td.lc{background:var(--surface);padding:7px 10px;text-align:left;font-size:12px;color:var(--text);position:sticky;left:0;z-index:5;white-space:nowrap;min-width:200px}
-.pt td.rl{background:var(--surface2);font-size:11px;color:var(--text3);font-weight:600;padding:5px 7px;text-align:left;position:sticky;left:0;z-index:5}
-.pt tr.hr td{background:var(--surface2)}
-.pt tr.hr td.lc{font-weight:700;color:var(--accent);font-size:13px}
-.ci{width:100%;height:32px;background:transparent;border:none;text-align:center;color:var(--text);font-size:12px;cursor:pointer;padding:0 2px;font-family:inherit}
-.ci:focus{background:var(--accent-dim);outline:none}
-.ci.v1{color:var(--green)}.ci.vh{color:var(--yellow)}.ci.vx{color:var(--red);background:var(--red-dim)}
-.ci.vn{color:var(--text2);font-style:italic}.ci.v2{color:var(--purple)}
-.pt th.we{color:var(--red)!important}.pt td.we{background:rgba(248,113,113,.04)}
-.pt th.tod{background:var(--accent-dim)!important;color:var(--accent)!important}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
-.card-t{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.li{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:8px}
-.li-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.li-info{flex:1}
-.li-name{font-weight:600;font-size:13px}
-.li-sub{font-size:11px;color:var(--text2);margin-top:2px}
-.li-val{font-size:12px;color:var(--green);margin-left:auto;white-space:nowrap}
-.li-acts{display:flex;gap:5px;margin-left:8px}
+.pt th{background:var(--sf2);padding:8px 4px;text-align:center;border:1px solid var(--bd);color:var(--tx2);font-size:10px;font-weight:700;white-space:nowrap;position:sticky;top:0;z-index:10}
+.pt th.lh{text-align:left;padding-left:10px;min-width:190px;position:sticky;left:0;z-index:20}
+.pt td{border:1px solid var(--bd);padding:0;text-align:center;position:relative}
+.pt td.lc{background:var(--sf);padding:6px 10px;text-align:left;font-size:12px;color:var(--tx);position:sticky;left:0;z-index:5;white-space:nowrap;min-width:190px}
+.pt td.rl{background:var(--sf2);font-size:11px;color:var(--tx3);font-weight:600;padding:5px 7px;text-align:left;position:sticky;left:0;z-index:5;min-width:190px}
+.pt tr.hr td{background:var(--sf2)}
+.pt tr.hr td.lc{font-weight:700;color:var(--ac);font-size:13px}
+.pt th.we{color:var(--rd)!important}.pt td.we{background:rgba(248,113,113,.04)}
+.pt th.tod{background:var(--acd)!important;color:var(--ac)!important}
+
+/* CELL */
+.cc{width:100%;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:500;transition:background .1s;border-radius:3px}
+.cc:hover{background:var(--acd)}
+.cc.v1{color:var(--gn)}.cc.vh{color:var(--yw)}.cc.vx{color:var(--rd);background:var(--rdd)}
+.cc.vn{color:var(--pu);font-size:11px}.cc.v2{color:var(--ac)}
+.cc.empty{color:var(--tx3)}
+
+/* CELL DROPDOWN */
+.cdrop{position:absolute;top:100%;left:0;z-index:200;background:var(--sf);border:1px solid var(--bd2);border-radius:var(--r);min-width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);overflow:hidden}
+.cdi{padding:8px 12px;cursor:pointer;font-size:12px;color:var(--tx2);transition:background .1s;display:flex;align-items:center;gap:8px}
+.cdi:hover{background:var(--acd);color:var(--tx)}
+.cdi.sel{background:var(--acd);color:var(--ac)}
+.cdi-sep{height:1px;background:var(--bd);margin:3px 0}
+.cdi-header{padding:5px 12px;font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px}
+.cdrop-search{padding:8px;border-bottom:1px solid var(--bd)}
+.cdrop-search input{width:100%;background:var(--sf2);border:1px solid var(--bd);color:var(--tx);border-radius:6px;padding:5px 9px;font-size:12px;font-family:inherit}
+.cdrop-search input:focus{outline:none;border-color:var(--ac)}
+.cdrop-list{max-height:220px;overflow-y:auto}
+
+/* CARD */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:16px}
+.ct{font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:11px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+
+/* LIST */
+.li{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:11px 13px;display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.lid{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.lii{flex:1;min-width:0}
+.lin{font-weight:600;font-size:13px}
+.lis{font-size:11px;color:var(--tx2);margin-top:2px}
+.liv{font-size:12px;color:var(--gn);margin-left:auto;white-space:nowrap}
+.lia{display:flex;gap:5px;margin-left:8px}
+
+/* MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity .2s}
 .mo.open{opacity:1;pointer-events:all}
-.mo-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:translateY(16px);transition:transform .2s;box-shadow:0 24px 60px rgba(0,0,0,.5)}
-.mo.open .mo-box{transform:translateY(0)}
-.mo-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.mo-title{font-size:15px;font-weight:700}
-.mo-x{background:none;border:none;color:var(--text3);cursor:pointer;font-size:20px;line-height:1}
-.mo-body{padding:22px}.mo-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:9px;justify-content:flex-end}
+.mob{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);width:540px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:translateY(14px);transition:transform .2s;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.mo.open .mob{transform:translateY(0)}
+.moh{padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.mot{font-size:15px;font-weight:700}
+.mox{background:none;border:none;color:var(--tx3);cursor:pointer;font-size:20px;line-height:1}.mox:hover{color:var(--tx)}
+.mody{padding:20px}.mof{padding:13px 20px;border-top:1px solid var(--bd);display:flex;gap:8px;justify-content:flex-end}
+
+/* BADGES */
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
-.ba{background:var(--accent-dim);color:var(--accent)}.bg{background:var(--green-dim);color:var(--green)}
-.br{background:var(--red-dim);color:var(--red)}.by{background:var(--yellow-dim);color:var(--yellow)}
-.tc{position:fixed;bottom:22px;right:22px;display:flex;flex-direction:column;gap:7px;z-index:9999}
-.toast{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:11px 15px;min-width:220px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:9px;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:tin .2s}
-.toast.s{border-color:var(--green)}.toast.e{border-color:var(--red)}
-@keyframes tin{from{transform:translateX(30px);opacity:0}to{transform:translateX(0);opacity:1}}
-.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-size:12px;color:var(--text2)}
-.leg{display:flex;align-items:center;gap:5px}
-.led{width:9px;height:9px;border-radius:3px}
+.bac{background:var(--acd);color:var(--ac)}.bgc{background:var(--gnd);color:var(--gn)}
+.brc{background:var(--rdd);color:var(--rd)}.byc{background:var(--ywd);color:var(--yw)}
+
+/* TOAST */
+.tc{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:6px;z-index:9999}
+.toast{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;min-width:210px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:tin .2s}
+.toast.s{border-color:var(--gn)}.toast.e{border-color:var(--rd)}
+@keyframes tin{from{transform:translateX(28px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* OZET */
 .ot{width:100%;border-collapse:collapse}
-.ot td{padding:7px 11px;border-bottom:1px solid var(--border);font-size:13px}
-.ot td:first-child{color:var(--text2)}
-.ot td:last-child{text-align:right;font-weight:600;color:var(--green)}
-.ot tr.tot td{font-size:15px;border-top:2px solid var(--border);color:var(--text)}
-.ot tr.tot td:last-child{color:var(--accent)}
-.empty{text-align:center;padding:50px 20px;color:var(--text3)}
-.ir{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.spin{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:sp .6s linear infinite}
+.ot td{padding:7px 10px;border-bottom:1px solid var(--bd);font-size:13px}
+.ot td:first-child{color:var(--tx2)}
+.ot td:last-child{text-align:right;font-weight:600;color:var(--gn)}
+.ot tr.tot td{font-size:14px;border-top:2px solid var(--bd);color:var(--tx)}
+.ot tr.tot td:last-child{color:var(--ac)}
+
+/* SOFOR RAPOR */
+.sr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px;margin-bottom:16px}
+.sr-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:14px}
+.sr-name{font-weight:700;font-size:14px;margin-bottom:3px}
+.sr-firma{font-size:11px;color:var(--tx2);margin-bottom:10px}
+.sr-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--bd);font-size:12px}
+.sr-row:last-child{border-bottom:none;font-weight:700;font-size:13px;padding-top:8px;color:var(--ac)}
+
+/* FIYAT TABLE */
+.ft{width:100%;border-collapse:collapse;font-size:13px}
+.ft th{background:var(--sf2);padding:8px 10px;text-align:left;border:1px solid var(--bd);color:var(--tx2);font-size:11px;font-weight:700;text-transform:uppercase}
+.ft td{border:1px solid var(--bd);padding:6px 8px}
+.ft td input{background:transparent;border:none;color:var(--tx);font-size:13px;font-family:inherit;width:80px;text-align:right}
+.ft td input:focus{outline:none;background:var(--acd);border-radius:4px}
+
+.empty{text-align:center;padding:40px 20px;color:var(--tx3)}
+.ir{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:sp .6s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+.leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;font-size:12px;color:var(--tx2)}
+.legi{display:flex;align-items:center;gap:4px}
+.legd{width:8px;height:8px;border-radius:3px}
+.divider{height:1px;background:var(--bd);margin:14px 0}
 </style>
 </head>
 <body>
 
-<div id="authWrap" class="auth-wrap">
-  <div class="auth-box">
-    <div class="auth-logo">
-      <div class="auth-logo-t">GOLD</div>
-      <div class="auth-logo-s">TURİZM PUANTAJ</div>
-    </div>
-    <div class="auth-title">Giriş Yap</div>
-    <div class="auth-err" id="authErr"></div>
+<!-- AUTH -->
+<div id="authWrap" class="aw">
+  <div class="ab">
+    <div class="al"><div class="alt">GOLD</div><div class="als">TURİZM PUANTAJ</div></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:18px;text-align:center">Giriş Yap</div>
+    <div class="aerr" id="authErr"></div>
     <div class="fg"><label class="fl">E-posta</label><input class="fi" type="email" id="authEmail" placeholder="ornek@email.com"></div>
     <div class="fg"><label class="fl">Şifre</label><input class="fi" type="password" id="authPass" placeholder="••••••••"></div>
-    <button class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px" id="loginBtn" onclick="doLogin()">Giriş Yap</button>
+    <button class="btn bp" style="width:100%;justify-content:center;margin-top:4px" id="loginBtn" onclick="doLogin()">Giriş Yap</button>
   </div>
 </div>
 
+<!-- APP -->
 <div id="appWrap" class="app" style="display:none">
   <aside class="sidebar">
-    <div class="sb-logo"><div class="sb-logo-t">GOLD</div><div class="sb-logo-s">TURİZM PUANTAJ</div></div>
-    <nav class="sb-nav">
-      <div class="sb-sec">Puantaj</div>
-      <div class="sb-item active" onclick="nav('puantaj',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Puantaj Giriş</div>
-      <div class="sb-item" onclick="nav('ozet',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Aylık Özet</div>
-      <div class="sb-sec">Yönetim</div>
-      <div class="sb-item" onclick="nav('firmalar',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>Firmalar</div>
-      <div class="sb-item" onclick="nav('hatlar',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Hat Yönetimi</div>
-      <div class="sb-item" onclick="nav('araclar',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v3h-7V8zM2 20h2M17 20h2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Araç / Şoför</div>
-      <div class="sb-item" onclick="nav('fiyatlar',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Fiyat Ayarları</div>
+    <div class="sbl"><div class="sblt">GOLD</div><div class="sbls">TURİZM PUANTAJ</div></div>
+    <nav class="sbn">
+      <div class="sbsc">Puantaj</div>
+      <div class="sbi active" onclick="nav('puantaj',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Puantaj Giriş</div>
+      <div class="sbi" onclick="nav('ozet',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Aylık Özet</div>
+      <div class="sbi" onclick="nav('sofor_rapor',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Şoför Raporu</div>
+      <div class="sbsc">Yönetim</div>
+      <div class="sbi" onclick="nav('firmalar',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>Firmalar</div>
+      <div class="sbi" onclick="nav('hatlar',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>Hat Yönetimi</div>
+      <div class="sbi" onclick="nav('soforler',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Şoförler</div>
+      <div class="sbi" onclick="nav('fiyatlar',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Fiyat Ayarları</div>
     </nav>
-    <div class="sb-bottom">
-      <div class="sb-label">Aktif Firma</div>
+    <div class="sbb">
+      <div class="sbbl">Aktif Firma</div>
       <select class="fs" id="firmaSelect" onchange="changeFirma()" style="margin-bottom:10px"></select>
-      <div class="sb-label">Aktif Ay</div>
+      <div class="sbbl">Aktif Ay</div>
       <select class="fs" id="aySelect" onchange="changeAy()"></select>
     </div>
-    <div class="sb-user">
-      <div class="sb-user-info"><div style="font-size:12px;font-weight:600">Gold Turizm</div><div class="sb-email" id="userEmail"></div></div>
-      <button class="sb-logout" onclick="doLogout()" title="Çıkış"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+    <div class="sbu">
+      <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">Gold Turizm</div><div class="sbue" id="userEmail"></div></div>
+      <button class="sblout" onclick="doLogout()" title="Çıkış"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
   </aside>
 
   <main class="main">
-    <div class="header">
-      <div><div class="header-t" id="pageTitle">Puantaj Giriş</div><div class="header-s" id="pageSub">—</div></div>
-      <button class="btn btn-g btn-sm" onclick="exportJSON()">↓ Dışa Aktar</button>
+    <div class="hdr">
+      <div><div class="hdrt" id="pageTitle">Puantaj Giriş</div><div class="hdrs" id="pageSub">—</div></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn bg2 bsm" onclick="exportJSON()">↓ Dışa Aktar</button>
+      </div>
     </div>
-    <div class="content">
+    <div class="cnt">
+
+      <!-- PUANTAJ -->
       <div id="view-puantaj" class="view active">
-        <div class="stats-grid" id="statsGrid"></div>
+        <div class="sg" id="statsGrid"></div>
         <div class="tabs" id="tabBar">
-          <div class="tab active" onclick="switchTab('normal',this)">07:00/17:00 Normal</div>
+          <div class="tab active" onclick="switchTab('normal',this)">07:00 / 17:00</div>
           <div class="tab" onclick="switchTab('gec',this)">20:00 Geç Mesai</div>
           <div class="tab" onclick="switchTab('gece',this)">04:00 Gece</div>
         </div>
-        <div class="legend">
-          <span class="leg"><span class="led" style="background:var(--green)"></span>1 = Tam gün</span>
-          <span class="leg"><span class="led" style="background:var(--yellow)"></span>0.5 = Yarım gün</span>
-          <span class="leg"><span class="led" style="background:var(--red)"></span>X = Tatil/Yok</span>
-          <span class="leg"><span class="led" style="background:var(--text2)"></span>İsim = Vekil</span>
-          <span style="margin-left:auto;font-size:11px;color:var(--text3)">Hücreye tıkla → yaz → Enter</span>
+        <div class="leg">
+          <span class="legi"><span class="legd" style="background:var(--gn)"></span>1 = Tam gün</span>
+          <span class="legi"><span class="legd" style="background:var(--yw)"></span>0.5 = Yarım gün</span>
+          <span class="legi"><span class="legd" style="background:var(--rd)"></span>X = Yok/Tatil</span>
+          <span class="legi"><span class="legd" style="background:var(--pu)"></span>Şoför seçildi</span>
+          <span style="margin-left:auto;font-size:11px;color:var(--tx3)">Hücreye tıkla → şoför veya değer seç</span>
         </div>
         <div id="ptCon"></div>
       </div>
-      <div id="view-ozet" class="view"><div class="grid2" id="ozetGrid"></div></div>
+
+      <!-- OZET -->
+      <div id="view-ozet" class="view"><div class="g2" id="ozetGrid"></div></div>
+
+      <!-- SOFOR RAPORU -->
+      <div id="view-sofor_rapor" class="view">
+        <div class="ir">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:13px;color:var(--tx2)">Şoför:</span>
+            <select class="fs" id="raporSoforSelect" onchange="renderSoforRapor()" style="width:200px"></select>
+          </div>
+        </div>
+        <div id="soforRaporContent"></div>
+      </div>
+
+      <!-- FİRMALAR -->
       <div id="view-firmalar" class="view">
-        <div class="ir"><span class="badge ba" id="firmaCount">0 firma</span><button class="btn btn-p btn-sm" onclick="openFirmaModal()">+ Yeni Firma</button></div>
+        <div class="ir"><span class="badge bac" id="firmaCount">0 firma</span><button class="btn bp bsm" onclick="openFirmaModal()">+ Yeni Firma</button></div>
         <div id="firmaList"></div>
       </div>
+
+      <!-- HATLAR -->
       <div id="view-hatlar" class="view">
-        <div class="ir"><span class="badge ba" id="hatCount">0 hat</span><button class="btn btn-p btn-sm" onclick="openHatModal()">+ Yeni Hat</button></div>
+        <div class="ir"><span class="badge bac" id="hatCount">0 hat</span><button class="btn bp bsm" onclick="openHatModal()">+ Yeni Hat</button></div>
         <div id="hatList"></div>
       </div>
-      <div id="view-araclar" class="view">
-        <div class="ir" style="margin-bottom:16px">
-          <div style="display:flex;gap:8px"><span class="badge bg" id="aracCount">0 araç</span><span class="badge ba" id="soforCount">0 şoför</span></div>
-          <div style="display:flex;gap:8px"><button class="btn btn-g btn-sm" onclick="openAracModal()">+ Araç</button><button class="btn btn-p btn-sm" onclick="openSoforModal()">+ Şoför</button></div>
-        </div>
-        <div class="grid2"><div><div class="card-t">Araçlar</div><div id="aracList"></div></div><div><div class="card-t">Şoförler</div><div id="soforList"></div></div></div>
+
+      <!-- ŞOFÖRLER -->
+      <div id="view-soforler" class="view">
+        <div class="ir"><span class="badge bgc" id="soforCount">0 şoför</span><button class="btn bp bsm" onclick="openSoforModal()">+ Yeni Şoför</button></div>
+        <div id="soforList"></div>
       </div>
+
+      <!-- FİYAT AYARLARI -->
       <div id="view-fiyatlar" class="view">
-        <div class="card"><div class="card-t">Mesai Ücretleri — <span id="fiyatFirmaAd"></span></div><div id="fiyatForm"></div></div>
+        <div class="card" style="margin-bottom:14px">
+          <div class="ct">Hat Bazlı Birim Fiyatlar — <span id="fiyatFirmaAd"></span></div>
+          <div style="font-size:12px;color:var(--tx3);margin-bottom:12px">Her hat için sabah, akşam, geç mesai ve gece vardiyası ücretlerini girin.</div>
+          <div id="fiyatTablosu"></div>
+        </div>
+        <div class="card">
+          <div class="ct">Şoför Bazlı Fiyatlar</div>
+          <div style="font-size:12px;color:var(--tx3);margin-bottom:12px">Şoförü ve hattı seçip o kombinasyona özel fiyat belirleyin.</div>
+          <div id="soforFiyatTablosu"></div>
+          <button class="btn bg2 bsm" style="margin-top:12px" onclick="openSoforFiyatModal()">+ Fiyat Ekle</button>
+        </div>
       </div>
+
     </div>
   </main>
 </div>
 
+<!-- MODAL -->
 <div class="mo" id="mo" onclick="if(event.target===this)closeMo()">
-  <div class="mo-box">
-    <div class="mo-head"><div class="mo-title" id="moTitle"></div><button class="mo-x" onclick="closeMo()">×</button></div>
-    <div class="mo-body" id="moBody"></div>
-    <div class="mo-foot" id="moFoot"></div>
+  <div class="mob">
+    <div class="moh"><div class="mot" id="moTitle"></div><button class="mox" onclick="closeMo()">×</button></div>
+    <div class="mody" id="moBody"></div>
+    <div class="mof" id="moFoot"></div>
   </div>
 </div>
+
+<!-- CELL DROPDOWN -->
+<div id="cellDrop" class="cdrop" style="display:none">
+  <div class="cdrop-search"><input type="text" id="dropSearch" placeholder="Ara..." oninput="filterDrop()"></div>
+  <div class="cdrop-list" id="dropList"></div>
+</div>
+
 <div class="tc" id="tc"></div>
 
 <script>
-// ═══════════════════════════════════════
-// SUPABASE REST API (no CDN, no eval)
-// ═══════════════════════════════════════
-const SURL = 'https://ftqgrwvivflhbirdsmap.supabase.co';
-const SKEY = 'sb_publishable_kMF7RW0QJajfOX2kPW5FAA_7jTN2v4v';
-let ACCESS_TOKEN = null;
+// ═══════════════════════════════════
+// SUPABASE REST (no CDN, no eval)
+// ═══════════════════════════════════
+const SURL='https://ftqgrwvivflhbirdsmap.supabase.co';
+const SKEY='sb_publishable_kMF7RW0QJajfOX2kPW5FAA_7jTN2v4v';
+let TOKEN=null;
 
-async function sbFetch(path, opts={}) {
-  const headers = {
-    'apikey': SKEY,
-    'Content-Type': 'application/json',
-    'Prefer': opts.prefer || '',
-  };
-  if (ACCESS_TOKEN) headers['Authorization'] = 'Bearer ' + ACCESS_TOKEN;
-  const res = await fetch(SURL + path, {
-    method: opts.method || 'GET',
-    headers,
-    body: opts.body ? JSON.stringify(opts.body) : undefined,
-  });
-  if (!res.ok) {
-    const err = await res.text();
-    console.error('Supabase error:', res.status, err);
-    return { data: null, error: err };
-  }
-  const text = await res.text();
-  const data = text ? JSON.parse(text) : null;
-  return { data, error: null };
+async function apiFetch(path,opts={}){
+  const h={'apikey':SKEY,'Content-Type':'application/json'};
+  if(TOKEN) h['Authorization']='Bearer '+TOKEN;
+  if(opts.prefer) h['Prefer']=opts.prefer;
+  const r=await fetch(SURL+path,{method:opts.method||'GET',headers:h,body:opts.body?JSON.stringify(opts.body):undefined});
+  const txt=await r.text();
+  if(!r.ok){console.error('API err',r.status,txt);return{data:null,error:txt};}
+  return{data:txt?JSON.parse(txt):null,error:null};
 }
 
-// Auth
-async function signIn(email, password) {
-  const res = await fetch(SURL + '/auth/v1/token?grant_type=password', {
-    method: 'POST',
-    headers: { 'apikey': SKEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  });
-  const data = await res.json();
-  if (!res.ok) return { error: data.error_description || 'Giriş hatası' };
-  ACCESS_TOKEN = data.access_token;
-  // save session
-  localStorage.setItem('gt_session', JSON.stringify({ access_token: data.access_token, user: data.user }));
-  return { data };
+async function authLogin(email,pass){
+  const r=await fetch(SURL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{'apikey':SKEY,'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
+  const d=await r.json();
+  if(!r.ok) return{error:d.error_description||'Hatalı giriş'};
+  TOKEN=d.access_token;
+  localStorage.setItem('gt_tok',JSON.stringify({tok:d.access_token,email:d.user.email,uid:d.user.id}));
+  return{data:d};
 }
 
-async function signOut() {
-  localStorage.removeItem('gt_session');
-  ACCESS_TOKEN = null;
+function loadTok(){
+  try{const s=JSON.parse(localStorage.getItem('gt_tok')||'null');if(s?.tok){TOKEN=s.tok;return s;}return null;}catch(e){return null;}
 }
 
-function loadSession() {
-  try {
-    const s = JSON.parse(localStorage.getItem('gt_session') || 'null');
-    if (s?.access_token) { ACCESS_TOKEN = s.access_token; return s.user; }
-  } catch(e) {}
-  return null;
-}
+function clearTok(){localStorage.removeItem('gt_tok');TOKEN=null;}
 
-// DB helpers
-const db = {
-  async select(table, query='') {
-    const { data } = await sbFetch(`/rest/v1/${table}?${query}&order=id`);
-    return data || [];
+const db={
+  async get(table,filters={},extra=''){
+    const q=Object.entries(filters).map(([k,v])=>`${k}=eq.${encodeURIComponent(v)}`).join('&');
+    const{data}=await apiFetch(`/rest/v1/${table}?${q}${extra}`);
+    return data||[];
   },
-  async insert(table, body) {
-    const { data, error } = await sbFetch(`/rest/v1/${table}`, {
-      method: 'POST', body, prefer: 'return=representation'
-    });
-    return { data, error };
+  async ins(table,body){
+    return apiFetch(`/rest/v1/${table}`,{method:'POST',body,prefer:'return=representation'});
   },
-  async update(table, id, body) {
-    const { data, error } = await sbFetch(`/rest/v1/${table}?id=eq.${id}`, {
-      method: 'PATCH', body, prefer: 'return=representation'
-    });
-    return { data, error };
+  async upd(table,id,body){
+    return apiFetch(`/rest/v1/${table}?id=eq.${id}`,{method:'PATCH',body,prefer:'return=representation'});
   },
-  async delete(table, id) {
-    await sbFetch(`/rest/v1/${table}?id=eq.${id}`, { method: 'DELETE' });
+  async del(table,id){
+    return apiFetch(`/rest/v1/${table}?id=eq.${id}`,{method:'DELETE'});
   },
-  async upsert(table, body, onConflict) {
-    const { data, error } = await sbFetch(`/rest/v1/${table}?on_conflict=${onConflict}`, {
-      method: 'POST', body, prefer: 'return=representation,resolution=merge-duplicates'
-    });
-    return { data, error };
+  async upsert(table,body,conflict){
+    return apiFetch(`/rest/v1/${table}?on_conflict=${conflict}`,{method:'POST',body,prefer:'return=representation,resolution=merge-duplicates'});
   },
-  async selectWhere(table, filters, extra='') {
-    const q = Object.entries(filters).map(([k,v])=>`${k}=eq.${encodeURIComponent(v)}`).join('&');
-    const { data } = await sbFetch(`/rest/v1/${table}?${q}${extra}`);
-    return data || [];
-  }
 };
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // STATE
-// ═══════════════════════════════════════
-let S = {
-  user: null, firma: null, firmalar: [],
-  hatlar: [], araclar: [], soforler: [], fiyatlar: {},
-  puantaj: {}, gecMesai: {}, geceMesai: {},
-  ay: '2026-06', tab: 'normal', view: 'puantaj',
+// ═══════════════════════════════════
+const S={
+  user:null,firma:null,firmalar:[],
+  hatlar:[],soforler:[],fiyatlar:[],soforFiyatlar:[],
+  puantaj:{},gecMesai:{},geceMesai:{},
+  ay:'2026-06',tab:'normal',view:'puantaj',
+  activeCellEl:null,activeCellData:null,
 };
-const TODAY = new Date();
-const TAY = TODAY.getFullYear()+'-'+String(TODAY.getMonth()+1).padStart(2,'0');
-const TGUN = TODAY.getDate();
+const TODAY=new Date();
+const TAY=TODAY.getFullYear()+'-'+String(TODAY.getMonth()+1).padStart(2,'0');
+const TGUN=TODAY.getDate();
 
 function dIM(ay){const[y,m]=ay.split('-').map(Number);return new Date(y,m,0).getDate();}
 function dow(ay,g){const[y,m]=ay.split('-').map(Number);return new Date(y,m-1,g).getDay();}
@@ -335,35 +402,48 @@ function gAdi(d){return['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'][d];}
 function fTL(n){return new Intl.NumberFormat('tr-TR').format(Math.round(n||0))+' ₺';}
 function mLabel(ay){const M=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];const[y,m]=ay.split('-').map(Number);return M[m-1]+' '+y;}
 function pV(v){v=String(v||'').trim();if(!v||v==='-'||v==='X')return 0;const f=parseFloat(v.replace(',','.'));return isNaN(f)?0:f;}
-function cCls(v){v=String(v||'').trim();if(v==='X')return 'vx';if(v==='0.5'||v==='0,5')return 'vh';if(v==='1')return 'v1';if(parseFloat(v)>=2)return 'v2';if(v!=='')return 'vn';return '';}
 
-// ═══════════════════════════════════════
+function cCls(v){
+  v=String(v||'').trim();
+  if(!v)return'empty';
+  if(v==='X')return'vx';
+  if(v==='0.5'||v==='0,5')return'vh';
+  if(v==='1')return'v1';
+  if(parseFloat(v)>=2)return'v2';
+  return'vn'; // isim/vekil
+}
+
+function cLabel(v){
+  if(!v)return'—';
+  if(v==='1')return'1';
+  if(v==='0.5')return'½';
+  if(v==='X')return'X';
+  // şoför adı — kısat
+  const parts=v.split('/');
+  return parts[parts.length-1].trim().slice(0,10);
+}
+
+// ═══════════════════════════════════
 // AUTH
-// ═══════════════════════════════════════
-async function doLogin() {
-  const email = document.getElementById('authEmail').value.trim();
-  const pass  = document.getElementById('authPass').value;
-  const btn   = document.getElementById('loginBtn');
-  const err   = document.getElementById('authErr');
+// ═══════════════════════════════════
+async function doLogin(){
+  const email=document.getElementById('authEmail').value.trim();
+  const pass=document.getElementById('authPass').value;
+  const btn=document.getElementById('loginBtn');
+  const err=document.getElementById('authErr');
   err.classList.remove('show');
-  btn.disabled=true; btn.innerHTML='<span class="spin"></span> Giriş yapılıyor...';
-  const { data, error } = await signIn(email, pass);
-  btn.disabled=false; btn.textContent='Giriş Yap';
-  if (error) { err.textContent=error; err.classList.add('show'); return; }
-  await initApp(data.user);
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
+  const{data,error}=await authLogin(email,pass);
+  btn.disabled=false;btn.textContent='Giriş Yap';
+  if(error){err.textContent=error;err.classList.add('show');return;}
+  await initApp({email,id:data.user.id});
 }
-
-async function doLogout() {
-  await signOut();
-  document.getElementById('authWrap').style.display='flex';
-  document.getElementById('appWrap').style.display='none';
-}
-
+async function doLogout(){clearTok();document.getElementById('authWrap').style.display='flex';document.getElementById('appWrap').style.display='none';}
 document.getElementById('authPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 
-async function initApp(user) {
-  S.user = user;
-  document.getElementById('userEmail').textContent = user.email;
+async function initApp(user){
+  S.user=user;
+  document.getElementById('userEmail').textContent=user.email;
   document.getElementById('authWrap').style.display='none';
   document.getElementById('appWrap').style.display='flex';
   buildAySelect();
@@ -371,101 +451,160 @@ async function initApp(user) {
   renderView(S.view);
 }
 
-function buildAySelect() {
+function buildAySelect(){
   const months=[['2026-06','Haziran 2026'],['2026-07','Temmuz 2026'],['2026-08','Ağustos 2026'],['2026-09','Eylül 2026'],['2026-10','Ekim 2026'],['2026-11','Kasım 2026'],['2026-12','Aralık 2026']];
   document.getElementById('aySelect').innerHTML=months.map(([v,l])=>`<option value="${v}" ${v===S.ay?'selected':''}>${l}</option>`).join('');
 }
 
-async function loadFirmalar() {
-  S.firmalar = await db.select('firmalar','select=*');
-  const sel = document.getElementById('firmaSelect');
-  sel.innerHTML = S.firmalar.length
-    ? S.firmalar.map(f=>`<option value="${f.id}">${f.ad}</option>`).join('')
-    : '<option value="">— Firma yok —</option>';
-  if (!S.firma && S.firmalar.length>0) S.firma = S.firmalar[0];
-  if (S.firma) sel.value = S.firma.id;
-  if (S.firma) await loadFirmaData();
+async function loadFirmalar(){
+  S.firmalar=await db.get('firmalar',{},'&select=*&order=ad');
+  const sel=document.getElementById('firmaSelect');
+  sel.innerHTML=S.firmalar.length?S.firmalar.map(f=>`<option value="${f.id}">${f.ad}</option>`).join(''):'<option value="">— Firma ekleyin —</option>';
+  if(!S.firma&&S.firmalar.length>0)S.firma=S.firmalar[0];
+  if(S.firma)sel.value=S.firma.id;
+  if(S.firma)await loadFirmaData();
 }
 
-async function loadFirmaData() {
-  if (!S.firma) return;
-  const fid = S.firma.id; const ay = S.ay;
-  const [hatlar, araclar, soforler, fiyatlar, puantajRows, gmRows, geceRows] = await Promise.all([
-    db.selectWhere('hatlar', {firma_id: fid}, '&select=*&order=sira'),
-    db.select('araclar', 'select=*&order=plaka'),
-    db.select('soforler', 'select=*&order=ad'),
-    db.selectWhere('fiyatlar', {firma_id: fid}, '&select=*'),
-    db.selectWhere('puantaj', {firma_id: fid, ay}, '&select=*'),
-    db.selectWhere('gec_mesai', {firma_id: fid, ay}, '&select=*'),
-    db.selectWhere('gece_mesai', {firma_id: fid, ay}, '&select=*'),
+async function loadFirmaData(){
+  if(!S.firma)return;
+  const fid=S.firma.id;const ay=S.ay;
+  const[hatlar,soforler,fiyatlar,soforFiyatlar,ptRows,gmRows,geceRows]=await Promise.all([
+    db.get('hatlar',{firma_id:fid},'&select=*&order=sira'),
+    db.get('soforler',{},'&select=*&order=ad'),
+    db.get('fiyatlar',{firma_id:fid},'&select=*'),
+    db.get('sofor_fiyatlar',{firma_id:fid},'&select=*'),
+    db.get('puantaj',{firma_id:fid,ay},'&select=*'),
+    db.get('gec_mesai',{firma_id:fid,ay},'&select=*'),
+    db.get('gece_mesai',{firma_id:fid,ay},'&select=*'),
   ]);
-  S.hatlar=hatlar; S.araclar=araclar; S.soforler=soforler;
-  S.fiyatlar={};
-  for(const f of fiyatlar) S.fiyatlar[f.tip]=f.ucret;
-  const defs={'27lik':6090,'18lik':4650,'ek':1150,'hafta_sonu':4650,'gec_mesai':2925,'gece':4750,'kdv':1.20};
-  for(const[k,v] of Object.entries(defs)) if(S.fiyatlar[k]===undefined) S.fiyatlar[k]=v;
+  S.hatlar=hatlar;S.soforler=soforler;S.fiyatlar=fiyatlar;S.soforFiyatlar=soforFiyatlar;
   S.puantaj={};
-  for(const r of puantajRows){
-    if(!S.puantaj[r.hat_id]) S.puantaj[r.hat_id]={};
-    if(!S.puantaj[r.hat_id][r.gun]) S.puantaj[r.hat_id][r.gun]={sabah:'',aksam:''};
+  for(const r of ptRows){
+    if(!S.puantaj[r.hat_id])S.puantaj[r.hat_id]={};
+    if(!S.puantaj[r.hat_id][r.gun])S.puantaj[r.hat_id][r.gun]={sabah:'',aksam:''};
     S.puantaj[r.hat_id][r.gun][r.tip]=r.deger||'';
   }
   S.gecMesai={};
-  for(const r of gmRows){
-    if(!S.gecMesai[r.firma_adi]) S.gecMesai[r.firma_adi]={};
-    S.gecMesai[r.firma_adi][r.gun]=r.deger||'';
-  }
+  for(const r of gmRows){if(!S.gecMesai[r.sofor_id])S.gecMesai[r.sofor_id]={};S.gecMesai[r.sofor_id][r.gun]=r.deger||'';}
   S.geceMesai={};
-  for(const r of geceRows){
-    if(!S.geceMesai[r.tip]) S.geceMesai[r.tip]={};
-    S.geceMesai[r.tip][r.gun]=r.deger||'';
-  }
+  for(const r of geceRows){if(!S.geceMesai[r.tip])S.geceMesai[r.tip]={};S.geceMesai[r.tip][r.gun]={deger:r.deger||'',sofor_id:r.sofor_id};}
+  updateSoforRaporSelect();
 }
 
 async function changeFirma(){
   const id=document.getElementById('firmaSelect').value;
   S.firma=S.firmalar.find(f=>f.id===id);
-  await loadFirmaData(); renderView(S.view);
+  await loadFirmaData();renderView(S.view);
 }
 async function changeAy(){
   S.ay=document.getElementById('aySelect').value;
   document.getElementById('pageSub').textContent=(S.firma?.ad||'')+' · '+mLabel(S.ay);
-  await loadFirmaData(); renderView(S.view);
+  await loadFirmaData();renderView(S.view);
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // SAVE
-// ═══════════════════════════════════════
-async function saveCell(hatId,gun,tip,val){
+// ═══════════════════════════════════
+async function saveCell(hatId,gun,tip,val,soforId){
   if(!S.firma)return;
   if(!S.puantaj[hatId])S.puantaj[hatId]={};
   if(!S.puantaj[hatId][gun])S.puantaj[hatId][gun]={sabah:'',aksam:''};
   S.puantaj[hatId][gun][tip]=val;
-  await db.upsert('puantaj',{firma_id:S.firma.id,hat_id:hatId,ay:S.ay,gun:parseInt(gun),tip,deger:val,updated_at:new Date().toISOString()},'hat_id,ay,gun,tip');
+  await db.upsert('puantaj',{firma_id:S.firma.id,hat_id:hatId,ay:S.ay,gun:parseInt(gun),tip,deger:val,sofor_id:soforId||null,updated_at:new Date().toISOString()},'hat_id,ay,gun,tip');
 }
-async function saveGM(firmaAdi,gun,val){
+async function saveGM(soforId,gun,val){
   if(!S.firma)return;
-  if(!S.gecMesai[firmaAdi])S.gecMesai[firmaAdi]={};
-  S.gecMesai[firmaAdi][gun]=val;
-  await db.upsert('gec_mesai',{firma_id:S.firma.id,ay:S.ay,gun:parseInt(gun),firma_adi:firmaAdi,deger:val},'firma_id,ay,gun,firma_adi');
+  if(!S.gecMesai[soforId])S.gecMesai[soforId]={};
+  S.gecMesai[soforId][gun]=val;
+  await db.upsert('gec_mesai',{firma_id:S.firma.id,ay:S.ay,gun:parseInt(gun),sofor_id:soforId,deger:val},'firma_id,ay,gun,sofor_id');
 }
-async function saveGece(tip,gun,val){
+async function saveGece(tip,gun,val,soforId){
   if(!S.firma)return;
   if(!S.geceMesai[tip])S.geceMesai[tip]={};
-  S.geceMesai[tip][gun]=val;
-  await db.upsert('gece_mesai',{firma_id:S.firma.id,ay:S.ay,gun:parseInt(gun),tip,deger:val},'firma_id,ay,gun,tip');
+  S.geceMesai[tip][gun]={deger:val,sofor_id:soforId};
+  await db.upsert('gece_mesai',{firma_id:S.firma.id,ay:S.ay,gun:parseInt(gun),tip,deger:val,sofor_id:soforId||null},'firma_id,ay,gun,tip');
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
+// CELL DROPDOWN
+// ═══════════════════════════════════
+let dropData=null;
+
+function openCellDrop(el,hatId,gun,tip){
+  closeCellDrop();
+  S.activeCellEl=el;
+  S.activeCellData={hatId,gun,tip};
+  dropData=null;
+  const drop=document.getElementById('cellDrop');
+  const rect=el.getBoundingClientRect();
+  drop.style.display='block';
+  drop.style.top=(rect.bottom+window.scrollY)+'px';
+  drop.style.left=(rect.left+window.scrollX)+'px';
+  document.getElementById('dropSearch').value='';
+  buildDropList('');
+  document.getElementById('dropSearch').focus();
+}
+
+function buildDropList(q){
+  const list=document.getElementById('dropList');
+  const vals=[
+    {label:'1 — Tam gün',val:'1',cls:'v1'},
+    {label:'0.5 — Yarım gün',val:'0.5',cls:'vh'},
+    {label:'X — Yok / Tatil',val:'X',cls:'vx'},
+    {label:'— Temizle',val:'',cls:''},
+  ];
+  const curVal=()=>{
+    const{hatId,gun,tip}=S.activeCellData||{};
+    const hp=S.puantaj[hatId]||{};
+    return (hp[gun]||{})[tip]||'';
+  };
+  const cur=curVal();
+  let html='<div class="cdi-header">Değer</div>';
+  for(const v of vals){
+    if(q&&!v.label.toLowerCase().includes(q.toLowerCase()))continue;
+    html+=`<div class="cdi ${cur===v.val?'sel':''}" onclick="selectCellVal('${v.val}',null)"><span class="cc ${v.cls}" style="width:24px;height:20px">${v.val==='0.5'?'½':v.val||'—'}</span>${v.label}</div>`;
+  }
+  const filteredSoforler=S.soforler.filter(s=>!q||s.ad.toLowerCase().includes(q.toLowerCase())||(s.firma_adi||'').toLowerCase().includes(q.toLowerCase()));
+  if(filteredSoforler.length){
+    html+='<div class="cdi-sep"></div><div class="cdi-header">Şoför Seç</div>';
+    for(const s of filteredSoforler){
+      html+=`<div class="cdi" onclick="selectCellVal('${s.ad}','${s.id}')"><span style="font-size:16px">👤</span><span><div style="font-size:12px;font-weight:600">${s.ad}</div><div style="font-size:11px;color:var(--tx3)">${s.firma_adi||''}</div></span></div>`;
+    }
+  }
+  list.innerHTML=html;
+}
+
+function filterDrop(){buildDropList(document.getElementById('dropSearch').value);}
+
+async function selectCellVal(val,soforId){
+  if(!S.activeCellData)return;
+  const{hatId,gun,tip}=S.activeCellData;
+  closeCellDrop();
+  if(tip==='sabah'||tip==='aksam'){
+    await saveCell(hatId,gun,tip,val,soforId);
+  }
+  renderPuantaj();renderStats();
+}
+
+function closeCellDrop(){
+  document.getElementById('cellDrop').style.display='none';
+  S.activeCellEl=null;S.activeCellData=null;
+}
+document.addEventListener('click',e=>{
+  const drop=document.getElementById('cellDrop');
+  if(drop.style.display!=='none'&&!drop.contains(e.target)&&!e.target.closest('.cc')){closeCellDrop();}
+});
+
+// ═══════════════════════════════════
 // NAV
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function nav(view,el){
   S.view=view;
-  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  document.querySelectorAll('.sbi').forEach(i=>i.classList.remove('active'));
   if(el)el.classList.add('active');
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+view).classList.add('active');
-  const T={puantaj:'Puantaj Giriş',ozet:'Aylık Özet',firmalar:'Firmalar',hatlar:'Hat Yönetimi',araclar:'Araç / Şoför',fiyatlar:'Fiyat Ayarları'};
+  const T={puantaj:'Puantaj Giriş',ozet:'Aylık Özet',sofor_rapor:'Şoför Raporu',firmalar:'Firmalar',hatlar:'Hat Yönetimi',soforler:'Şoförler',fiyatlar:'Fiyat Ayarları'};
   document.getElementById('pageTitle').textContent=T[view]||view;
   document.getElementById('pageSub').textContent=(S.firma?.ad||'')+' · '+mLabel(S.ay);
   renderView(view);
@@ -473,9 +612,10 @@ function nav(view,el){
 function renderView(v){
   if(v==='puantaj'){renderStats();renderPuantaj();}
   else if(v==='ozet')renderOzet();
+  else if(v==='sofor_rapor')renderSoforRapor();
   else if(v==='firmalar')renderFirmalar();
   else if(v==='hatlar')renderHatlar();
-  else if(v==='araclar')renderAraclar();
+  else if(v==='soforler')renderSoforler();
   else if(v==='fiyatlar')renderFiyatlar();
 }
 function switchTab(tab,el){
@@ -485,41 +625,38 @@ function switchTab(tab,el){
   renderPuantaj();
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // STATS
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function renderStats(){
   const{toplam,kdvli}=hesaplaOzet();
   const days=dIM(S.ay);let hi=0,hs=0;
   for(let g=1;g<=days;g++){if(isWE(S.ay,g))hs++;else hi++;}
   const h1=S.hatlar[0];let entered=0;
-  if(h1){const hp=S.puantaj[h1.id]||{};for(let g=1;g<=days;g++){const gd=hp[g]||{};if(gd.sabah||gd.aksam)entered++;}}
+  if(h1){const hp=S.puantaj[h1.id]||{};for(let g=1;g<=days;g++){const gd=hp[g]||{};if(gd.sabah!==''||gd.aksam!=='')entered++;}}
   document.getElementById('statsGrid').innerHTML=`
-    <div class="stat"><div class="stat-l">Toplam Gün</div><div class="stat-v" style="color:var(--accent)">${days}</div><div class="stat-s">${hi} hafta içi · ${hs} H.sonu</div></div>
-    <div class="stat"><div class="stat-l">Girilen Gün</div><div class="stat-v" style="color:var(--purple)">${entered}</div><div class="stat-s">${days-entered} gün boş</div></div>
-    <div class="stat"><div class="stat-l">Tahmini Tutar</div><div class="stat-v" style="color:var(--green)">${fTL(toplam)}</div><div class="stat-s">KDV hariç</div></div>
-    <div class="stat"><div class="stat-l">KDV Dahil</div><div class="stat-v" style="color:var(--yellow)">${fTL(kdvli)}</div><div class="stat-s">%${Math.round((S.fiyatlar.kdv-1)*100)} KDV</div></div>`;
+    <div class="sc"><div class="scl">Toplam Gün</div><div class="scv" style="color:var(--ac)">${days}</div><div class="scs">${hi} hafta içi · ${hs} H.sonu</div></div>
+    <div class="sc"><div class="scl">Girilen Gün</div><div class="scv" style="color:var(--pu)">${entered}</div><div class="scs">${days-entered} gün boş</div></div>
+    <div class="sc"><div class="scl">Tahmini Tutar</div><div class="scv" style="color:var(--gn)">${fTL(toplam)}</div><div class="scs">KDV hariç</div></div>
+    <div class="sc"><div class="scl">KDV Dahil</div><div class="scv" style="color:var(--yw)">${fTL(kdvli)}</div><div class="scs">KDV %20</div></div>`;
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // PUANTAJ TABLE
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function renderPuantaj(){
   const c=document.getElementById('ptCon');
-  if(!S.firma){c.innerHTML='<div class="empty"><p>Önce bir firma seçin veya ekleyin</p></div>';return;}
+  if(!S.firma){c.innerHTML='<div class="empty"><p>Önce sol menüden firma ekleyin veya seçin.</p></div>';return;}
   if(S.tab==='normal')c.innerHTML=buildNormal();
   else if(S.tab==='gec')c.innerHTML=buildGec();
   else c.innerHTML=buildGece();
-  c.querySelectorAll('.ci').forEach(inp=>{
-    inp.addEventListener('change',async function(){
-      const{role,sub,gun,tip}=this.dataset;const val=this.value.trim();
-      this.className='ci '+cCls(val);
-      if(role==='normal')await saveCell(sub,gun,tip,val);
-      else if(role==='gec')await saveGM(sub,gun,val);
-      else if(role==='gece')await saveGece(sub,gun,val);
-      renderStats();
+
+  // Attach cell click listeners
+  c.querySelectorAll('.cc[data-hat]').forEach(el=>{
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      openCellDrop(this,this.dataset.hat,this.dataset.gun,this.dataset.tip);
     });
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();inp.blur();}});
   });
 }
 
@@ -529,7 +666,7 @@ function dHdrs(days){
     const we=isWE(S.ay,g),tod=isToday(S.ay,g),d=dow(S.ay,g);
     h+=`<th class="${we?'we':''}${tod?' tod':''}">${g}<br><span style="font-size:9px;opacity:.6">${gAdi(d)}</span></th>`;
   }
-  return h+'<th style="min-width:44px;color:var(--text3)">∑</th>';
+  return h+'<th style="min-width:40px;color:var(--tx3)">∑</th>';
 }
 
 function buildNormal(){
@@ -538,16 +675,15 @@ function buildNormal(){
   let rows='';
   for(const hat of S.hatlar){
     const hp=S.puantaj[hat.id]||{};
-    rows+=`<tr class="hr"><td class="lc" colspan="${days+2}" style="border-left:3px solid ${hat.renk||'#5b8dee'}">${hat.ad} <span style="font-size:11px;color:var(--text3);margin-left:6px">${hat.tip} · ${fTL(hat.gunluk_ucret)}/gün</span></td></tr>`;
-    for(const[tip,label,servis,plaka]of[['sabah','☀️ SABAH',hat.sabah_servis,hat.sabah_plaka],['aksam','🌙 AKŞAM',hat.aksam_servis,hat.aksam_plaka]]){
-      if(!servis&&!plaka)continue;
+    rows+=`<tr class="hr"><td class="lc" colspan="${days+2}" style="border-left:3px solid ${hat.renk||'#5b8dee'}">${hat.ad} <span style="font-size:11px;color:var(--tx3);margin-left:6px">${hat.tip} · ${fTL(hat.gunluk_ucret)}/gün</span></td></tr>`;
+    for(const[tip,label]of[['sabah','☀️ SABAH'],['aksam','🌙 AKŞAM']]){
       let tot=0,cells='';
       for(let g=1;g<=days;g++){
         const we=isWE(S.ay,g),tod=isToday(S.ay,g),gd=hp[g]||{},val=gd[tip]||'';
         tot+=pV(val);
-        cells+=`<td class="${we?'we':''}${tod?' tod':''}"><input class="ci ${cCls(val)}" data-role="normal" data-sub="${hat.id}" data-gun="${g}" data-tip="${tip}" value="${val}"></td>`;
+        cells+=`<td class="${we?'we':''}${tod?' tod':''}"><div class="cc ${cCls(val)}" data-hat="${hat.id}" data-gun="${g}" data-tip="${tip}" title="${val||'Boş'}">${cLabel(val)}</div></td>`;
       }
-      rows+=`<tr><td class="rl">${label} — <span style="color:var(--text2);font-weight:400">${servis||''}${plaka?' · '+plaka:''}</span></td>${cells}<td class="lc" style="color:var(--green);font-weight:700">${tot||''}</td></tr>`;
+      rows+=`<tr><td class="rl">${label}</td>${cells}<td class="lc" style="color:var(--gn);font-weight:700">${tot||''}</td></tr>`;
     }
   }
   return`<div class="tw"><table class="pt"><thead><tr>${dHdrs(days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -555,184 +691,388 @@ function buildNormal(){
 
 function buildGec(){
   const days=dIM(S.ay);
-  const firmalar=['Gold Turizm','İlhan Ersu','Ömer Kara'];
+  if(!S.soforler.length)return'<div class="empty"><p>Önce şoför ekleyin.</p></div>';
   let rows='';
-  for(const fa of firmalar){
-    const gm=S.gecMesai[fa]||{};let tot=0,cells='';
-    for(let g=1;g<=days;g++){const we=isWE(S.ay,g),val=gm[g]||'';tot+=pV(val);cells+=`<td class="${we?'we':''}"><input class="ci ${cCls(val)}" data-role="gec" data-sub="${fa}" data-gun="${g}" value="${val}"></td>`;}
-    rows+=`<tr><td class="lc">${fa}</td>${cells}<td class="lc" style="color:var(--yellow);font-weight:700">${tot||''}</td></tr>`;
+  for(const sf of S.soforler){
+    const gm=S.gecMesai[sf.id]||{};let tot=0,cells='';
+    for(let g=1;g<=days;g++){
+      const we=isWE(S.ay,g),val=gm[g]||'';tot+=pV(val);
+      cells+=`<td class="${we?'we':''}"><div class="cc ${cCls(val)}" data-role="gec" data-sofor="${sf.id}" data-gun="${g}" onclick="openGecDrop(this,'${sf.id}',${g})" title="${val||'Boş'}">${cLabel(val)}</div></td>`;
+    }
+    rows+=`<tr><td class="lc"><strong>${sf.ad}</strong><br><span style="font-size:11px;color:var(--tx2)">${sf.firma_adi||''}</span></td>${cells}<td class="lc" style="color:var(--yw);font-weight:700">${tot||''}</td></tr>`;
   }
-  return`<div class="card" style="margin-bottom:12px;padding:10px 16px;display:flex;align-items:center;gap:10px"><span class="badge by">20:00 Geç Mesai</span><span style="color:var(--text2);font-size:13px">Birim: <strong style="color:var(--yellow)">${fTL(S.fiyatlar.gec_mesai)}</strong></span></div>
+  return`<div class="card" style="margin-bottom:12px;padding:10px 14px;display:flex;align-items:center;gap:10px"><span class="badge byc">20:00 Geç Mesai</span></div>
   <div class="tw"><table class="pt"><thead><tr>${dHdrs(days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function buildGece(){
   const days=dIM(S.ay);
-  const satirlar=[{id:'giris',label:'Giriş 20:00 — Gold Tur 06 C 5916'},{id:'cikis',label:'Çıkış 04:00 — Bahri Büyük 06 C 6766'}];
+  const satirlar=[{id:'giris',label:'Giriş 20:00'},{id:'cikis',label:'Çıkış 04:00'}];
   let rows='';
   for(const s of satirlar){
     const gm=S.geceMesai[s.id]||{};let tot=0,cells='';
-    for(let g=1;g<=days;g++){const we=isWE(S.ay,g),val=gm[g]||'';tot+=pV(val);cells+=`<td class="${we?'we':''}"><input class="ci ${cCls(val)}" data-role="gece" data-sub="${s.id}" data-gun="${g}" value="${val}"></td>`;}
-    rows+=`<tr><td class="lc">${s.label}</td>${cells}<td class="lc" style="color:var(--accent);font-weight:700">${tot||''}</td></tr>`;
+    for(let g=1;g<=days;g++){
+      const we=isWE(S.ay,g),entry=gm[g]||{},val=entry.deger||'';tot+=pV(val);
+      cells+=`<td class="${we?'we':''}"><div class="cc ${cCls(val)}" onclick="openGeceTipDrop(this,'${s.id}',${g})" title="${val||'Boş'}">${cLabel(val)}</div></td>`;
+    }
+    rows+=`<tr><td class="lc">${s.label}</td>${cells}<td class="lc" style="color:var(--ac);font-weight:700">${tot||''}</td></tr>`;
   }
-  return`<div class="card" style="margin-bottom:12px;padding:10px 16px;display:flex;align-items:center;gap:10px"><span class="badge br">04:00 Gece</span></div>
+  return`<div class="card" style="margin-bottom:12px;padding:10px 14px;display:flex;align-items:center;gap:10px"><span class="badge brc">04:00 Gece</span></div>
   <div class="tw"><table class="pt"><thead><tr>${dHdrs(days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
-// ═══════════════════════════════════════
-// OZET
-// ═══════════════════════════════════════
+// Geç mesai hücre dropdown
+function openGecDrop(el,soforId,gun){
+  S.activeCellEl=el;
+  S.activeCellData={type:'gec',soforId,gun};
+  const drop=document.getElementById('cellDrop');
+  const rect=el.getBoundingClientRect();
+  drop.style.display='block';
+  drop.style.top=(rect.bottom+window.scrollY)+'px';
+  drop.style.left=(rect.left+window.scrollX)+'px';
+  document.getElementById('dropSearch').style.display='none';
+  const list=document.getElementById('dropList');
+  const cur=(S.gecMesai[soforId]||{})[gun]||'';
+  list.innerHTML=[{v:'1',l:'1 — Tam gün'},{v:'0.5',l:'0.5 — Yarım gün'},{v:'X',l:'X — Yok'},{v:'',l:'— Temizle'}].map(o=>`<div class="cdi ${cur===o.v?'sel':''}" onclick="setGecVal('${soforId}',${gun},'${o.v}')">${o.l}</div>`).join('');
+}
+async function setGecVal(soforId,gun,val){
+  closeCellDrop();
+  document.getElementById('dropSearch').style.display='';
+  await saveGM(soforId,gun,val);
+  renderPuantaj();renderStats();
+}
+
+function openGeceTipDrop(el,tip,gun){
+  S.activeCellEl=el;
+  S.activeCellData={type:'gece',tip,gun};
+  const drop=document.getElementById('cellDrop');
+  const rect=el.getBoundingClientRect();
+  drop.style.display='block';
+  drop.style.top=(rect.bottom+window.scrollY)+'px';
+  drop.style.left=(rect.left+window.scrollX)+'px';
+  document.getElementById('dropSearch').style.display='none';
+  const list=document.getElementById('dropList');
+  const cur=((S.geceMesai[tip]||{})[gun]||{}).deger||'';
+  let html=[{v:'1',l:'1 — Tam'},{v:'0.5',l:'0.5 — Yarım'},{v:'X',l:'X — Yok'},{v:'',l:'— Temizle'}].map(o=>`<div class="cdi ${cur===o.v?'sel':''}" onclick="setGeceVal('${tip}',${gun},'${o.v}',null)">${o.l}</div>`).join('');
+  if(S.soforler.length){html+='<div class="cdi-sep"></div><div class="cdi-header">Şoför ile</div>';for(const s of S.soforler)html+=`<div class="cdi" onclick="setGeceVal('${tip}',${gun},'1','${s.id}')">👤 ${s.ad}</div>`;}
+  list.innerHTML=html;
+}
+async function setGeceVal(tip,gun,val,soforId){
+  closeCellDrop();
+  document.getElementById('dropSearch').style.display='';
+  await saveGece(tip,gun,val,soforId);
+  renderPuantaj();renderStats();
+}
+
+// ═══════════════════════════════════
+// ÖZET
+// ═══════════════════════════════════
+function getSoforFiyat(soforId,hatId,tip){
+  const sf=S.soforFiyatlar.find(f=>f.sofor_id===soforId&&f.hat_id===hatId&&f.tip===tip);
+  if(sf) return sf.ucret;
+  const hf=S.fiyatlar.find(f=>f.hat_id===hatId&&f.tip===tip);
+  return hf?hf.ucret:0;
+}
+
 function hesaplaOzet(){
-  const days=dIM(S.ay);const f=S.fiyatlar;
-  let g27=0,g18=0,gEk=0,gHS=0,gGec=0,gGece=0;
-  for(const hat of S.hatlar){const hp=S.puantaj[hat.id]||{};for(let g=1;g<=days;g++){const gd=hp[g]||{},s=pV(gd.sabah),ak=pV(gd.aksam);if(isWE(S.ay,g)){if(s>0||ak>0)gHS++;continue;}if(s>0||ak>0){if(hat.tip==='27lik')g27++;else if(hat.tip==='18lik')g18++;else gEk++;}}}
-  for(const fa in S.gecMesai)for(const g in S.gecMesai[fa])gGec+=pV(S.gecMesai[fa][g]);
-  const gi=S.geceMesai['giris']||{};for(const g in gi)gGece+=pV(gi[g]);
-  const t27=g27*(f['27lik']||0),t18=g18*(f['18lik']||0),tEk=gEk*(f.ek||0),tHS=gHS*(f.hafta_sonu||0),tGec=gGec*(f.gec_mesai||0),tGece=gGece*(f.gece||0);
-  const toplam=t27+t18+tEk+tHS+tGec+tGece;
-  return{g27,g18,gEk,gHS,gGec,gGece,t27,t18,tEk,tHS,tGec,tGece,toplam,kdvli:toplam*(f.kdv||1.2)};
+  const days=dIM(S.ay);
+  let toplam=0;
+  const detay={};
+  for(const hat of S.hatlar){
+    const hp=S.puantaj[hat.id]||{};
+    for(let g=1;g<=days;g++){
+      const gd=hp[g]||{};
+      for(const tip of['sabah','aksam']){
+        const val=gd[tip]||'';const v=pV(val);if(v<=0)continue;
+        // sofor_id bulalım
+        const ptRow=S.puantaj[hat.id]?.[g];
+        const ucret=hat.gunluk_ucret||0;
+        toplam+=ucret*v;
+        if(!detay[hat.id])detay[hat.id]={gun:0,tutar:0};
+        detay[hat.id].gun+=v;detay[hat.id].tutar+=ucret*v;
+      }
+    }
+  }
+  // geç mesai
+  for(const soforId in S.gecMesai){for(const g in S.gecMesai[soforId]){const v=pV(S.gecMesai[soforId][g]);if(v>0){const sf=S.soforFiyatlar.find(f=>f.sofor_id===soforId&&f.tip==='gec_mesai');toplam+=(sf?.ucret||0)*v;}}}
+  const kdvli=toplam*1.2;
+  return{toplam,kdvli,detay};
 }
 
 function renderOzet(){
-  const o=hesaplaOzet();const f=S.fiyatlar;
+  const{toplam,kdvli,detay}=hesaplaOzet();
   document.getElementById('ozetGrid').innerHTML=`
     <div class="card">
-      <div class="card-t">${mLabel(S.ay)} — ${S.firma?.ad||''}</div>
+      <div class="ct">${mLabel(S.ay)} — ${S.firma?.ad||''}</div>
       <table class="ot">
-        <tr><td>27'lik Hat (${o.g27} gün)</td><td>${fTL(o.t27)}</td></tr>
-        <tr><td>18'lik Hat (${o.g18} gün)</td><td>${fTL(o.t18)}</td></tr>
-        <tr><td>Ek Hat (${o.gEk} gün)</td><td>${fTL(o.tEk)}</td></tr>
-        <tr><td>Hafta Sonu (${o.gHS} gün)</td><td>${fTL(o.tHS)}</td></tr>
-        <tr><td>Geç Mesai (${o.gGec} gün)</td><td>${fTL(o.tGec)}</td></tr>
-        <tr><td>Gece Mesai (${o.gGece} gün)</td><td>${fTL(o.tGece)}</td></tr>
-        <tr class="tot"><td><strong>Toplam (KDV hariç)</strong></td><td>${fTL(o.toplam)}</td></tr>
-        <tr class="tot"><td><strong>KDV Dahil (%${Math.round((f.kdv-1)*100)})</strong></td><td>${fTL(o.kdvli)}</td></tr>
+        ${S.hatlar.map(h=>{const d=detay[h.id]||{gun:0,tutar:0};return`<tr><td>${h.ad} (${d.gun} gün)</td><td>${fTL(d.tutar)}</td></tr>`;}).join('')}
+        <tr class="tot"><td><strong>Toplam (KDV hariç)</strong></td><td>${fTL(toplam)}</td></tr>
+        <tr class="tot"><td><strong>KDV Dahil (%20)</strong></td><td>${fTL(kdvli)}</td></tr>
       </table>
     </div>
-    <div>
-      <div class="card">
-        <div class="card-t">Hat Detayı</div>
-        ${S.hatlar.map(hat=>{
-          const hp=S.puantaj[hat.id]||{};let gun=0;
-          for(let g=1;g<=dIM(S.ay);g++){if(isWE(S.ay,g))continue;const gd=hp[g]||{};if(pV(gd.sabah)>0||pV(gd.aksam)>0)gun++;}
-          return`<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)">
-            <span style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:50%;background:${hat.renk||'#5b8dee'};display:inline-block"></span>${hat.ad}</span>
-            <span style="font-size:12px;color:var(--green)">${gun} gün · ${fTL(gun*hat.gunluk_ucret)}</span></div>`;
-        }).join('')}
-      </div>
+    <div class="card">
+      <div class="ct">Hat Özeti</div>
+      ${S.hatlar.map(h=>{
+        const hp=S.puantaj[h.id]||{};const days=dIM(S.ay);let gun=0;
+        for(let g=1;g<=days;g++){const gd=hp[g]||{};if(pV(gd.sabah)>0||pV(gd.aksam)>0)gun++;}
+        return`<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bd)">
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:${h.renk||'#5b8dee'};display:inline-block"></span>${h.ad}</span>
+          <span style="font-size:12px;color:var(--gn)">${gun} gün · ${fTL(gun*h.gunluk_ucret)}</span></div>`;
+      }).join('')}
     </div>`;
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
+// ŞOFÖR RAPORU
+// ═══════════════════════════════════
+function updateSoforRaporSelect(){
+  const sel=document.getElementById('raporSoforSelect');
+  sel.innerHTML=S.soforler.length?'<option value="">— Şoför seçin —</option>'+S.soforler.map(s=>`<option value="${s.id}">${s.ad}${s.firma_adi?' ('+s.firma_adi+')':''}</option>`).join(''):'<option value="">Şoför yok</option>';
+}
+
+function renderSoforRapor(){
+  const soforId=document.getElementById('raporSoforSelect').value;
+  const con=document.getElementById('soforRaporContent');
+  if(!soforId){con.innerHTML='<div class="empty"><p>Raporu görmek için şoför seçin</p></div>';return;}
+  const sf=S.soforler.find(s=>s.id===soforId);
+  const days=dIM(S.ay);
+  let toplam=0;
+  let detayRows='';
+  // Normal puantaj
+  for(const hat of S.hatlar){
+    const hp=S.puantaj[hat.id]||{};
+    for(const tip of['sabah','aksam']){
+      let gun=0;
+      for(let g=1;g<=days;g++){
+        const gd=hp[g]||{};
+        const val=gd[tip]||'';
+        // Şoför bu hücrede mi? deger şoför adı içeriyor mu veya sofor_id eşleşiyor mu?
+        if(val&&val!=='1'&&val!=='0.5'&&val!=='X'&&val.toLowerCase().includes(sf.ad.toLowerCase())){
+          gun+=pV('1');
+        }
+      }
+      if(gun>0){
+        const ucret=getSoforFiyat(soforId,hat.id,tip);
+        const tutar=ucret*gun;toplam+=tutar;
+        detayRows+=`<tr><td>${hat.ad}</td><td>${tip==='sabah'?'☀️ Sabah':'🌙 Akşam'}</td><td style="text-align:center">${gun}</td><td style="text-align:right">${fTL(ucret)}</td><td style="text-align:right;color:var(--gn)">${fTL(tutar)}</td></tr>`;
+      }
+    }
+  }
+  // Geç mesai
+  const gm=S.gecMesai[soforId]||{};let gecGun=0;
+  for(const g in gm) gecGun+=pV(gm[g]);
+  if(gecGun>0){
+    const ucret=getSoforFiyat(soforId,null,'gec_mesai');
+    const tutar=ucret*gecGun;toplam+=tutar;
+    detayRows+=`<tr><td>Geç Mesai</td><td>🌙 20:00</td><td style="text-align:center">${gecGun}</td><td style="text-align:right">${fTL(ucret)}</td><td style="text-align:right;color:var(--gn)">${fTL(tutar)}</td></tr>`;
+  }
+  con.innerHTML=`
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div><div style="font-size:16px;font-weight:700">${sf.ad}</div><div style="font-size:12px;color:var(--tx2)">${sf.firma_adi||''} · ${mLabel(S.ay)}</div></div>
+        <div style="margin-left:auto;text-align:right"><div style="font-size:20px;font-weight:800;color:var(--ac)">${fTL(toplam)}</div><div style="font-size:11px;color:var(--tx3)">Toplam Hak Ediş</div></div>
+      </div>
+      ${detayRows?`<table class="ft" style="width:100%">
+        <thead><tr><th>Hat</th><th>Vardiya</th><th style="text-align:center">Gün</th><th style="text-align:right">Birim</th><th style="text-align:right">Tutar</th></tr></thead>
+        <tbody>${detayRows}</tbody>
+      </table>`:'<div class="empty" style="padding:20px"><p>Bu şoför için bu ayda kayıt bulunamadı</p></div>'}
+    </div>`;
+}
+
+// ═══════════════════════════════════
 // FİRMALAR
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function renderFirmalar(){
   document.getElementById('firmaCount').textContent=S.firmalar.length+' firma';
-  document.getElementById('firmaList').innerHTML=S.firmalar.map(f=>`
-    <div class="li"><div class="li-dot" style="background:var(--accent)"></div>
-    <div class="li-info"><div class="li-name">${f.ad}</div></div>
-    <div class="li-acts"><button class="btn btn-g btn-xs" onclick="openFirmaModal('${f.id}')">Düzenle</button><button class="btn btn-d btn-xs" onclick="deleteFirma('${f.id}')">Sil</button></div></div>`).join('');
+  document.getElementById('firmaList').innerHTML=S.firmalar.length?S.firmalar.map(f=>`
+    <div class="li"><div class="lid" style="background:var(--ac)"></div>
+    <div class="lii"><div class="lin">${f.ad}</div></div>
+    <div class="lia"><button class="btn bg2 bxs" onclick="openFirmaModal('${f.id}')">Düzenle</button><button class="btn bd2 bxs" onclick="deleteFirma('${f.id}')">Sil</button></div></div>`).join('')
+    :'<div class="empty"><p>Henüz firma eklenmedi</p></div>';
 }
 function openFirmaModal(id){
   const f=id?S.firmalar.find(x=>x.id===id):null;
   openMo(f?'Firma Düzenle':'Yeni Firma',`<div class="fg"><label class="fl">Firma Adı</label><input class="fi" id="fAd" value="${f?.ad||''}" placeholder="Skymark, Ernes..."></div>`,
-  [{l:'İptal',c:'btn-g',fn:'closeMo()'},{l:f?'Güncelle':'Ekle',c:'btn-p',fn:`saveFirma('${id||''}')`}]);
+  [{l:'İptal',c:'bg2',fn:'closeMo()'},{l:f?'Güncelle':'Ekle',c:'bp',fn:`saveFirma('${id||''}')`}]);
 }
 async function saveFirma(id){
   const ad=document.getElementById('fAd').value.trim();
   if(!ad){toast('Firma adı gerekli','e');return;}
-  if(id)await db.update('firmalar',id,{ad});
-  else await db.insert('firmalar',{ad});
+  if(id)await db.upd('firmalar',id,{ad});else await db.ins('firmalar',{ad});
   closeMo();await loadFirmalar();renderFirmalar();toast('Firma kaydedildi','s');
 }
 async function deleteFirma(id){
   if(!confirm('Bu firmayı silmek istiyor musunuz?'))return;
-  await db.delete('firmalar',id);await loadFirmalar();renderFirmalar();toast('Silindi');
+  await db.del('firmalar',id);await loadFirmalar();renderFirmalar();toast('Silindi');
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // HATLAR
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function renderHatlar(){
   document.getElementById('hatCount').textContent=S.hatlar.length+' hat';
   document.getElementById('hatList').innerHTML=S.hatlar.length?S.hatlar.map(h=>`
-    <div class="li"><div class="li-dot" style="background:${h.renk||'#5b8dee'}"></div>
-    <div class="li-info"><div class="li-name">${h.ad} <span class="badge ba" style="margin-left:5px">${h.tip}</span></div>
-    <div class="li-sub">☀️ ${h.sabah_servis||'—'}${h.sabah_plaka?' · '+h.sabah_plaka:''} &nbsp;🌙 ${h.aksam_servis||'—'}${h.aksam_plaka?' · '+h.aksam_plaka:''}</div></div>
-    <div class="li-val">${fTL(h.gunluk_ucret)}/gün</div>
-    <div class="li-acts"><button class="btn btn-g btn-xs" onclick="openHatModal('${h.id}')">Düzenle</button><button class="btn btn-d btn-xs" onclick="deleteHat('${h.id}')">Sil</button></div></div>`).join('')
+    <div class="li"><div class="lid" style="background:${h.renk||'#5b8dee'}"></div>
+    <div class="lii"><div class="lin">${h.ad} <span class="badge bac" style="margin-left:5px">${h.tip}</span></div>
+    <div class="lis">${fTL(h.gunluk_ucret)}/gün</div></div>
+    <div class="lia"><button class="btn bg2 bxs" onclick="openHatModal('${h.id}')">Düzenle</button><button class="btn bd2 bxs" onclick="deleteHat('${h.id}')">Sil</button></div></div>`).join('')
     :'<div class="empty"><p>Hat eklenmemiş</p></div>';
 }
 function openHatModal(id){
   const h=id?S.hatlar.find(x=>x.id===id):null;
   openMo(h?'Hat Düzenle':'Yeni Hat',`
     <div class="fg2">
-      <div class="fg fg-full"><label class="fl">Hat Adı</label><input class="fi" id="hAd" value="${h?.ad||''}" placeholder="Sincan - Plevne"></div>
-      <div class="fg"><label class="fl">Tip</label><select class="fs" id="hTip"><option value="27lik" ${h?.tip==='27lik'?'selected':''}>27'lik</option><option value="18lik" ${h?.tip==='18lik'?'selected':''}>18'lik</option><option value="ek" ${h?.tip==='ek'?'selected':''}>Ek Hat</option></select></div>
-      <div class="fg"><label class="fl">Günlük Ücret (₺)</label><input class="fi" type="number" id="hUcret" value="${h?.gunluk_ucret||4650}"></div>
-      <div class="fg"><label class="fl">Sabah Servis</label><input class="fi" id="hSS" value="${h?.sabah_servis||''}"></div>
-      <div class="fg"><label class="fl">Sabah Plaka</label><input class="fi" id="hSP" value="${h?.sabah_plaka||''}" placeholder="06 C 1234"></div>
-      <div class="fg"><label class="fl">Akşam Servis</label><input class="fi" id="hAS" value="${h?.aksam_servis||''}"></div>
-      <div class="fg"><label class="fl">Akşam Plaka</label><input class="fi" id="hAP" value="${h?.aksam_plaka||''}" placeholder="06 C 1234"></div>
+      <div class="fg fgf"><label class="fl">Hat Adı</label><input class="fi" id="hAd" value="${h?.ad||''}" placeholder="Sincan - Plevne"></div>
+      <div class="fg"><label class="fl">Tip</label><select class="fs" id="hTip">
+        <option value="27lik" ${h?.tip==='27lik'?'selected':''}>27'lik</option>
+        <option value="18lik" ${h?.tip==='18lik'?'selected':''}>18'lik</option>
+        <option value="ek" ${h?.tip==='ek'?'selected':''}>Ek Hat</option>
+      </select></div>
+      <div class="fg"><label class="fl">Günlük Ücret (₺)</label><input class="fi" type="number" id="hUcret" value="${h?.gunluk_ucret||0}"></div>
       <div class="fg"><label class="fl">Renk</label><input class="fi" type="color" id="hRenk" value="${h?.renk||'#5b8dee'}"></div>
     </div>`,
-  [{l:'İptal',c:'btn-g',fn:'closeMo()'},{l:h?'Güncelle':'Ekle',c:'btn-p',fn:`saveHat('${id||''}')`}]);
+  [{l:'İptal',c:'bg2',fn:'closeMo()'},{l:h?'Güncelle':'Ekle',c:'bp',fn:`saveHat('${id||''}')`}]);
 }
 async function saveHat(id){
   const ad=document.getElementById('hAd').value.trim();
   if(!ad){toast('Hat adı gerekli','e');return;}
-  const data={firma_id:S.firma.id,ad,tip:document.getElementById('hTip').value,gunluk_ucret:parseFloat(document.getElementById('hUcret').value)||0,sabah_servis:document.getElementById('hSS').value.trim(),sabah_plaka:document.getElementById('hSP').value.trim(),aksam_servis:document.getElementById('hAS').value.trim(),aksam_plaka:document.getElementById('hAP').value.trim(),renk:document.getElementById('hRenk').value};
-  if(id)await db.update('hatlar',id,data);else await db.insert('hatlar',data);
+  const data={firma_id:S.firma.id,ad,tip:document.getElementById('hTip').value,gunluk_ucret:parseFloat(document.getElementById('hUcret').value)||0,renk:document.getElementById('hRenk').value};
+  if(id)await db.upd('hatlar',id,data);else await db.ins('hatlar',data);
   closeMo();await loadFirmaData();renderHatlar();toast('Hat kaydedildi','s');
 }
-async function deleteHat(id){if(!confirm('Bu hattı silmek istiyor musunuz?'))return;await db.delete('hatlar',id);await loadFirmaData();renderHatlar();toast('Silindi');}
+async function deleteHat(id){if(!confirm('Bu hattı silmek istiyor musunuz?'))return;await db.del('hatlar',id);await loadFirmaData();renderHatlar();toast('Silindi');}
 
-// ═══════════════════════════════════════
-// ARAÇLAR & ŞOFÖRLER
-// ═══════════════════════════════════════
-function renderAraclar(){
-  document.getElementById('aracCount').textContent=S.araclar.length+' araç';
+// ═══════════════════════════════════
+// ŞOFÖRLER
+// ═══════════════════════════════════
+function renderSoforler(){
   document.getElementById('soforCount').textContent=S.soforler.length+' şoför';
-  document.getElementById('aracList').innerHTML=S.araclar.length?S.araclar.map(a=>`<div class="li"><div class="li-info"><div class="li-name" style="font-family:monospace">${a.plaka}</div><div class="li-sub">${a.firma_adi||'—'}</div></div><div class="li-acts"><button class="btn btn-g btn-xs" onclick="openAracModal('${a.id}')">✏️</button><button class="btn btn-d btn-xs" onclick="deleteArac('${a.id}')">✕</button></div></div>`).join(''):'<div class="empty" style="padding:20px"><p>Araç yok</p></div>';
-  document.getElementById('soforList').innerHTML=S.soforler.length?S.soforler.map(s=>`<div class="li"><div class="li-info"><div class="li-name">${s.ad}</div><div class="li-sub">${s.telefon||'—'}</div></div><div class="li-acts"><button class="btn btn-g btn-xs" onclick="openSoforModal('${s.id}')">✏️</button><button class="btn btn-d btn-xs" onclick="deleteSofor('${s.id}')">✕</button></div></div>`).join(''):'<div class="empty" style="padding:20px"><p>Şoför yok</p></div>';
+  document.getElementById('soforList').innerHTML=S.soforler.length?S.soforler.map(s=>`
+    <div class="li"><div class="lid" style="background:var(--pu)"></div>
+    <div class="lii"><div class="lin">${s.ad}</div><div class="lis">${s.firma_adi||'—'} ${s.telefon?'· '+s.telefon:''}</div></div>
+    <div class="lia"><button class="btn bg2 bxs" onclick="openSoforModal('${s.id}')">Düzenle</button><button class="btn bd2 bxs" onclick="deleteSofor('${s.id}')">Sil</button></div></div>`).join('')
+    :'<div class="empty"><p>Şoför eklenmemiş</p></div>';
 }
-function openAracModal(id){const a=id?S.araclar.find(x=>x.id===id):null;openMo(a?'Araç Düzenle':'Yeni Araç',`<div class="fg"><label class="fl">Plaka</label><input class="fi" id="aPlaka" value="${a?.plaka||''}" placeholder="06 C 1234"></div><div class="fg"><label class="fl">Firma</label><input class="fi" id="aFirma" value="${a?.firma_adi||''}" placeholder="Gold Tur"></div>`,[{l:'İptal',c:'btn-g',fn:'closeMo()'},{l:a?'Güncelle':'Ekle',c:'btn-p',fn:`saveArac('${id||''}')`}]);}
-async function saveArac(id){const plaka=document.getElementById('aPlaka').value.trim();if(!plaka){toast('Plaka gerekli','e');return;}const data={plaka,firma_adi:document.getElementById('aFirma').value.trim()};if(id)await db.update('araclar',id,data);else await db.insert('araclar',data);closeMo();S.araclar=await db.select('araclar','select=*&order=plaka');renderAraclar();toast('Araç kaydedildi','s');}
-async function deleteArac(id){if(!confirm('Silmek istiyor musunuz?'))return;await db.delete('araclar',id);S.araclar=await db.select('araclar','select=*&order=plaka');renderAraclar();toast('Silindi');}
-function openSoforModal(id){const s=id?S.soforler.find(x=>x.id===id):null;openMo(s?'Şoför Düzenle':'Yeni Şoför',`<div class="fg"><label class="fl">Ad Soyad</label><input class="fi" id="sAd" value="${s?.ad||''}"></div><div class="fg"><label class="fl">Telefon</label><input class="fi" id="sTel" value="${s?.telefon||''}" placeholder="05xx xxx xx xx"></div>`,[{l:'İptal',c:'btn-g',fn:'closeMo()'},{l:s?'Güncelle':'Ekle',c:'btn-p',fn:`saveSofor('${id||''}')`}]);}
-async function saveSofor(id){const ad=document.getElementById('sAd').value.trim();if(!ad){toast('Ad gerekli','e');return;}const data={ad,telefon:document.getElementById('sTel').value.trim()};if(id)await db.update('soforler',id,data);else await db.insert('soforler',data);closeMo();S.soforler=await db.select('soforler','select=*&order=ad');renderAraclar();toast('Şoför kaydedildi','s');}
-async function deleteSofor(id){if(!confirm('Silmek istiyor musunuz?'))return;await db.delete('soforler',id);S.soforler=await db.select('soforler','select=*&order=ad');renderAraclar();toast('Silindi');}
+function openSoforModal(id){
+  const s=id?S.soforler.find(x=>x.id===id):null;
+  openMo(s?'Şoför Düzenle':'Yeni Şoför',`
+    <div class="fg2">
+      <div class="fg fgf"><label class="fl">Ad Soyad</label><input class="fi" id="sAd" value="${s?.ad||''}"></div>
+      <div class="fg"><label class="fl">Firma Adı</label><input class="fi" id="sFirma" value="${s?.firma_adi||''}" placeholder="Gold Tur, Saraylı..."></div>
+      <div class="fg"><label class="fl">Telefon</label><input class="fi" id="sTel" value="${s?.telefon||''}" placeholder="05xx xxx xx xx"></div>
+    </div>`,
+  [{l:'İptal',c:'bg2',fn:'closeMo()'},{l:s?'Güncelle':'Ekle',c:'bp',fn:`saveSofor('${id||''}')`}]);
+}
+async function saveSofor(id){
+  const ad=document.getElementById('sAd').value.trim();
+  if(!ad){toast('Ad gerekli','e');return;}
+  const data={ad,firma_adi:document.getElementById('sFirma').value.trim(),telefon:document.getElementById('sTel').value.trim()};
+  if(id)await db.upd('soforler',id,data);else await db.ins('soforler',data);
+  closeMo();S.soforler=await db.get('soforler',{},'&select=*&order=ad');renderSoforler();updateSoforRaporSelect();toast('Şoför kaydedildi','s');
+}
+async function deleteSofor(id){if(!confirm('Silmek istiyor musunuz?'))return;await db.del('soforler',id);S.soforler=await db.get('soforler',{},'&select=*&order=ad');renderSoforler();updateSoforRaporSelect();toast('Silindi');}
 
-// ═══════════════════════════════════════
-// FİYATLAR
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
+// FİYAT AYARLARI
+// ═══════════════════════════════════
 function renderFiyatlar(){
-  document.getElementById('fiyatFirmaAd').textContent=S.firma?.ad||'';
-  const f=S.fiyatlar;
-  const L={"27lik":"27'lik Hat (₺)","18lik":"18'lik Hat (₺)","ek":"Ek Hat (₺)","hafta_sonu":"Hafta Sonu (₺)","gec_mesai":"Geç Mesai (₺)","gece":"Gece Mesai (₺)","kdv":"KDV Çarpanı"};
-  document.getElementById('fiyatForm').innerHTML=`<div class="fg2">${Object.entries(L).map(([k,l])=>`<div class="fg"><label class="fl">${l}</label><input class="fi" type="number" step="${k==='kdv'?'0.01':'50'}" value="${f[k]||0}" onchange="saveFiyat('${k}',parseFloat(this.value))"></div>`).join('')}</div><div style="color:var(--text3);font-size:12px;margin-top:14px">Değişiklikler Supabase'e kaydedilir.</div>`;
-}
-async function saveFiyat(tip,ucret){
-  if(!S.firma)return;S.fiyatlar[tip]=ucret;
-  await db.upsert('fiyatlar',{firma_id:S.firma.id,tip,ucret},'firma_id,tip');
-  renderStats();toast('Güncellendi','s');
+  if(!S.firma){document.getElementById('fiyatTablosu').innerHTML='<p style="color:var(--tx3)">Firma seçin</p>';return;}
+  document.getElementById('fiyatFirmaAd').textContent=S.firma.ad;
+  // Hat bazlı fiyatlar
+  const tipler=[{id:'sabah',l:'Sabah'},{id:'aksam',l:'Akşam'},{id:'gec_mesai',l:'Geç Mesai'},{id:'gece',l:'Gece'}];
+  let tbl=`<table class="ft"><thead><tr><th>Hat</th>${tipler.map(t=>`<th>${t.l} (₺)</th>`).join('')}</tr></thead><tbody>`;
+  for(const hat of S.hatlar){
+    tbl+=`<tr><td><strong>${hat.ad}</strong></td>`;
+    for(const tip of tipler){
+      const existing=S.fiyatlar.find(f=>f.hat_id===hat.id&&f.tip===tip.id);
+      tbl+=`<td><input type="number" value="${existing?.ucret||''}" placeholder="0" onchange="saveFiyat('${hat.id}','${tip.id}',this.value)"></td>`;
+    }
+    tbl+='</tr>';
+  }
+  tbl+='</tbody></table>';
+  document.getElementById('fiyatTablosu').innerHTML=tbl;
+  // Şoför bazlı fiyatlar
+  renderSoforFiyatlar();
 }
 
-// ═══════════════════════════════════════
+function renderSoforFiyatlar(){
+  const con=document.getElementById('soforFiyatTablosu');
+  if(!S.soforFiyatlar.length){con.innerHTML='<p style="color:var(--tx3);font-size:13px">Henüz şoför bazlı fiyat girilmemiş.</p>';return;}
+  let html='<table class="ft"><thead><tr><th>Şoför</th><th>Hat</th><th>Vardiya</th><th>Ücret (₺)</th><th></th></tr></thead><tbody>';
+  for(const sf of S.soforFiyatlar){
+    const s=S.soforler.find(x=>x.id===sf.sofor_id);
+    const h=S.hatlar.find(x=>x.id===sf.hat_id);
+    html+=`<tr><td>${s?.ad||'—'}</td><td>${h?.ad||'Genel'}</td><td>${sf.tip}</td><td>${fTL(sf.ucret)}</td><td><button class="btn bd2 bxs" onclick="deleteSoforFiyat('${sf.id}')">Sil</button></td></tr>`;
+  }
+  html+='</tbody></table>';
+  con.innerHTML=html;
+}
+
+async function saveFiyat(hatId,tip,ucret){
+  if(!S.firma)return;
+  await db.upsert('fiyatlar',{firma_id:S.firma.id,hat_id:hatId,tip,ucret:parseFloat(ucret)||0},'firma_id,hat_id,tip');
+  S.fiyatlar=await db.get('fiyatlar',{firma_id:S.firma.id},'&select=*');
+  toast('Güncellendi','s');
+}
+
+function openSoforFiyatModal(){
+  if(!S.soforler.length||!S.hatlar.length){toast('Önce şoför ve hat ekleyin','e');return;}
+  const tipler=['sabah','aksam','gec_mesai','gece'];
+  openMo('Şoför Fiyatı Ekle',`
+    <div class="fg"><label class="fl">Şoför</label><select class="fs" id="sfSofor">${S.soforler.map(s=>`<option value="${s.id}">${s.ad}</option>`).join('')}</select></div>
+    <div class="fg"><label class="fl">Hat</label><select class="fs" id="sfHat"><option value="">— Genel (hat fark etmez) —</option>${S.hatlar.map(h=>`<option value="${h.id}">${h.ad}</option>`).join('')}</select></div>
+    <div class="fg"><label class="fl">Vardiya</label><select class="fs" id="sfTip">${tipler.map(t=>`<option value="${t}">${t}</option>`).join('')}</select></div>
+    <div class="fg"><label class="fl">Günlük Ücret (₺)</label><input class="fi" type="number" id="sfUcret" placeholder="0"></div>`,
+  [{l:'İptal',c:'bg2',fn:'closeMo()'},{l:'Ekle',c:'bp',fn:'saveSoforFiyat()'}]);
+}
+
+async function saveSoforFiyat(){
+  const soforId=document.getElementById('sfSofor').value;
+  const hatId=document.getElementById('sfHat').value||null;
+  const tip=document.getElementById('sfTip').value;
+  const ucret=parseFloat(document.getElementById('sfUcret').value)||0;
+  if(!soforId){toast('Şoför seçin','e');return;}
+  await db.ins('sofor_fiyatlar',{firma_id:S.firma.id,sofor_id:soforId,hat_id:hatId,tip,ucret});
+  closeMo();S.soforFiyatlar=await db.get('sofor_fiyatlar',{firma_id:S.firma.id},'&select=*');
+  renderSoforFiyatlar();toast('Fiyat eklendi','s');
+}
+async function deleteSoforFiyat(id){await db.del('sofor_fiyatlar',id);S.soforFiyatlar=await db.get('sofor_fiyatlar',{firma_id:S.firma.id},'&select=*');renderSoforFiyatlar();toast('Silindi');}
+
+// ═══════════════════════════════════
 // MODAL & TOAST
-// ═══════════════════════════════════════
-function openMo(title,body,btns){document.getElementById('moTitle').textContent=title;document.getElementById('moBody').innerHTML=body;document.getElementById('moFoot').innerHTML=btns.map(b=>`<button class="btn ${b.c}" onclick="${b.fn}">${b.l}</button>`).join('');document.getElementById('mo').classList.add('open');}
+// ═══════════════════════════════════
+function openMo(title,body,btns){
+  document.getElementById('moTitle').textContent=title;
+  document.getElementById('moBody').innerHTML=body;
+  document.getElementById('moFoot').innerHTML=btns.map(b=>`<button class="btn ${b.c}" onclick="${b.fn}">${b.l}</button>`).join('');
+  document.getElementById('mo').classList.add('open');
+}
 function closeMo(){document.getElementById('mo').classList.remove('open');}
-function toast(msg,type=''){const tc=document.getElementById('tc');const t=document.createElement('div');t.className='toast '+(type==='s'?'s':type==='e'?'e':'');const ic={s:'✓',e:'✕','':'ℹ'}[type]||'ℹ';const col=type==='s'?'var(--green)':type==='e'?'var(--red)':'var(--accent)';t.innerHTML=`<span style="color:${col};font-weight:700">${ic}</span> ${msg}`;tc.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},2500);}
 
-function exportJSON(){const blob=new Blob([JSON.stringify({firma:S.firma?.ad,ay:mLabel(S.ay),hatlar:S.hatlar,puantaj:S.puantaj,ozet:hesaplaOzet(),tarih:new Date().toLocaleString('tr-TR')},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`puantaj_${S.firma?.ad}_${S.ay}.json`;a.click();toast('İndirildi','s');}
+function toast(msg,type=''){
+  const tc=document.getElementById('tc');
+  const t=document.createElement('div');
+  t.className='toast '+(type==='s'?'s':type==='e'?'e':'');
+  const ic=type==='s'?'✓':type==='e'?'✕':'ℹ';
+  const col=type==='s'?'var(--gn)':type==='e'?'var(--rd)':'var(--ac)';
+  t.innerHTML=`<span style="color:${col};font-weight:700">${ic}</span> ${msg}`;
+  tc.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},2500);
+}
 
-// ═══════════════════════════════════════
+function exportJSON(){
+  const blob=new Blob([JSON.stringify({firma:S.firma?.ad,ay:mLabel(S.ay),puantaj:S.puantaj,tarih:new Date().toLocaleString('tr-TR')},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`puantaj_${S.firma?.ad}_${S.ay}.json`;a.click();
+  toast('İndirildi','s');
+}
+
+// ═══════════════════════════════════
 // INIT
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 (async()=>{
-  const user = loadSession();
-  if(user) await initApp(user);
+  const sess=loadTok();
+  if(sess)await initApp({email:sess.email,id:sess.uid});
 })();
 </script>
 </body>
