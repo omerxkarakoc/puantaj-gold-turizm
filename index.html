@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Turizm — Puantaj</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --bg: #0c0e14; --surface: #13151f; --surface2: #1c1f2e; --surface3: #242840;
+  --border: #2a2d3e; --border2: #363a52;
+  --accent: #5b8dee; --accent-dim: rgba(91,141,238,.12);
+  --green: #34d399; --green-dim: rgba(52,211,153,.12);
+  --red: #f87171; --red-dim: rgba(248,113,113,.1);
+  --yellow: #fbbf24; --yellow-dim: rgba(251,191,36,.1);
+  --purple: #a78bfa;
+  --text: #e2e5f0; --text2: #7c82a0; --text3: #454963;
+  --r: 8px; --r2: 12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+
+/* ── AUTH ── */
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+.auth-box{width:380px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:36px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.auth-logo{text-align:center;margin-bottom:28px}
+.auth-logo-text{font-size:22px;font-weight:800;letter-spacing:6px;color:var(--accent)}
+.auth-logo-sub{font-size:11px;color:var(--text3);letter-spacing:3px;margin-top:4px}
+.auth-title{font-size:18px;font-weight:700;margin-bottom:20px;text-align:center}
+.auth-err{background:var(--red-dim);border:1px solid var(--red);border-radius:var(--r);padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:14px;display:none}
+.auth-err.show{display:block}
+
+/* ── FORM ELEMENTS ── */
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.fl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.6px}
+.fi,.fs,.fta{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--r);padding:9px 12px;font-size:13px;font-family:inherit;width:100%;transition:border-color .15s}
+.fi:focus,.fs:focus,.fta:focus{outline:none;border-color:var(--accent)}
+.fta{resize:vertical;min-height:70px}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg-full{grid-column:1/-1}
+
+/* ── BUTTONS ── */
+.btn{padding:9px 18px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:#4a7de0}
+.btn-g{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}.btn-g:hover{color:var(--text);border-color:var(--border2)}
+.btn-d{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,.2)}.btn-d:hover{background:rgba(248,113,113,.2)}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-xs{padding:3px 8px;font-size:11px;border-radius:6px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ── LAYOUT ── */
+.app{display:flex;min-height:100vh}
+.sidebar{width:230px;min-width:230px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
+.main{margin-left:230px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sb-logo{padding:22px 18px 16px;border-bottom:1px solid var(--border)}
+.sb-logo-t{font-size:16px;font-weight:800;letter-spacing:5px;color:var(--accent)}
+.sb-logo-s{font-size:10px;color:var(--text3);letter-spacing:2px;margin-top:3px}
+.sb-nav{padding:12px 0;flex:1;overflow-y:auto}
+.sb-section{font-size:10px;color:var(--text3);letter-spacing:2px;padding:10px 18px 5px;text-transform:uppercase}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 18px;cursor:pointer;color:var(--text2);font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all .12s}
+.sb-item:hover{color:var(--text);background:var(--accent-dim)}
+.sb-item.active{color:var(--accent);background:var(--accent-dim);border-left-color:var(--accent)}
+.sb-item svg{width:15px;height:15px;flex-shrink:0}
+.sb-firma{padding:14px;border-top:1px solid var(--border)}
+.sb-firma-label{font-size:10px;color:var(--text3);letter-spacing:2px;margin-bottom:7px;text-transform:uppercase}
+.sb-user{padding:12px 14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.sb-user-info{flex:1;min-width:0}
+.sb-user-email{font-size:11px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-logout{background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;border-radius:5px;transition:color .15s}
+.sb-logout:hover{color:var(--red)}
+
+/* ── HEADER ── */
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 26px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.header-t{font-size:16px;font-weight:700}
+.header-s{font-size:12px;color:var(--text2);margin-top:1px}
+
+/* ── CONTENT ── */
+.content{padding:22px 26px;flex:1}
+.view{display:none}.view.active{display:block}
+
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:14px 18px}
+.stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.stat-v{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.stat-s{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:2px;background:var(--surface2);border-radius:var(--r);padding:3px;width:fit-content;margin-bottom:16px}
+.tab{padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .12s}
+.tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.tab:hover:not(.active){color:var(--text)}
+
+/* ── TABLE ── */
+.tw{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--border)}
+.pt{width:100%;border-collapse:collapse;font-size:12px}
+.pt th{background:var(--surface2);padding:9px 5px;text-align:center;border:1px solid var(--border);color:var(--text2);font-size:10px;font-weight:700;white-space:nowrap;position:sticky;top:0;z-index:10}
+.pt th.lh{text-align:left;padding-left:10px;min-width:200px;position:sticky;left:0;z-index:20}
+.pt td{border:1px solid var(--border);padding:0;text-align:center}
+.pt td.lc{background:var(--surface);padding:7px 10px;text-align:left;font-size:12px;color:var(--text);position:sticky;left:0;z-index:5;white-space:nowrap;min-width:200px}
+.pt td.rl{background:var(--surface2);font-size:11px;color:var(--text3);font-weight:600;padding:5px 7px;text-align:left;position:sticky;left:0;z-index:5}
+.pt tr.hr td{background:var(--surface2)}
+.pt tr.hr td.lc{font-weight:700;color:var(--accent);font-size:13px}
+.ci{width:100%;height:32px;background:transparent;border:none;text-align:center;color:var(--text);font-size:12px;cursor:pointer;padding:0 2px;font-family:inherit}
+.ci:focus{background:var(--accent-dim);outline:none}
+.ci.v1{color:var(--green)}.ci.vh{color:var(--yellow)}.ci.vx{color:var(--red);background:var(--red-dim)}
+.ci.vn{color:var(--text2);font-style:italic}.ci.v2{color:var(--purple)}
+.pt th.we{color:var(--red) !important}.pt td.we{background:rgba(248,113,113,.04)}
+.pt th.tod{background:var(--accent-dim) !important;color:var(--accent) !important;border-bottom:2px solid var(--accent) !important}
+.pt td.tod{border-left:2px solid rgba(91,141,238,.3) !important;border-right:2px solid rgba(91,141,238,.3) !important}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
+.card-t{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+/* ── LIST ITEMS ── */
+.list-item{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:8px}
+.li-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.li-info{flex:1}
+.li-name{font-weight:600;font-size:13px}
+.li-sub{font-size:11px;color:var(--text2);margin-top:2px}
+.li-val{font-size:12px;color:var(--green);font-variant-numeric:tabular-nums;margin-left:auto;white-space:nowrap}
+.li-acts{display:flex;gap:5px;margin-left:8px}
+
+/* ── MODAL ── */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity .2s}
+.mo.open{opacity:1;pointer-events:all}
+.mo-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:translateY(16px);transition:transform .2s;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.mo.open .mo-box{transform:translateY(0)}
+.mo-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.mo-title{font-size:15px;font-weight:700}
+.mo-x{background:none;border:none;color:var(--text3);cursor:pointer;font-size:20px;line-height:1}.mo-x:hover{color:var(--text)}
+.mo-body{padding:22px}
+.mo-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:9px;justify-content:flex-end}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.ba{background:var(--accent-dim);color:var(--accent)}
+.bg{background:var(--green-dim);color:var(--green)}
+.br{background:var(--red-dim);color:var(--red)}
+.by{background:var(--yellow-dim);color:var(--yellow)}
+
+/* ── TOAST ── */
+.tc{position:fixed;bottom:22px;right:22px;display:flex;flex-direction:column;gap:7px;z-index:9999}
+.toast{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:11px 15px;min-width:220px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:9px;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:tin .2s}
+.toast.s{border-color:var(--green)}.toast.e{border-color:var(--red)}
+@keyframes tin{from{transform:translateX(30px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-size:12px;color:var(--text2)}
+.leg{display:flex;align-items:center;gap:5px}
+.led{width:9px;height:9px;border-radius:3px}
+
+/* ── OZET TABLE ── */
+.ot{width:100%;border-collapse:collapse}
+.ot td{padding:7px 11px;border-bottom:1px solid var(--border);font-size:13px}
+.ot td:first-child{color:var(--text2)}
+.ot td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--green)}
+.ot tr.tot td{font-size:15px;border-top:2px solid var(--border);color:var(--text)}
+.ot tr.tot td:last-child{color:var(--accent)}
+
+/* ── LOADING ── */
+.loading{display:flex;align-items:center;justify-content:center;padding:60px;color:var(--text3);flex-direction:column;gap:12px}
+.spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:50px 20px;color:var(--text3)}
+.empty-icon{font-size:40px;margin-bottom:10px}
+
+/* ── INFO ROW ── */
+.ir{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--border2)}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="authWrap" class="auth-wrap">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-text">GOLD</div>
+      <div class="auth-logo-sub">TURİZM PUANTAJ</div>
+    </div>
+    <div class="auth-title">Giriş Yap</div>
+    <div class="auth-err" id="authErr"></div>
+    <div class="fg">
+      <label class="fl">E-posta</label>
+      <input class="fi" type="email" id="authEmail" placeholder="ornek@email.com">
+    </div>
+    <div class="fg">
+      <label class="fl">Şifre</label>
+      <input class="fi" type="password" id="authPass" placeholder="••••••••">
+    </div>
+    <button class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px" id="loginBtn" onclick="doLogin()">Giriş Yap</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appWrap" class="app" style="display:none">
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-t">GOLD</div>
+      <div class="sb-logo-s">TURİZM PUANTAJ</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section">Puantaj</div>
+      <div class="sb-item active" data-v="puantaj" onclick="nav('puantaj',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Puantaj Giriş
+      </div>
+      <div class="sb-item" data-v="ozet" onclick="nav('ozet',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        Aylık Özet
+      </div>
+      <div class="sb-section">Yönetim</div>
+      <div class="sb-item" data-v="firmalar" onclick="nav('firmalar',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+        Firmalar
+      </div>
+      <div class="sb-item" data-v="hatlar" onclick="nav('hatlar',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Hat Yönetimi
+      </div>
+      <div class="sb-item" data-v="araclar" onclick="nav('araclar',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v3h-7V8zM2 20h2M17 20h2"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Araç / Şoför
+      </div>
+      <div class="sb-item" data-v="fiyatlar" onclick="nav('fiyatlar',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Fiyat Ayarları
+      </div>
+    </nav>
+    <div class="sb-firma">
+      <div class="sb-firma-label">Aktif Firma</div>
+      <select class="fs" id="firmaSelect" onchange="changeFirma()" style="margin-bottom:8px"></select>
+      <div class="sb-firma-label" style="margin-top:8px">Aktif Ay</div>
+      <select class="fs" id="aySelect" onchange="changeAy()"></select>
+    </div>
+    <div class="sb-user">
+      <div class="sb-user-info">
+        <div style="font-size:12px;font-weight:600;color:var(--text)">Gold Turizm</div>
+        <div class="sb-user-email" id="userEmail"></div>
+      </div>
+      <button class="sb-logout" onclick="doLogout()" title="Çıkış">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="header">
+      <div>
+        <div class="header-t" id="pageTitle">Puantaj Giriş</div>
+        <div class="header-s" id="pageSubtitle">—</div>
+      </div>
+      <div style="display:flex;gap:9px" id="headerActs">
+        <button class="btn btn-g btn-sm" onclick="exportJSON()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Dışa Aktar
+        </button>
+      </div>
+    </div>
+    <div class="content">
+
+      <!-- PUANTAJ -->
+      <div id="view-puantaj" class="view active">
+        <div class="stats-grid" id="statsGrid"></div>
+        <div class="tabs" id="tabBar">
+          <div class="tab active" onclick="switchTab('normal',this)">07:00/17:00 Normal</div>
+          <div class="tab" onclick="switchTab('gec',this)">20:00 Geç Mesai</div>
+          <div class="tab" onclick="switchTab('gece',this)">04:00 Gece</div>
+        </div>
+        <div class="legend">
+          <span class="leg"><span class="led" style="background:var(--green)"></span>1 = Tam gün</span>
+          <span class="leg"><span class="led" style="background:var(--yellow)"></span>0.5 = Yarım gün</span>
+          <span class="leg"><span class="led" style="background:var(--red)"></span>X = Tatil/Yok</span>
+          <span class="leg"><span class="led" style="background:var(--text2)"></span>İsim = Vekil şoför</span>
+          <span style="margin-left:auto;font-size:11px;color:var(--text3)">Hücreye tıkla → yaz → Enter</span>
+        </div>
+        <div id="ptContainer"></div>
+      </div>
+
+      <!-- OZET -->
+      <div id="view-ozet" class="view">
+        <div class="grid2" id="ozetGrid"></div>
+      </div>
+
+      <!-- FİRMALAR -->
+      <div id="view-firmalar" class="view">
+        <div class="ir">
+          <span class="badge ba" id="firmaCount">0 firma</span>
+          <button class="btn btn-p btn-sm" onclick="openFirmaModal()">+ Yeni Firma</button>
+        </div>
+        <div id="firmaList"></div>
+      </div>
+
+      <!-- HATLAR -->
+      <div id="view-hatlar" class="view">
+        <div class="ir">
+          <span class="badge ba" id="hatCount">0 hat</span>
+          <button class="btn btn-p btn-sm" onclick="openHatModal()">+ Yeni Hat</button>
+        </div>
+        <div id="hatList"></div>
+      </div>
+
+      <!-- ARAÇLAR -->
+      <div id="view-araclar" class="view">
+        <div class="ir" style="margin-bottom:16px">
+          <div style="display:flex;gap:8px">
+            <span class="badge bg" id="aracCount">0 araç</span>
+            <span class="badge ba" id="soforCount">0 şoför</span>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-g btn-sm" onclick="openAracModal()">+ Araç</button>
+            <button class="btn btn-p btn-sm" onclick="openSoforModal()">+ Şoför</button>
+          </div>
+        </div>
+        <div class="grid2">
+          <div>
+            <div class="card-t" style="margin-bottom:10px">Araçlar</div>
+            <div id="aracList"></div>
+          </div>
+          <div>
+            <div class="card-t" style="margin-bottom:10px">Şoförler</div>
+            <div id="soforList"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FİYATLAR -->
+      <div id="view-fiyatlar" class="view">
+        <div class="card">
+          <div class="card-t">Mesai Ücretleri — <span id="fiyatFirmaAd"></span></div>
+          <div id="fiyatForm"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="mo" id="mo" onclick="if(event.target===this)closeMo()">
+  <div class="mo-box">
+    <div class="mo-head">
+      <div class="mo-title" id="moTitle"></div>
+      <button class="mo-x" onclick="closeMo()">×</button>
+    </div>
+    <div class="mo-body" id="moBody"></div>
+    <div class="mo-foot" id="moFoot"></div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div class="tc" id="tc"></div>
+
+<script>
+// ════════════════════════════════════════
+// SUPABASE
+// ════════════════════════════════════════
+const SURL = 'https://ftqgrwvivflhbirdsmap.supabase.co';
+const SKEY = 'sb_publishable_kMF7RW0QJajfOX2kPW5FAA_7jTN2v4v';
+const { createClient } = supabase;
+const sb = createClient(SURL, SKEY);
+
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+let CUR = {
+  user: null,
+  firma: null,   // {id, ad}
+  firmalar: [],
+  hatlar: [],
+  araclar: [],
+  soforler: [],
+  fiyatlar: {},
+  puantaj: {},   // hat_id -> gun -> {sabah, aksam}
+  gecMesai: {},  // firma_adi -> gun -> deger
+  geceMesai: {}, // tip -> gun -> deger
+  ay: '2026-06',
+  tab: 'normal',
+  view: 'puantaj',
+  saving: false,
+};
+
+const TODAY = new Date();
+const TODAY_AY = TODAY.getFullYear() + '-' + String(TODAY.getMonth()+1).padStart(2,'0');
+const TODAY_GUN = TODAY.getDate();
+
+// ════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════
+function dIM(ay) { const [y,m]=ay.split('-').map(Number); return new Date(y,m,0).getDate(); }
+function dow(ay,g) { const [y,m]=ay.split('-').map(Number); return new Date(y,m-1,g).getDay(); }
+function isWE(ay,g) { const d=dow(ay,g); return d===0||d===6; }
+function isToday(ay,g) { return ay===TODAY_AY && g===TODAY_GUN; }
+function gAdi(d) { return ['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'][d]; }
+function fTL(n) { return new Intl.NumberFormat('tr-TR').format(Math.round(n||0))+' ₺'; }
+function mLabel(ay) {
+  const M=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  const [y,m]=ay.split('-').map(Number); return M[m-1]+' '+y;
+}
+function pV(v) { v=String(v||'').trim(); if(!v||v==='-'||v==='X') return 0; const f=parseFloat(v.replace(',','.')); return isNaN(f)?0:f; }
+function cCls(v) {
+  v=String(v||'').trim();
+  if(v==='X') return 'vx';
+  if(v==='0.5'||v==='0,5') return 'vh';
+  if(v==='1') return 'v1';
+  if(parseFloat(v)>=2) return 'v2';
+  if(v!=='') return 'vn';
+  return '';
+}
+function uid() { return 'id_'+Math.random().toString(36).slice(2); }
+
+// ════════════════════════════════════════
+// AUTH
+// ════════════════════════════════════════
+async function doLogin() {
+  const email = document.getElementById('authEmail').value.trim();
+  const pass  = document.getElementById('authPass').value;
+  const btn   = document.getElementById('loginBtn');
+  const err   = document.getElementById('authErr');
+  err.classList.remove('show');
+  btn.disabled = true; btn.textContent = 'Giriş yapılıyor...';
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  btn.disabled = false; btn.textContent = 'Giriş Yap';
+  if (error) { err.textContent = 'E-posta veya şifre hatalı.'; err.classList.add('show'); return; }
+  await initApp(data.user);
+}
+
+async function doLogout() {
+  await sb.auth.signOut();
+  document.getElementById('authWrap').style.display='flex';
+  document.getElementById('appWrap').style.display='none';
+}
+
+document.getElementById('authPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+sb.auth.onAuthStateChange(async (event, session) => {
+  if (session?.user) await initApp(session.user);
+});
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+async function initApp(user) {
+  CUR.user = user;
+  document.getElementById('userEmail').textContent = user.email;
+  document.getElementById('authWrap').style.display='none';
+  document.getElementById('appWrap').style.display='flex';
+  buildAySelect();
+  await loadFirmalar();
+  renderView(CUR.view);
+}
+
+function buildAySelect() {
+  const sel = document.getElementById('aySelect');
+  const months = [
+    ['2026-06','Haziran 2026'],['2026-07','Temmuz 2026'],['2026-08','Ağustos 2026'],
+    ['2026-09','Eylül 2026'],['2026-10','Ekim 2026'],['2026-11','Kasım 2026'],['2026-12','Aralık 2026'],
+  ];
+  sel.innerHTML = months.map(([v,l])=>`<option value="${v}" ${v===CUR.ay?'selected':''}>${l}</option>`).join('');
+}
+
+async function loadFirmalar() {
+  const { data } = await sb.from('firmalar').select('*').order('ad');
+  CUR.firmalar = data || [];
+  const sel = document.getElementById('firmaSelect');
+  sel.innerHTML = CUR.firmalar.map(f=>`<option value="${f.id}">${f.ad}</option>`).join('');
+  if (!CUR.firma && CUR.firmalar.length > 0) CUR.firma = CUR.firmalar[0];
+  if (CUR.firma) sel.value = CUR.firma.id;
+  await loadFirmaData();
+}
+
+async function loadFirmaData() {
+  if (!CUR.firma) return;
+  const fid = CUR.firma.id;
+  const ay  = CUR.ay;
+
+  const [hatRes, aracRes, soforRes, fiyatRes, ptRes, gmRes, geceRes] = await Promise.all([
+    sb.from('hatlar').select('*').eq('firma_id', fid).order('sira'),
+    sb.from('araclar').select('*').order('plaka'),
+    sb.from('soforler').select('*').order('ad'),
+    sb.from('fiyatlar').select('*').eq('firma_id', fid),
+    sb.from('puantaj').select('*').eq('firma_id', fid).eq('ay', ay),
+    sb.from('gec_mesai').select('*').eq('firma_id', fid).eq('ay', ay),
+    sb.from('gece_mesai').select('*').eq('firma_id', fid).eq('ay', ay),
+  ]);
+
+  CUR.hatlar   = hatRes.data || [];
+  CUR.araclar  = aracRes.data || [];
+  CUR.soforler = soforRes.data || [];
+
+  // fiyatlar map
+  CUR.fiyatlar = {};
+  for (const f of (fiyatRes.data||[])) CUR.fiyatlar[f.tip] = f.ucret;
+  const defs = {'27lik':6090,'18lik':4650,'ek':1150,'hafta_sonu':4650,'gec_mesai':2925,'gece':4750,'kdv':1.20};
+  for (const [k,v] of Object.entries(defs)) if (CUR.fiyatlar[k]===undefined) CUR.fiyatlar[k]=v;
+
+  // puantaj map
+  CUR.puantaj = {};
+  for (const r of (ptRes.data||[])) {
+    if (!CUR.puantaj[r.hat_id]) CUR.puantaj[r.hat_id]={};
+    if (!CUR.puantaj[r.hat_id][r.gun]) CUR.puantaj[r.hat_id][r.gun]={sabah:'',aksam:''};
+    CUR.puantaj[r.hat_id][r.gun][r.tip] = r.deger||'';
+  }
+
+  // gec mesai map
+  CUR.gecMesai = {};
+  for (const r of (gmRes.data||[])) {
+    if (!CUR.gecMesai[r.firma_adi]) CUR.gecMesai[r.firma_adi]={};
+    CUR.gecMesai[r.firma_adi][r.gun] = r.deger||'';
+  }
+
+  // gece mesai map
+  CUR.geceMesai = {};
+  for (const r of (geceRes.data||[])) {
+    if (!CUR.geceMesai[r.tip]) CUR.geceMesai[r.tip]={};
+    CUR.geceMesai[r.tip][r.gun] = r.deger||'';
+  }
+}
+
+async function changeFirma() {
+  const id = document.getElementById('firmaSelect').value;
+  CUR.firma = CUR.firmalar.find(f=>f.id===id);
+  await loadFirmaData();
+  renderView(CUR.view);
+}
+
+async function changeAy() {
+  CUR.ay = document.getElementById('aySelect').value;
+  document.getElementById('pageSubtitle').textContent = (CUR.firma?.ad||'') + ' · ' + mLabel(CUR.ay);
+  await loadFirmaData();
+  renderView(CUR.view);
+}
+
+// ════════════════════════════════════════
+// SAVE CELL
+// ════════════════════════════════════════
+async function saveCell(hatId, gun, tip, val) {
+  const fid = CUR.firma.id;
+  const ay  = CUR.ay;
+  if (!CUR.puantaj[hatId]) CUR.puantaj[hatId]={};
+  if (!CUR.puantaj[hatId][gun]) CUR.puantaj[hatId][gun]={sabah:'',aksam:''};
+  CUR.puantaj[hatId][gun][tip] = val;
+  await sb.from('puantaj').upsert({
+    firma_id:fid, hat_id:hatId, ay, gun:parseInt(gun), tip, deger:val,
+    updated_at: new Date().toISOString()
+  }, {onConflict:'hat_id,ay,gun,tip'});
+}
+
+async function saveGM(firmaAdi, gun, val) {
+  const fid = CUR.firma.id; const ay = CUR.ay;
+  if (!CUR.gecMesai[firmaAdi]) CUR.gecMesai[firmaAdi]={};
+  CUR.gecMesai[firmaAdi][gun] = val;
+  await sb.from('gec_mesai').upsert({
+    firma_id:fid, ay, gun:parseInt(gun), firma_adi:firmaAdi, deger:val
+  }, {onConflict:'firma_id,ay,gun,firma_adi'});
+}
+
+async function saveGece(tip, gun, val) {
+  const fid = CUR.firma.id; const ay = CUR.ay;
+  if (!CUR.geceMesai[tip]) CUR.geceMesai[tip]={};
+  CUR.geceMesai[tip][gun] = val;
+  await sb.from('gece_mesai').upsert({
+    firma_id:fid, ay, gun:parseInt(gun), tip, deger:val
+  }, {onConflict:'firma_id,ay,gun,tip'});
+}
+
+// ════════════════════════════════════════
+// NAV
+// ════════════════════════════════════════
+function nav(view, el) {
+  CUR.view = view;
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  const T={puantaj:'Puantaj Giriş',ozet:'Aylık Özet',firmalar:'Firmalar',hatlar:'Hat Yönetimi',araclar:'Araç / Şoför',fiyatlar:'Fiyat Ayarları'};
+  document.getElementById('pageTitle').textContent = T[view]||view;
+  document.getElementById('pageSubtitle').textContent = (CUR.firma?.ad||'') + ' · ' + mLabel(CUR.ay);
+  renderView(view);
+}
+
+function renderView(v) {
+  if (v==='puantaj')  { renderStats(); renderPuantaj(); }
+  else if (v==='ozet')     renderOzet();
+  else if (v==='firmalar') renderFirmalar();
+  else if (v==='hatlar')   renderHatlar();
+  else if (v==='araclar')  renderAraclar();
+  else if (v==='fiyatlar') renderFiyatlar();
+}
+
+function switchTab(tab, el) {
+  CUR.tab = tab;
+  document.querySelectorAll('#tabBar .tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderPuantaj();
+}
+
+// ════════════════════════════════════════
+// STATS
+// ════════════════════════════════════════
+function renderStats() {
+  const {toplam, kdvli} = hesaplaOzet();
+  const days = dIM(CUR.ay);
+  let hi=0, hs=0;
+  for(let g=1;g<=days;g++) { if(isWE(CUR.ay,g)) hs++; else hi++; }
+  const h1 = CUR.hatlar[0];
+  let entered = 0;
+  if (h1) {
+    const hp = CUR.puantaj[h1.id]||{};
+    for(let g=1;g<=days;g++) { const gd=hp[g]||{}; if(gd.sabah||gd.aksam) entered++; }
+  }
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat"><div class="stat-l">Toplam Gün</div><div class="stat-v" style="color:var(--accent)">${days}</div><div class="stat-s">${hi} hafta içi · ${hs} H.sonu</div></div>
+    <div class="stat"><div class="stat-l">Girilen Gün</div><div class="stat-v" style="color:var(--purple)">${entered}</div><div class="stat-s">${days-entered} gün boş</div></div>
+    <div class="stat"><div class="stat-l">Tahmini Tutar</div><div class="stat-v" style="color:var(--green)">${fTL(toplam)}</div><div class="stat-s">KDV hariç</div></div>
+    <div class="stat"><div class="stat-l">KDV Dahil</div><div class="stat-v" style="color:var(--yellow)">${fTL(kdvli)}</div><div class="stat-s">%${Math.round((CUR.fiyatlar.kdv-1)*100)} KDV</div></div>`;
+}
+
+// ════════════════════════════════════════
+// PUANTAJ TABLE
+// ════════════════════════════════════════
+function renderPuantaj() {
+  const c = document.getElementById('ptContainer');
+  if (!CUR.firma) { c.innerHTML='<div class="empty"><div class="empty-icon">🏢</div><p>Önce bir firma seçin</p></div>'; return; }
+  if (CUR.tab==='normal') c.innerHTML = buildNormal();
+  else if (CUR.tab==='gec') c.innerHTML = buildGec();
+  else c.innerHTML = buildGece();
+
+  c.querySelectorAll('.ci').forEach(inp => {
+    inp.addEventListener('change', async function() {
+      const {role,sub,gun,tip} = this.dataset;
+      const val = this.value.trim();
+      this.className = 'ci ' + cCls(val);
+      if (role==='normal') await saveCell(sub, gun, tip, val);
+      else if (role==='gec') await saveGM(sub, gun, val);
+      else if (role==='gece') await saveGece(sub, gun, val);
+      renderStats();
+    });
+    inp.addEventListener('keydown', e => { if(e.key==='Enter'){e.preventDefault();inp.blur();} });
+  });
+}
+
+function dHdrs(ay, days) {
+  let h='<th class="lh">Hat / Servis</th>';
+  for(let g=1;g<=days;g++){
+    const we=isWE(ay,g), tod=isToday(ay,g), d=dow(ay,g);
+    h+=`<th class="${we?'we':''}${tod?' tod':''}">${g}<br><span style="font-size:9px;opacity:.6">${gAdi(d)}</span></th>`;
+  }
+  return h+'<th style="min-width:44px;color:var(--text3)">∑</th>';
+}
+
+function buildNormal() {
+  const {ay,hatlar,puantaj} = CUR; const days=dIM(ay);
+  if(!hatlar.length) return '<div class="empty"><div class="empty-icon">📋</div><p>Bu firmaya hat eklenmemiş</p></div>';
+  let rows='';
+  for(const hat of hatlar){
+    const hp=puantaj[hat.id]||{};
+    rows+=`<tr class="hr"><td class="lc" colspan="${days+2}" style="border-left:3px solid ${hat.renk||'#5b8dee'}">${hat.ad} <span style="font-size:11px;color:var(--text3);margin-left:6px">${hat.tip} · ${fTL(hat.gunluk_ucret)}/gün</span></td></tr>`;
+    for(const [tip,label,servis,plaka] of [
+      ['sabah','☀️ SABAH',hat.sabah_servis,hat.sabah_plaka],
+      ['aksam','🌙 AKŞAM',hat.aksam_servis,hat.aksam_plaka],
+    ]){
+      if(!servis&&!plaka) continue;
+      let tot=0,cells='';
+      for(let g=1;g<=days;g++){
+        const we=isWE(ay,g),tod=isToday(ay,g),gd=hp[g]||{},val=gd[tip]||'';
+        tot+=pV(val);
+        cells+=`<td class="${we?'we':''}${tod?' tod':''}"><input class="ci ${cCls(val)}" data-role="normal" data-sub="${hat.id}" data-gun="${g}" data-tip="${tip}" value="${val}"></td>`;
+      }
+      rows+=`<tr><td class="rl">${label} — <span style="color:var(--text2);font-weight:400">${servis||''}${plaka?' · '+plaka:''}</span></td>${cells}<td class="lc" style="color:var(--green);font-weight:700">${tot||''}</td></tr>`;
+    }
+  }
+  return `<div class="tw"><table class="pt"><thead><tr>${dHdrs(ay,days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function buildGec() {
+  const {ay,gecMesai,fiyatlar} = CUR; const days=dIM(ay);
+  const firmalar = ['Gold Turizm','İlhan Ersu','Ömer Kara'];
+  let rows='';
+  for(const fa of firmalar){
+    const gm=gecMesai[fa]||{};
+    let tot=0,cells='';
+    for(let g=1;g<=days;g++){
+      const we=isWE(ay,g),val=gm[g]||'';
+      tot+=pV(val);
+      cells+=`<td class="${we?'we':''}"><input class="ci ${cCls(val)}" data-role="gec" data-sub="${fa}" data-gun="${g}" value="${val}"></td>`;
+    }
+    rows+=`<tr><td class="lc">${fa}</td>${cells}<td class="lc" style="color:var(--yellow);font-weight:700">${tot||''}</td></tr>`;
+  }
+  return `<div class="card" style="margin-bottom:12px;padding:10px 16px;display:flex;align-items:center;gap:10px"><span class="badge by">20:00 Geç Mesai</span><span style="color:var(--text2);font-size:13px">Birim: <strong style="color:var(--yellow)">${fTL(fiyatlar.gec_mesai)}</strong></span></div>
+  <div class="tw"><table class="pt"><thead><tr>${dHdrs(ay,days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function buildGece() {
+  const {ay,geceMesai} = CUR; const days=dIM(ay);
+  const satirlar=[{id:'giris',label:'Giriş 20:00 — Gold Tur 06 C 5916',ucret:2300},{id:'cikis',label:'Çıkış 04:00 — Bahri Büyük 06 C 6766',ucret:1200}];
+  let rows='';
+  for(const s of satirlar){
+    const gm=geceMesai[s.id]||{};
+    let tot=0,cells='';
+    for(let g=1;g<=days;g++){
+      const we=isWE(ay,g),val=gm[g]||'';
+      tot+=pV(val);
+      cells+=`<td class="${we?'we':''}"><input class="ci ${cCls(val)}" data-role="gece" data-sub="${s.id}" data-gun="${g}" value="${val}"></td>`;
+    }
+    rows+=`<tr><td class="lc">${s.label} <span style="color:var(--green);font-size:11px;margin-left:4px">${fTL(s.ucret)}</span></td>${cells}<td class="lc" style="color:var(--accent);font-weight:700">${tot||''}</td></tr>`;
+  }
+  return `<div class="card" style="margin-bottom:12px;padding:10px 16px;display:flex;align-items:center;gap:10px"><span class="badge br">04:00 Gece</span></div>
+  <div class="tw"><table class="pt"><thead><tr>${dHdrs(ay,days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// ════════════════════════════════════════
+// OZET
+// ════════════════════════════════════════
+function hesaplaOzet() {
+  const {ay,hatlar,puantaj,gecMesai,geceMesai,fiyatlar} = CUR;
+  const days=dIM(ay); const f=fiyatlar;
+  let g27=0,g18=0,gEk=0,gHS=0,gGec=0,gGece=0;
+  for(const hat of hatlar){
+    const hp=puantaj[hat.id]||{};
+    for(let g=1;g<=days;g++){
+      const gd=hp[g]||{},s=pV(gd.sabah),ak=pV(gd.aksam);
+      if(isWE(ay,g)){if(s>0||ak>0)gHS++;continue;}
+      if(s>0||ak>0){if(hat.tip==='27lik')g27++;else if(hat.tip==='18lik')g18++;else gEk++;}
+    }
+  }
+  for(const fa in gecMesai) for(const g in gecMesai[fa]) gGec+=pV(gecMesai[fa][g]);
+  const gi=geceMesai['giris']||{};
+  for(const g in gi) gGece+=pV(gi[g]);
+  const t27=g27*(f['27lik']||0),t18=g18*(f['18lik']||0),tEk=gEk*(f.ek||0);
+  const tHS=gHS*(f.hafta_sonu||0),tGec=gGec*(f.gec_mesai||0),tGece=gGece*(f.gece||0);
+  const toplam=t27+t18+tEk+tHS+tGec+tGece;
+  return {g27,g18,gEk,gHS,gGec,gGece,t27,t18,tEk,tHS,tGec,tGece,toplam,kdvli:toplam*(f.kdv||1.2)};
+}
+
+function renderOzet() {
+  const o=hesaplaOzet(); const f=CUR.fiyatlar; const ay=CUR.ay;
+  document.getElementById('ozetGrid').innerHTML=`
+    <div class="card">
+      <div class="card-t">${mLabel(ay)} — ${CUR.firma?.ad||''}</div>
+      <table class="ot">
+        <tr><td>27'lik Hat (${o.g27} gün × ${fTL(f['27lik'])})</td><td>${fTL(o.t27)}</td></tr>
+        <tr><td>18'lik Hat (${o.g18} gün × ${fTL(f['18lik'])})</td><td>${fTL(o.t18)}</td></tr>
+        <tr><td>Ek Hat (${o.gEk} gün × ${fTL(f.ek)})</td><td>${fTL(o.tEk)}</td></tr>
+        <tr><td>Hafta Sonu (${o.gHS} gün × ${fTL(f.hafta_sonu)})</td><td>${fTL(o.tHS)}</td></tr>
+        <tr><td>Geç Mesai (${o.gGec} gün × ${fTL(f.gec_mesai)})</td><td>${fTL(o.tGec)}</td></tr>
+        <tr><td>Gece Mesai (${o.gGece} gün × ${fTL(f.gece)})</td><td>${fTL(o.tGece)}</td></tr>
+        <tr class="tot"><td><strong>Toplam (KDV hariç)</strong></td><td>${fTL(o.toplam)}</td></tr>
+        <tr class="tot"><td><strong>KDV Dahil (%${Math.round((f.kdv-1)*100)})</strong></td><td>${fTL(o.kdvli)}</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-t">Hat Detayı</div>
+        ${CUR.hatlar.map(hat=>{
+          const hp=CUR.puantaj[hat.id]||{};
+          let gun=0;
+          for(let g=1;g<=dIM(ay);g++){if(isWE(ay,g))continue;const gd=hp[g]||{};if(pV(gd.sabah)>0||pV(gd.aksam)>0)gun++;}
+          return `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)">
+            <span style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:50%;background:${hat.renk||'#5b8dee'};display:inline-block"></span>${hat.ad}</span>
+            <span style="font-size:12px;color:var(--green)">${gun} gün · ${fTL(gun*hat.gunluk_ucret)}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+
+// ════════════════════════════════════════
+// FİRMALAR
+// ════════════════════════════════════════
+function renderFirmalar() {
+  document.getElementById('firmaCount').textContent = CUR.firmalar.length + ' firma';
+  document.getElementById('firmaList').innerHTML = CUR.firmalar.map(f=>`
+    <div class="list-item">
+      <div class="li-dot" style="background:var(--accent)"></div>
+      <div class="li-info"><div class="li-name">${f.ad}</div></div>
+      <div class="li-acts">
+        <button class="btn btn-g btn-xs" onclick="openFirmaModal('${f.id}')">Düzenle</button>
+        <button class="btn btn-d btn-xs" onclick="deleteFirma('${f.id}')">Sil</button>
+      </div>
+    </div>`).join('');
+}
+
+function openFirmaModal(id) {
+  const f=id?CUR.firmalar.find(x=>x.id===id):null;
+  openMo(f?'Firma Düzenle':'Yeni Firma',`
+    <div class="fg"><label class="fl">Firma Adı</label>
+    <input class="fi" id="fAd" value="${f?.ad||''}" placeholder="Skymark, Ernes..."></div>`,
+    [{l:'İptal',c:'btn-g',fn:'closeMo()'},{l:f?'Güncelle':'Ekle',c:'btn-p',fn:`saveFirma('${id||''}')`}]);
+}
+
+async function saveFirma(id) {
+  const ad=document.getElementById('fAd').value.trim();
+  if(!ad){toast('Firma adı gerekli','e');return;}
+  if(id){await sb.from('firmalar').update({ad}).eq('id',id);}
+  else{await sb.from('firmalar').insert({ad});}
+  closeMo(); await loadFirmalar(); renderFirmalar(); toast('Firma kaydedildi','s');
+}
+
+async function deleteFirma(id) {
+  if(!confirm('Bu firmayı silmek istiyor musunuz?')) return;
+  await sb.from('firmalar').delete().eq('id',id);
+  await loadFirmalar(); renderFirmalar(); toast('Silindi');
+}
+
+// ════════════════════════════════════════
+// HATLAR
+// ════════════════════════════════════════
+function renderHatlar() {
+  document.getElementById('hatCount').textContent = CUR.hatlar.length + ' hat';
+  if(!CUR.firma){document.getElementById('hatList').innerHTML='<div class="empty"><p>Önce firma seçin</p></div>';return;}
+  document.getElementById('hatList').innerHTML = CUR.hatlar.length ? CUR.hatlar.map(h=>`
+    <div class="list-item">
+      <div class="li-dot" style="background:${h.renk||'#5b8dee'}"></div>
+      <div class="li-info">
+        <div class="li-name">${h.ad} <span class="badge ba" style="margin-left:5px">${h.tip}</span></div>
+        <div class="li-sub">☀️ ${h.sabah_servis||'—'}${h.sabah_plaka?' · '+h.sabah_plaka:''} &nbsp;🌙 ${h.aksam_servis||'—'}${h.aksam_plaka?' · '+h.aksam_plaka:''}</div>
+      </div>
+      <div class="li-val">${fTL(h.gunluk_ucret)}/gün</div>
+      <div class="li-acts">
+        <button class="btn btn-g btn-xs" onclick="openHatModal('${h.id}')">Düzenle</button>
+        <button class="btn btn-d btn-xs" onclick="deleteHat('${h.id}')">Sil</button>
+      </div>
+    </div>`).join('') : '<div class="empty"><div class="empty-icon">📋</div><p>Hat eklenmemiş</p></div>';
+}
+
+function openHatModal(id) {
+  const h=id?CUR.hatlar.find(x=>x.id===id):null;
+  openMo(h?'Hat Düzenle':'Yeni Hat',`
+    <div class="fg2">
+      <div class="fg fg-full"><label class="fl">Hat Adı</label><input class="fi" id="hAd" value="${h?.ad||''}" placeholder="Sincan - Plevne"></div>
+      <div class="fg"><label class="fl">Tip</label><select class="fs" id="hTip"><option value="27lik" ${h?.tip==='27lik'?'selected':''}>27'lik</option><option value="18lik" ${h?.tip==='18lik'?'selected':''}>18'lik</option><option value="ek" ${h?.tip==='ek'?'selected':''}>Ek Hat</option></select></div>
+      <div class="fg"><label class="fl">Günlük Ücret (₺)</label><input class="fi" type="number" id="hUcret" value="${h?.gunluk_ucret||4650}"></div>
+      <div class="fg"><label class="fl">Sabah Servis</label><input class="fi" id="hSS" value="${h?.sabah_servis||''}"></div>
+      <div class="fg"><label class="fl">Sabah Plaka</label><input class="fi" id="hSP" value="${h?.sabah_plaka||''}" placeholder="06 C 1234"></div>
+      <div class="fg"><label class="fl">Akşam Servis</label><input class="fi" id="hAS" value="${h?.aksam_servis||''}"></div>
+      <div class="fg"><label class="fl">Akşam Plaka</label><input class="fi" id="hAP" value="${h?.aksam_plaka||''}" placeholder="06 C 1234"></div>
+      <div class="fg"><label class="fl">Renk</label><input class="fi" type="color" id="hRenk" value="${h?.renk||'#5b8dee'}"></div>
+    </div>`,
+    [{l:'İptal',c:'btn-g',fn:'closeMo()'},{l:h?'Güncelle':'Ekle',c:'btn-p',fn:`saveHat('${id||''}')`}]);
+}
+
+async function saveHat(id) {
+  const ad=document.getElementById('hAd').value.trim();
+  if(!ad){toast('Hat adı gerekli','e');return;}
+  const data={
+    firma_id:CUR.firma.id, ad, tip:document.getElementById('hTip').value,
+    gunluk_ucret:parseFloat(document.getElementById('hUcret').value)||0,
+    sabah_servis:document.getElementById('hSS').value.trim(),
+    sabah_plaka:document.getElementById('hSP').value.trim(),
+    aksam_servis:document.getElementById('hAS').value.trim(),
+    aksam_plaka:document.getElementById('hAP').value.trim(),
+    renk:document.getElementById('hRenk').value,
+  };
+  if(id){await sb.from('hatlar').update(data).eq('id',id);}
+  else{await sb.from('hatlar').insert(data);}
+  closeMo(); await loadFirmaData(); renderHatlar(); toast('Hat kaydedildi','s');
+}
+
+async function deleteHat(id) {
+  if(!confirm('Bu hattı silmek istiyor musunuz?')) return;
+  await sb.from('hatlar').delete().eq('id',id);
+  await loadFirmaData(); renderHatlar(); toast('Silindi');
+}
+
+// ════════════════════════════════════════
+// ARAÇLAR & ŞOFÖRLER
+// ════════════════════════════════════════
+function renderAraclar() {
+  document.getElementById('aracCount').textContent = CUR.araclar.length + ' araç';
+  document.getElementById('soforCount').textContent = CUR.soforler.length + ' şoför';
+  document.getElementById('aracList').innerHTML = CUR.araclar.length ? CUR.araclar.map(a=>`
+    <div class="list-item">
+      <div class="li-info"><div class="li-name" style="font-family:monospace">${a.plaka}</div><div class="li-sub">${a.firma_adi||'—'}</div></div>
+      <div class="li-acts">
+        <button class="btn btn-g btn-xs" onclick="openAracModal('${a.id}')">✏️</button>
+        <button class="btn btn-d btn-xs" onclick="deleteArac('${a.id}')">✕</button>
+      </div>
+    </div>`) .join('') : '<div class="empty" style="padding:20px"><p>Araç yok</p></div>';
+  document.getElementById('soforList').innerHTML = CUR.soforler.length ? CUR.soforler.map(s=>`
+    <div class="list-item">
+      <div class="li-info"><div class="li-name">${s.ad}</div><div class="li-sub">${s.telefon||'—'}</div></div>
+      <div class="li-acts">
+        <button class="btn btn-g btn-xs" onclick="openSoforModal('${s.id}')">✏️</button>
+        <button class="btn btn-d btn-xs" onclick="deleteSofor('${s.id}')">✕</button>
+      </div>
+    </div>`).join('') : '<div class="empty" style="padding:20px"><p>Şoför yok</p></div>';
+}
+
+function openAracModal(id) {
+  const a=id?CUR.araclar.find(x=>x.id===id):null;
+  openMo(a?'Araç Düzenle':'Yeni Araç',`
+    <div class="fg"><label class="fl">Plaka</label><input class="fi" id="aPlaka" value="${a?.plaka||''}" placeholder="06 C 1234"></div>
+    <div class="fg"><label class="fl">Firma</label><input class="fi" id="aFirma" value="${a?.firma_adi||''}" placeholder="Gold Tur"></div>`,
+    [{l:'İptal',c:'btn-g',fn:'closeMo()'},{l:a?'Güncelle':'Ekle',c:'btn-p',fn:`saveArac('${id||''}')`}]);
+}
+async function saveArac(id) {
+  const plaka=document.getElementById('aPlaka').value.trim();
+  if(!plaka){toast('Plaka gerekli','e');return;}
+  const data={plaka,firma_adi:document.getElementById('aFirma').value.trim()};
+  if(id) await sb.from('araclar').update(data).eq('id',id);
+  else await sb.from('araclar').insert(data);
+  closeMo(); const {data:d}=await sb.from('araclar').select('*').order('plaka'); CUR.araclar=d||[]; renderAraclar(); toast('Araç kaydedildi','s');
+}
+async function deleteArac(id){if(!confirm('Silmek istiyor musunuz?'))return;await sb.from('araclar').delete().eq('id',id);const{data:d}=await sb.from('araclar').select('*').order('plaka');CUR.araclar=d||[];renderAraclar();toast('Silindi');}
+
+function openSoforModal(id) {
+  const s=id?CUR.soforler.find(x=>x.id===id):null;
+  openMo(s?'Şoför Düzenle':'Yeni Şoför',`
+    <div class="fg"><label class="fl">Ad Soyad</label><input class="fi" id="sAd" value="${s?.ad||''}"></div>
+    <div class="fg"><label class="fl">Telefon</label><input class="fi" id="sTel" value="${s?.telefon||''}" placeholder="05xx xxx xx xx"></div>`,
+    [{l:'İptal',c:'btn-g',fn:'closeMo()'},{l:s?'Güncelle':'Ekle',c:'btn-p',fn:`saveSofor('${id||''}')`}]);
+}
+async function saveSofor(id){
+  const ad=document.getElementById('sAd').value.trim();
+  if(!ad){toast('Ad gerekli','e');return;}
+  const data={ad,telefon:document.getElementById('sTel').value.trim()};
+  if(id) await sb.from('soforler').update(data).eq('id',id);
+  else await sb.from('soforler').insert(data);
+  closeMo();const{data:d}=await sb.from('soforler').select('*').order('ad');CUR.soforler=d||[];renderAraclar();toast('Şoför kaydedildi','s');
+}
+async function deleteSofor(id){if(!confirm('Silmek istiyor musunuz?'))return;await sb.from('soforler').delete().eq('id',id);const{data:d}=await sb.from('soforler').select('*').order('ad');CUR.soforler=d||[];renderAraclar();toast('Silindi');}
+
+// ════════════════════════════════════════
+// FİYATLAR
+// ════════════════════════════════════════
+function renderFiyatlar() {
+  document.getElementById('fiyatFirmaAd').textContent = CUR.firma?.ad||'';
+  const f=CUR.fiyatlar;
+  const L={"27lik":"27'lik Hat (₺)","18lik":"18'lik Hat (₺)","ek":"Ek Hat (₺)","hafta_sonu":"Hafta Sonu (₺)","gec_mesai":"Geç Mesai (₺)","gece":"Gece Mesai (₺)","kdv":"KDV Çarpanı"};
+  document.getElementById('fiyatForm').innerHTML=`
+    <div class="fg2">${Object.entries(L).map(([k,l])=>`
+      <div class="fg"><label class="fl">${l}</label>
+      <input class="fi" type="number" step="${k==='kdv'?'0.01':'50'}" value="${f[k]||0}"
+        onchange="saveFiyat('${k}',parseFloat(this.value))"></div>`).join('')}
+    </div>
+    <div style="color:var(--text3);font-size:12px;margin-top:14px">Değişiklikler anında Supabase'e kaydedilir.</div>`;
+}
+
+async function saveFiyat(tip, ucret) {
+  if(!CUR.firma) return;
+  CUR.fiyatlar[tip]=ucret;
+  await sb.from('fiyatlar').upsert({firma_id:CUR.firma.id,tip,ucret},{onConflict:'firma_id,tip'});
+  renderStats();
+  toast('Fiyat güncellendi','s');
+}
+
+// ════════════════════════════════════════
+// MODAL
+// ════════════════════════════════════════
+function openMo(title,body,btns){
+  document.getElementById('moTitle').textContent=title;
+  document.getElementById('moBody').innerHTML=body;
+  document.getElementById('moFoot').innerHTML=btns.map(b=>`<button class="btn ${b.c}" onclick="${b.fn}">${b.l}</button>`).join('');
+  document.getElementById('mo').classList.add('open');
+}
+function closeMo(){document.getElementById('mo').classList.remove('open');}
+
+// ════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════
+function toast(msg,type=''){
+  const tc=document.getElementById('tc');
+  const t=document.createElement('div');
+  t.className='toast '+(type==='s'?'s':type==='e'?'e':'');
+  const ic={s:'✓',e:'✕','':'ℹ'}[type]||'ℹ';
+  const col=type==='s'?'var(--green)':type==='e'?'var(--red)':'var(--accent)';
+  t.innerHTML=`<span style="color:${col};font-weight:700">${ic}</span> ${msg}`;
+  tc.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},2500);
+}
+
+// ════════════════════════════════════════
+// EXPORT
+// ════════════════════════════════════════
+function exportJSON(){
+  const blob=new Blob([JSON.stringify({
+    firma:CUR.firma?.ad, ay:mLabel(CUR.ay),
+    hatlar:CUR.hatlar, puantaj:CUR.puantaj,
+    ozet:hesaplaOzet(), tarih:new Date().toLocaleString('tr-TR')
+  },null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`puantaj_${CUR.firma?.ad}_${CUR.ay}.json`;a.click();
+  toast('İndirildi','s');
+}
+
+// ════════════════════════════════════════
+// INIT CHECK
+// ════════════════════════════════════════
+(async()=>{
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session) { /* auth wall shown by default */ }
+})();
+</script>
+</body>
+</html>
