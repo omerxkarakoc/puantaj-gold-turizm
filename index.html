@@ -6,7 +6,7 @@
 <title>Gold Turizm — Puantaj</title>
 <style>
 :root{
-  --bg:#0c0e14;--sf:#13151f;--sf2:#1c1f2e;--sf3:#232640;
+  --bg:#0c0e14;--sf:#13151f;--sf2:#1c1f2e;
   --bd:#2a2d3e;--bd2:#363a52;
   --ac:#5b8dee;--acd:rgba(91,141,238,.13);
   --gn:#34d399;--gnd:rgba(52,211,153,.12);
@@ -19,8 +19,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px}
 body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
-
-/* AUTH */
 .aw{min-height:100vh;display:flex;align-items:center;justify-content:center}
 .ab{width:360px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .al{text-align:center;margin-bottom:24px}
@@ -28,29 +26,21 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
 .als{font-size:10px;color:var(--tx3);letter-spacing:3px;margin-top:3px}
 .aerr{background:var(--rdd);border:1px solid var(--rd);border-radius:var(--r);padding:9px 13px;font-size:13px;color:var(--rd);margin-bottom:12px;display:none}
 .aerr.show{display:block}
-
-/* FORMS */
 .fg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
 .fl{font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.6px}
-.fi,.fs{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);border-radius:var(--r);padding:8px 11px;font-size:13px;font-family:inherit;width:100%;transition:border-color .15s}
+.fi,.fs{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);border-radius:var(--r);padding:8px 11px;font-size:13px;font-family:inherit;width:100%}
 .fi:focus,.fs:focus{outline:none;border-color:var(--ac)}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .fgf{grid-column:1/-1}
-
-/* BUTTONS */
 .btn{padding:8px 16px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .bp{background:var(--ac);color:#fff}.bp:hover{background:#4a7de0}
 .bg2{background:var(--sf2);color:var(--tx2);border:1px solid var(--bd)}.bg2:hover{color:var(--tx)}
-.bd2{background:var(--rdd);color:var(--rd);border:1px solid rgba(248,113,113,.2)}.bd2:hover{background:rgba(248,113,113,.2)}
+.bd2{background:var(--rdd);color:var(--rd);border:1px solid rgba(248,113,113,.2)}
 .bsm{padding:5px 10px;font-size:12px}.bxs{padding:3px 7px;font-size:11px;border-radius:6px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-
-/* LAYOUT */
 .app{display:flex;min-height:100vh}
 .sidebar{width:225px;min-width:225px;background:var(--sf);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;overflow-y:auto}
 .main{margin-left:225px;flex:1;display:flex;flex-direction:column}
-
-/* SIDEBAR */
 .sbl{padding:20px 16px 14px;border-bottom:1px solid var(--bd)}
 .sblt{font-size:15px;font-weight:800;letter-spacing:5px;color:var(--ac)}
 .sbls{font-size:10px;color:var(--tx3);letter-spacing:2px;margin-top:3px}
@@ -65,50 +55,34 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
 .sbu{padding:10px 12px;border-top:1px solid var(--bd);display:flex;align-items:center;gap:8px}
 .sbue{font-size:11px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
 .sblout{background:none;border:none;color:var(--tx3);cursor:pointer;padding:3px}.sblout:hover{color:var(--rd)}
-
-/* HEADER */
 .hdr{background:var(--sf);border-bottom:1px solid var(--bd);padding:13px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .hdrt{font-size:16px;font-weight:700}
 .hdrs{font-size:12px;color:var(--tx2);margin-top:1px}
-
-/* CONTENT */
 .cnt{padding:20px 24px;flex:1}
 .view{display:none}.view.active{display:block}
-
-/* STATS */
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:16px}
 .sc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:13px 16px}
 .scl{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .scv{font-size:22px;font-weight:800}
 .scs{font-size:11px;color:var(--tx3);margin-top:2px}
-
-/* TABS */
 .tabs{display:flex;gap:2px;background:var(--sf2);border-radius:var(--r);padding:3px;width:fit-content;margin-bottom:14px}
 .tab{padding:6px 13px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:500;color:var(--tx2);transition:all .12s}
 .tab.active{background:var(--sf);color:var(--tx);box-shadow:0 1px 4px rgba(0,0,0,.3)}
-
-/* TABLE */
 .tw{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--bd)}
 .pt{width:100%;border-collapse:collapse;font-size:12px}
 .pt th{background:var(--sf2);padding:8px 4px;text-align:center;border:1px solid var(--bd);color:var(--tx2);font-size:10px;font-weight:700;white-space:nowrap;position:sticky;top:0;z-index:10}
-.pt th.lh{text-align:left;padding-left:10px;min-width:190px;position:sticky;left:0;z-index:20}
+.pt th.lh{text-align:left;padding-left:10px;min-width:200px;position:sticky;left:0;z-index:20}
 .pt td{border:1px solid var(--bd);padding:0;text-align:center;position:relative}
-.pt td.lc{background:var(--sf);padding:6px 10px;text-align:left;font-size:12px;color:var(--tx);position:sticky;left:0;z-index:5;white-space:nowrap;min-width:190px}
-.pt td.rl{background:var(--sf2);font-size:11px;color:var(--tx3);font-weight:600;padding:5px 7px;text-align:left;position:sticky;left:0;z-index:5;min-width:190px}
+.pt td.lc{background:var(--sf);padding:6px 10px;text-align:left;font-size:12px;color:var(--tx);position:sticky;left:0;z-index:5;white-space:nowrap;min-width:200px}
 .pt tr.hr td{background:var(--sf2)}
 .pt tr.hr td.lc{font-weight:700;color:var(--ac);font-size:13px}
 .pt th.we{color:var(--rd)!important}.pt td.we{background:rgba(248,113,113,.04)}
 .pt th.tod{background:var(--acd)!important;color:var(--ac)!important}
-
-/* CELL */
-.cc{width:100%;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:500;transition:background .1s;border-radius:3px}
+.cc{width:100%;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;font-weight:600;transition:background .1s}
 .cc:hover{background:var(--acd)}
 .cc.v1{color:var(--gn)}.cc.vh{color:var(--yw)}.cc.vx{color:var(--rd);background:var(--rdd)}
-.cc.vn{color:var(--pu);font-size:11px}.cc.v2{color:var(--ac)}
-.cc.empty{color:var(--tx3)}
-
-/* CELL DROPDOWN */
-.cdrop{position:absolute;top:100%;left:0;z-index:200;background:var(--sf);border:1px solid var(--bd2);border-radius:var(--r);min-width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);overflow:hidden}
+.cc.vn{color:var(--pu)}.cc.empty{color:var(--tx3);font-weight:400}
+.cdrop{position:absolute;top:100%;left:0;z-index:200;background:var(--sf);border:1px solid var(--bd2);border-radius:var(--r);min-width:230px;box-shadow:0 8px 24px rgba(0,0,0,.5);overflow:hidden}
 .cdi{padding:8px 12px;cursor:pointer;font-size:12px;color:var(--tx2);transition:background .1s;display:flex;align-items:center;gap:8px}
 .cdi:hover{background:var(--acd);color:var(--tx)}
 .cdi.sel{background:var(--acd);color:var(--ac)}
@@ -117,15 +91,10 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
 .cdrop-search{padding:8px;border-bottom:1px solid var(--bd)}
 .cdrop-search input{width:100%;background:var(--sf2);border:1px solid var(--bd);color:var(--tx);border-radius:6px;padding:5px 9px;font-size:12px;font-family:inherit}
 .cdrop-search input:focus{outline:none;border-color:var(--ac)}
-.cdrop-list{max-height:220px;overflow-y:auto}
-
-/* CARD */
+.cdrop-list{max-height:240px;overflow-y:auto}
 .card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:16px}
 .ct{font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:11px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
-
-/* LIST */
 .li{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:11px 13px;display:flex;align-items:center;gap:10px;margin-bottom:7px}
 .lid{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .lii{flex:1;min-width:0}
@@ -133,8 +102,6 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
 .lis{font-size:11px;color:var(--tx2);margin-top:2px}
 .liv{font-size:12px;color:var(--gn);margin-left:auto;white-space:nowrap}
 .lia{display:flex;gap:5px;margin-left:8px}
-
-/* MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity .2s}
 .mo.open{opacity:1;pointer-events:all}
 .mob{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);width:540px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:translateY(14px);transition:transform .2s;box-shadow:0 24px 60px rgba(0,0,0,.5)}
@@ -143,41 +110,24 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
 .mot{font-size:15px;font-weight:700}
 .mox{background:none;border:none;color:var(--tx3);cursor:pointer;font-size:20px;line-height:1}.mox:hover{color:var(--tx)}
 .mody{padding:20px}.mof{padding:13px 20px;border-top:1px solid var(--bd);display:flex;gap:8px;justify-content:flex-end}
-
-/* BADGES */
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
 .bac{background:var(--acd);color:var(--ac)}.bgc{background:var(--gnd);color:var(--gn)}
 .brc{background:var(--rdd);color:var(--rd)}.byc{background:var(--ywd);color:var(--yw)}
-
-/* TOAST */
 .tc{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:6px;z-index:9999}
 .toast{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;min-width:210px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:tin .2s}
 .toast.s{border-color:var(--gn)}.toast.e{border-color:var(--rd)}
 @keyframes tin{from{transform:translateX(28px);opacity:0}to{transform:translateX(0);opacity:1}}
-
-/* OZET */
 .ot{width:100%;border-collapse:collapse}
 .ot td{padding:7px 10px;border-bottom:1px solid var(--bd);font-size:13px}
 .ot td:first-child{color:var(--tx2)}
 .ot td:last-child{text-align:right;font-weight:600;color:var(--gn)}
 .ot tr.tot td{font-size:14px;border-top:2px solid var(--bd);color:var(--tx)}
 .ot tr.tot td:last-child{color:var(--ac)}
-
-/* SOFOR RAPOR */
-.sr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px;margin-bottom:16px}
-.sr-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r2);padding:14px}
-.sr-name{font-weight:700;font-size:14px;margin-bottom:3px}
-.sr-firma{font-size:11px;color:var(--tx2);margin-bottom:10px}
-.sr-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--bd);font-size:12px}
-.sr-row:last-child{border-bottom:none;font-weight:700;font-size:13px;padding-top:8px;color:var(--ac)}
-
-/* FIYAT TABLE */
 .ft{width:100%;border-collapse:collapse;font-size:13px}
 .ft th{background:var(--sf2);padding:8px 10px;text-align:left;border:1px solid var(--bd);color:var(--tx2);font-size:11px;font-weight:700;text-transform:uppercase}
 .ft td{border:1px solid var(--bd);padding:6px 8px}
 .ft td input{background:transparent;border:none;color:var(--tx);font-size:13px;font-family:inherit;width:80px;text-align:right}
 .ft td input:focus{outline:none;background:var(--acd);border-radius:4px}
-
 .empty{text-align:center;padding:40px 20px;color:var(--tx3)}
 .ir{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:sp .6s linear infinite}
@@ -188,12 +138,16 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
 .leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;font-size:12px;color:var(--tx2)}
 .legi{display:flex;align-items:center;gap:4px}
 .legd{width:8px;height:8px;border-radius:3px}
-.divider{height:1px;background:var(--bd);margin:14px 0}
+.row-add-btn{font-size:11px;color:var(--ac);cursor:pointer;padding:4px 8px;display:inline-block}
+.row-add-btn:hover{text-decoration:underline}
+.row-actions{display:none;gap:3px;position:absolute;right:4px;top:50%;transform:translateY(-50%)}
+.pt tr.satir-row:hover .row-actions{display:flex}
+.row-actions button{background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);width:18px;height:18px;border-radius:4px;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;padding:0}
+.row-actions button:hover{color:var(--rd);border-color:var(--rd)}
 </style>
 </head>
 <body>
 
-<!-- AUTH -->
 <div id="authWrap" class="aw">
   <div class="ab">
     <div class="al"><div class="alt">GOLD</div><div class="als">TURİZM PUANTAJ</div></div>
@@ -205,7 +159,6 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
   </div>
 </div>
 
-<!-- APP -->
 <div id="appWrap" class="app" style="display:none">
   <aside class="sidebar">
     <div class="sbl"><div class="sblt">GOLD</div><div class="sbls">TURİZM PUANTAJ</div></div>
@@ -235,17 +188,14 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
   <main class="main">
     <div class="hdr">
       <div><div class="hdrt" id="pageTitle">Puantaj Giriş</div><div class="hdrs" id="pageSub">—</div></div>
-      <div style="display:flex;gap:8px">
-        <button class="btn bg2 bsm" onclick="exportJSON()">↓ Dışa Aktar</button>
-      </div>
+      <button class="btn bg2 bsm" onclick="exportJSON()">↓ Dışa Aktar</button>
     </div>
     <div class="cnt">
 
-      <!-- PUANTAJ -->
       <div id="view-puantaj" class="view active">
         <div class="sg" id="statsGrid"></div>
         <div class="tabs" id="tabBar">
-          <div class="tab active" onclick="switchTab('normal',this)">07:00 / 17:00</div>
+          <div class="tab active" onclick="switchTab('normal',this)">Normal</div>
           <div class="tab" onclick="switchTab('gec',this)">20:00 Geç Mesai</div>
           <div class="tab" onclick="switchTab('gece',this)">04:00 Gece</div>
         </div>
@@ -253,56 +203,50 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
           <span class="legi"><span class="legd" style="background:var(--gn)"></span>1 = Tam gün</span>
           <span class="legi"><span class="legd" style="background:var(--yw)"></span>0.5 = Yarım gün</span>
           <span class="legi"><span class="legd" style="background:var(--rd)"></span>X = Yok/Tatil</span>
-          <span class="legi"><span class="legd" style="background:var(--pu)"></span>Şoför seçildi</span>
-          <span style="margin-left:auto;font-size:11px;color:var(--tx3)">Hücreye tıkla → şoför veya değer seç</span>
+          <span class="legi"><span class="legd" style="background:var(--pu)"></span>Vekil şoför</span>
+          <span style="margin-left:auto;font-size:11px;color:var(--tx3)">Hücreye tıkla → seç</span>
         </div>
         <div id="ptCon"></div>
       </div>
 
-      <!-- OZET -->
       <div id="view-ozet" class="view"><div class="g2" id="ozetGrid"></div></div>
 
-      <!-- SOFOR RAPORU -->
       <div id="view-sofor_rapor" class="view">
         <div class="ir">
           <div style="display:flex;align-items:center;gap:10px">
             <span style="font-size:13px;color:var(--tx2)">Şoför:</span>
-            <select class="fs" id="raporSoforSelect" onchange="renderSoforRapor()" style="width:200px"></select>
+            <select class="fs" id="raporSoforSelect" onchange="renderSoforRapor()" style="width:220px"></select>
           </div>
         </div>
         <div id="soforRaporContent"></div>
       </div>
 
-      <!-- FİRMALAR -->
       <div id="view-firmalar" class="view">
         <div class="ir"><span class="badge bac" id="firmaCount">0 firma</span><button class="btn bp bsm" onclick="openFirmaModal()">+ Yeni Firma</button></div>
         <div id="firmaList"></div>
       </div>
 
-      <!-- HATLAR -->
       <div id="view-hatlar" class="view">
         <div class="ir"><span class="badge bac" id="hatCount">0 hat</span><button class="btn bp bsm" onclick="openHatModal()">+ Yeni Hat</button></div>
         <div id="hatList"></div>
       </div>
 
-      <!-- ŞOFÖRLER -->
       <div id="view-soforler" class="view">
         <div class="ir"><span class="badge bgc" id="soforCount">0 şoför</span><button class="btn bp bsm" onclick="openSoforModal()">+ Yeni Şoför</button></div>
         <div id="soforList"></div>
       </div>
 
-      <!-- FİYAT AYARLARI -->
       <div id="view-fiyatlar" class="view">
         <div class="card" style="margin-bottom:14px">
           <div class="ct">Hat Bazlı Birim Fiyatlar — <span id="fiyatFirmaAd"></span></div>
-          <div style="font-size:12px;color:var(--tx3);margin-bottom:12px">Her hat için sabah, akşam, geç mesai ve gece vardiyası ücretlerini girin.</div>
+          <div style="font-size:12px;color:var(--tx3);margin-bottom:12px">Her hat için günlük, geç mesai ve gece vardiyası ücretlerini girin.</div>
           <div id="fiyatTablosu"></div>
         </div>
         <div class="card">
-          <div class="ct">Şoför Bazlı Fiyatlar</div>
-          <div style="font-size:12px;color:var(--tx3);margin-bottom:12px">Şoförü ve hattı seçip o kombinasyona özel fiyat belirleyin.</div>
+          <div class="ct">Şoför Bazlı Özel Fiyatlar (opsiyonel)</div>
+          <div style="font-size:12px;color:var(--tx3);margin-bottom:12px">Belirli bir şoför için hat fiyatından farklı bir ücret tanımlamak isterseniz buradan ekleyin.</div>
           <div id="soforFiyatTablosu"></div>
-          <button class="btn bg2 bsm" style="margin-top:12px" onclick="openSoforFiyatModal()">+ Fiyat Ekle</button>
+          <button class="btn bg2 bsm" style="margin-top:12px" onclick="openSoforFiyatModal()">+ Özel Fiyat Ekle</button>
         </div>
       </div>
 
@@ -310,7 +254,6 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
   </main>
 </div>
 
-<!-- MODAL -->
 <div class="mo" id="mo" onclick="if(event.target===this)closeMo()">
   <div class="mob">
     <div class="moh"><div class="mot" id="moTitle"></div><button class="mox" onclick="closeMo()">×</button></div>
@@ -319,7 +262,6 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
   </div>
 </div>
 
-<!-- CELL DROPDOWN -->
 <div id="cellDrop" class="cdrop" style="display:none">
   <div class="cdrop-search"><input type="text" id="dropSearch" placeholder="Ara..." oninput="filterDrop()"></div>
   <div class="cdrop-list" id="dropList"></div>
@@ -333,32 +275,45 @@ body{font-family:system-ui,'Inter',sans-serif;background:var(--bg);color:var(--t
 // ═══════════════════════════════════
 const SURL='https://ftqgrwvivflhbirdsmap.supabase.co';
 const SKEY='sb_publishable_kMF7RW0QJajfOX2kPW5FAA_7jTN2v4v';
-let TOKEN=null;
+let TOKEN=null,REFRESH=null;
 
 async function apiFetch(path,opts={}){
   const h={'apikey':SKEY,'Content-Type':'application/json'};
   if(TOKEN) h['Authorization']='Bearer '+TOKEN;
   if(opts.prefer) h['Prefer']=opts.prefer;
-  const r=await fetch(SURL+path,{method:opts.method||'GET',headers:h,body:opts.body?JSON.stringify(opts.body):undefined});
+  let r=await fetch(SURL+path,{method:opts.method||'GET',headers:h,body:opts.body?JSON.stringify(opts.body):undefined});
+  if(r.status===401&&REFRESH&&!opts._retried){
+    const ok=await tryRefresh();
+    if(ok) return apiFetch(path,{...opts,_retried:true});
+  }
   const txt=await r.text();
   if(!r.ok){console.error('API err',r.status,txt);return{data:null,error:txt};}
   return{data:txt?JSON.parse(txt):null,error:null};
+}
+
+async function tryRefresh(){
+  try{
+    const r=await fetch(SURL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{'apikey':SKEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:REFRESH})});
+    const d=await r.json();
+    if(!r.ok)return false;
+    TOKEN=d.access_token;REFRESH=d.refresh_token;
+    localStorage.setItem('gt_tok',JSON.stringify({tok:TOKEN,refresh:REFRESH,email:d.user?.email,uid:d.user?.id}));
+    return true;
+  }catch(e){return false;}
 }
 
 async function authLogin(email,pass){
   const r=await fetch(SURL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{'apikey':SKEY,'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
   const d=await r.json();
   if(!r.ok) return{error:d.error_description||'Hatalı giriş'};
-  TOKEN=d.access_token;
-  localStorage.setItem('gt_tok',JSON.stringify({tok:d.access_token,email:d.user.email,uid:d.user.id}));
+  TOKEN=d.access_token;REFRESH=d.refresh_token;
+  localStorage.setItem('gt_tok',JSON.stringify({tok:d.access_token,refresh:d.refresh_token,email:d.user.email,uid:d.user.id}));
   return{data:d};
 }
-
 function loadTok(){
-  try{const s=JSON.parse(localStorage.getItem('gt_tok')||'null');if(s?.tok){TOKEN=s.tok;return s;}return null;}catch(e){return null;}
+  try{const s=JSON.parse(localStorage.getItem('gt_tok')||'null');if(s?.tok){TOKEN=s.tok;REFRESH=s.refresh;return s;}return null;}catch(e){return null;}
 }
-
-function clearTok(){localStorage.removeItem('gt_tok');TOKEN=null;}
+function clearTok(){localStorage.removeItem('gt_tok');TOKEN=null;REFRESH=null;}
 
 const db={
   async get(table,filters={},extra=''){
@@ -366,18 +321,10 @@ const db={
     const{data}=await apiFetch(`/rest/v1/${table}?${q}${extra}`);
     return data||[];
   },
-  async ins(table,body){
-    return apiFetch(`/rest/v1/${table}`,{method:'POST',body,prefer:'return=representation'});
-  },
-  async upd(table,id,body){
-    return apiFetch(`/rest/v1/${table}?id=eq.${id}`,{method:'PATCH',body,prefer:'return=representation'});
-  },
-  async del(table,id){
-    return apiFetch(`/rest/v1/${table}?id=eq.${id}`,{method:'DELETE'});
-  },
-  async upsert(table,body,conflict){
-    return apiFetch(`/rest/v1/${table}?on_conflict=${conflict}`,{method:'POST',body,prefer:'return=representation,resolution=merge-duplicates'});
-  },
+  async ins(table,body){return apiFetch(`/rest/v1/${table}`,{method:'POST',body,prefer:'return=representation'});},
+  async upd(table,id,body){return apiFetch(`/rest/v1/${table}?id=eq.${id}`,{method:'PATCH',body,prefer:'return=representation'});},
+  async del(table,id){return apiFetch(`/rest/v1/${table}?id=eq.${id}`,{method:'DELETE'});},
+  async upsert(table,body,conflict){return apiFetch(`/rest/v1/${table}?on_conflict=${conflict}`,{method:'POST',body,prefer:'return=representation,resolution=merge-duplicates'});},
 };
 
 // ═══════════════════════════════════
@@ -385,7 +332,7 @@ const db={
 // ═══════════════════════════════════
 const S={
   user:null,firma:null,firmalar:[],
-  hatlar:[],soforler:[],fiyatlar:[],soforFiyatlar:[],
+  hatlar:[],satirlar:{},soforler:[],fiyatlar:[],soforFiyatlar:[],
   puantaj:{},gecMesai:{},geceMesai:{},
   ay:'2026-06',tab:'normal',view:'puantaj',
   activeCellEl:null,activeCellData:null,
@@ -402,24 +349,8 @@ function gAdi(d){return['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'][d];}
 function fTL(n){return new Intl.NumberFormat('tr-TR').format(Math.round(n||0))+' ₺';}
 function mLabel(ay){const M=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];const[y,m]=ay.split('-').map(Number);return M[m-1]+' '+y;}
 function pV(v){v=String(v||'').trim();if(!v||v==='-'||v==='X')return 0;const f=parseFloat(v.replace(',','.'));return isNaN(f)?0:f;}
-
-function cCls(v){
-  v=String(v||'').trim();
-  if(!v)return'empty';
-  if(v==='X')return'vx';
-  if(v==='0.5'||v==='0,5')return'vh';
-  if(v==='1')return'v1';
-  if(parseFloat(v)>=2)return'v2';
-  return'vn'; // isim/vekil
-}
-
-function cLabel(v){
-  if(!v)return'—';
-  if(v==='1')return'1';
-  if(v==='0.5')return'½';
-  if(v==='X')return'X';
-  return v.slice(0,12); // plaka veya kısa metin
-}
+function cCls(v){v=String(v||'').trim();if(!v)return'empty';if(v==='X')return'vx';if(v==='0.5'||v==='0,5')return'vh';if(v==='1')return'v1';if(parseFloat(v)>=2)return'v2';return'vn';}
+function cLabel(v){if(!v)return'·';if(v==='1')return'1';if(v==='0.5')return'½';if(v==='X')return'X';return v.length>9?v.slice(0,8)+'…':v;}
 
 // ═══════════════════════════════════
 // AUTH
@@ -448,7 +379,6 @@ async function initApp(user){
   await loadFirmalar();
   renderView(S.view);
 }
-
 function buildAySelect(){
   const months=[['2026-06','Haziran 2026'],['2026-07','Temmuz 2026'],['2026-08','Ağustos 2026'],['2026-09','Eylül 2026'],['2026-10','Ekim 2026'],['2026-11','Kasım 2026'],['2026-12','Aralık 2026']];
   document.getElementById('aySelect').innerHTML=months.map(([v,l])=>`<option value="${v}" ${v===S.ay?'selected':''}>${l}</option>`).join('');
@@ -458,16 +388,33 @@ async function loadFirmalar(){
   S.firmalar=await db.get('firmalar',{},'&select=*&order=ad');
   const sel=document.getElementById('firmaSelect');
   sel.innerHTML=S.firmalar.length?S.firmalar.map(f=>`<option value="${f.id}">${f.ad}</option>`).join(''):'<option value="">— Firma ekleyin —</option>';
+  // Eğer aktif firma artık listede yoksa sıfırla
+  if(S.firma && !S.firmalar.find(f=>f.id===S.firma.id)) S.firma=null;
   if(!S.firma&&S.firmalar.length>0)S.firma=S.firmalar[0];
   if(S.firma)sel.value=S.firma.id;
-  if(S.firma)await loadFirmaData();
+  await loadFirmaData();
 }
 
 async function loadFirmaData(){
-  if(!S.firma)return;
+  // Önce her şeyi temizle - firma karışmasın
+  S.hatlar=[];S.satirlar={};S.soforler=[];S.fiyatlar=[];S.soforFiyatlar=[];
+  S.puantaj={};S.gecMesai={};S.geceMesai={};
+
+  if(!S.firma) return;
   const fid=S.firma.id;const ay=S.ay;
-  const[hatlar,soforler,fiyatlar,soforFiyatlar,ptRows,gmRows,geceRows]=await Promise.all([
-    db.get('hatlar',{firma_id:fid},'&select=*&order=sira'),
+
+  const hatlar=await db.get('hatlar',{firma_id:fid},'&select=*&order=sira');
+  S.hatlar=hatlar;
+
+  // satırları her hat için yükle
+  if(hatlar.length){
+    const hatIds=hatlar.map(h=>h.id);
+    const orFilter=hatIds.map(id=>`hat_id.eq.${id}`).join(',');
+    const{data:allSatir}=await apiFetch(`/rest/v1/hat_satirlari?or=(${orFilter})&select=*&order=sira`);
+    for(const h of hatlar) S.satirlar[h.id]=(allSatir||[]).filter(s=>s.hat_id===h.id);
+  }
+
+  const[soforler,fiyatlar,soforFiyatlar,ptRows,gmRows,geceRows]=await Promise.all([
     db.get('soforler',{},'&select=*&order=ad'),
     db.get('fiyatlar',{firma_id:fid},'&select=*'),
     db.get('sofor_fiyatlar',{firma_id:fid},'&select=*'),
@@ -475,23 +422,25 @@ async function loadFirmaData(){
     db.get('gec_mesai',{firma_id:fid,ay},'&select=*'),
     db.get('gece_mesai',{firma_id:fid,ay},'&select=*'),
   ]);
-  S.hatlar=hatlar;S.soforler=soforler;S.fiyatlar=fiyatlar;S.soforFiyatlar=soforFiyatlar;
+  S.soforler=soforler;S.fiyatlar=fiyatlar;S.soforFiyatlar=soforFiyatlar;
+
   S.puantaj={};
   for(const r of ptRows){
-    if(!S.puantaj[r.hat_id])S.puantaj[r.hat_id]={};
-    if(!S.puantaj[r.hat_id][r.gun])S.puantaj[r.hat_id][r.gun]={sabah:'',aksam:''};
-    S.puantaj[r.hat_id][r.gun][r.tip]=r.deger||'';
+    const key=r.satir_id||r.hat_id;
+    if(!S.puantaj[key])S.puantaj[key]={};
+    S.puantaj[key][r.gun]=r.deger||'';
   }
   S.gecMesai={};
   for(const r of gmRows){if(!S.gecMesai[r.sofor_id])S.gecMesai[r.sofor_id]={};S.gecMesai[r.sofor_id][r.gun]=r.deger||'';}
   S.geceMesai={};
   for(const r of geceRows){if(!S.geceMesai[r.tip])S.geceMesai[r.tip]={};S.geceMesai[r.tip][r.gun]={deger:r.deger||'',sofor_id:r.sofor_id};}
+
   updateSoforRaporSelect();
 }
 
 async function changeFirma(){
   const id=document.getElementById('firmaSelect').value;
-  S.firma=S.firmalar.find(f=>f.id===id);
+  S.firma=S.firmalar.find(f=>f.id===id)||null;
   await loadFirmaData();renderView(S.view);
 }
 async function changeAy(){
@@ -503,12 +452,12 @@ async function changeAy(){
 // ═══════════════════════════════════
 // SAVE
 // ═══════════════════════════════════
-async function saveCell(hatId,gun,tip,val,soforId){
+async function saveCell(satirId,hatId,gun,val){
   if(!S.firma)return;
-  if(!S.puantaj[hatId])S.puantaj[hatId]={};
-  if(!S.puantaj[hatId][gun])S.puantaj[hatId][gun]={sabah:'',aksam:''};
-  S.puantaj[hatId][gun][tip]=val;
-  await db.upsert('puantaj',{firma_id:S.firma.id,hat_id:hatId,ay:S.ay,gun:parseInt(gun),tip,deger:val,sofor_id:soforId||null,updated_at:new Date().toISOString()},'hat_id,ay,gun,tip');
+  const key=satirId||hatId;
+  if(!S.puantaj[key])S.puantaj[key]={};
+  S.puantaj[key][gun]=val;
+  await db.upsert('puantaj',{firma_id:S.firma.id,hat_id:hatId,satir_id:satirId||null,ay:S.ay,gun:parseInt(gun),tip:'tek',deger:val,updated_at:new Date().toISOString()},'satir_id,ay,gun,tip');
 }
 async function saveGM(soforId,gun,val){
   if(!S.firma)return;
@@ -524,72 +473,83 @@ async function saveGece(tip,gun,val,soforId){
 }
 
 // ═══════════════════════════════════
+// HAT SATIRLARI (araç/şoför satırları)
+// ═══════════════════════════════════
+async function addSatir(hatId){
+  const ad=prompt('Satır adı (örn: 06 C 4586 / Celal Mert):');
+  if(!ad||!ad.trim())return;
+  const sira=(S.satirlar[hatId]||[]).length;
+  await db.ins('hat_satirlari',{hat_id:hatId,ad:ad.trim(),sira});
+  await loadFirmaData();renderPuantaj();
+}
+async function editSatir(satirId,hatId){
+  const cur=(S.satirlar[hatId]||[]).find(s=>s.id===satirId);
+  const ad=prompt('Satır adını düzenle:',cur?.ad||'');
+  if(ad===null||!ad.trim())return;
+  await db.upd('hat_satirlari',satirId,{ad:ad.trim()});
+  await loadFirmaData();renderPuantaj();
+}
+async function deleteSatir(satirId,hatId){
+  if(!confirm('Bu satırı (araç/şoför) silmek istiyor musunuz? Bu satıra ait tüm puantaj verileri silinecek.'))return;
+  await db.del('hat_satirlari',satirId);
+  await loadFirmaData();renderPuantaj();
+}
+
+// ═══════════════════════════════════
 // CELL DROPDOWN
 // ═══════════════════════════════════
-let dropData=null;
-
-function openCellDrop(el,hatId,gun,tip){
+function openCellDrop(el,satirId,hatId,gun){
   closeCellDrop();
   S.activeCellEl=el;
-  S.activeCellData={hatId,gun,tip};
-  dropData=null;
+  S.activeCellData={satirId,hatId,gun,type:'normal'};
   const drop=document.getElementById('cellDrop');
   const rect=el.getBoundingClientRect();
   drop.style.display='block';
   drop.style.top=(rect.bottom+window.scrollY)+'px';
   drop.style.left=(rect.left+window.scrollX)+'px';
+  document.getElementById('dropSearch').style.display='';
   document.getElementById('dropSearch').value='';
   buildDropList('');
   document.getElementById('dropSearch').focus();
 }
-
 function buildDropList(q){
   const list=document.getElementById('dropList');
+  const{satirId,hatId,gun}=S.activeCellData||{};
+  const key=satirId||hatId;
+  const cur=(S.puantaj[key]||{})[gun]||'';
   const vals=[
     {label:'1 — Tam gün',val:'1',cls:'v1'},
     {label:'0.5 — Yarım gün',val:'0.5',cls:'vh'},
     {label:'X — Yok / Tatil',val:'X',cls:'vx'},
-    {label:'— Temizle',val:'',cls:''},
+    {label:'— Temizle',val:'',cls:'empty'},
   ];
-  const curVal=()=>{
-    const{hatId,gun,tip}=S.activeCellData||{};
-    const hp=S.puantaj[hatId]||{};
-    return (hp[gun]||{})[tip]||'';
-  };
-  const cur=curVal();
   let html='<div class="cdi-header">Değer</div>';
   for(const v of vals){
     if(q&&!v.label.toLowerCase().includes(q.toLowerCase()))continue;
-    html+=`<div class="cdi ${cur===v.val?'sel':''}" onclick="selectCellVal('${v.val}',null)"><span class="cc ${v.cls}" style="width:24px;height:20px">${v.val==='0.5'?'½':v.val||'—'}</span>${v.label}</div>`;
+    html+=`<div class="cdi ${cur===v.val?'sel':''}" onclick="selectCellVal('${v.val}')"><span class="cc ${v.cls}" style="width:24px;height:20px;display:inline-flex">${v.val==='0.5'?'½':v.val||'·'}</span>${v.label}</div>`;
   }
   const filteredSoforler=S.soforler.filter(s=>!q||s.ad.toLowerCase().includes(q.toLowerCase())||(s.firma_adi||'').toLowerCase().includes(q.toLowerCase())||(s.plaka||'').toLowerCase().includes(q.toLowerCase()));
   if(filteredSoforler.length){
-    html+='<div class="cdi-sep"></div><div class="cdi-header">Şoför / Plaka Seç</div>';
+    html+='<div class="cdi-sep"></div><div class="cdi-header">Vekil Şoför</div>';
     for(const s of filteredSoforler){
-      const cellVal=s.plaka||s.ad;
-      const isSel=cur===cellVal;
-      html+=`<div class="cdi ${isSel?'sel':''}" onclick="selectCellVal('${cellVal.replace(/'/g,"\\'")}','${s.id}')"><span style="font-size:16px">🚗</span><span><div style="font-size:12px;font-weight:600">${s.plaka||s.ad}</div><div style="font-size:11px;color:var(--tx3)">${s.ad}${s.firma_adi?' · '+s.firma_adi:''}</div></span></div>`;
+      const cellVal=s.ad;
+      html+=`<div class="cdi ${cur===cellVal?'sel':''}" onclick="selectCellVal('${cellVal.replace(/'/g,"\\'")}')"><span style="font-size:15px">👤</span><span><div style="font-size:12px;font-weight:600">${s.ad}</div><div style="font-size:11px;color:var(--tx3)">${s.firma_adi||''}${s.plaka?' · '+s.plaka:''}</div></span></div>`;
     }
   }
+  // Serbest metin girişi
+  html+=`<div class="cdi-sep"></div><div class="cdi-header">Serbest Metin</div>
+  <div style="padding:6px 12px"><input type="text" id="freeTextInput" class="fi" placeholder="Örn: İLHAN" value="${(cur&&cur!=='1'&&cur!=='0.5'&&cur!=='X')?cur:''}" style="font-size:12px;padding:5px 8px" onkeydown="if(event.key==='Enter')selectCellVal(this.value.trim())"></div>`;
   list.innerHTML=html;
 }
-
 function filterDrop(){buildDropList(document.getElementById('dropSearch').value);}
-
-async function selectCellVal(val,soforId){
+async function selectCellVal(val){
   if(!S.activeCellData)return;
-  const{hatId,gun,tip}=S.activeCellData;
+  const{satirId,hatId,gun,type}=S.activeCellData;
   closeCellDrop();
-  if(tip==='sabah'||tip==='aksam'){
-    await saveCell(hatId,gun,tip,val,soforId);
-  }
+  if(type==='normal') await saveCell(satirId,hatId,gun,val);
   renderPuantaj();renderStats();
 }
-
-function closeCellDrop(){
-  document.getElementById('cellDrop').style.display='none';
-  S.activeCellEl=null;S.activeCellData=null;
-}
+function closeCellDrop(){document.getElementById('cellDrop').style.display='none';S.activeCellEl=null;S.activeCellData=null;}
 document.addEventListener('click',e=>{
   const drop=document.getElementById('cellDrop');
   if(drop.style.display!=='none'&&!drop.contains(e.target)&&!e.target.closest('.cc')){closeCellDrop();}
@@ -618,12 +578,7 @@ function renderView(v){
   else if(v==='soforler')renderSoforler();
   else if(v==='fiyatlar')renderFiyatlar();
 }
-function switchTab(tab,el){
-  S.tab=tab;
-  document.querySelectorAll('#tabBar .tab').forEach(t=>t.classList.remove('active'));
-  if(el)el.classList.add('active');
-  renderPuantaj();
-}
+function switchTab(tab,el){S.tab=tab;document.querySelectorAll('#tabBar .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');renderPuantaj();}
 
 // ═══════════════════════════════════
 // STATS
@@ -632,8 +587,14 @@ function renderStats(){
   const{toplam,kdvli}=hesaplaOzet();
   const days=dIM(S.ay);let hi=0,hs=0;
   for(let g=1;g<=days;g++){if(isWE(S.ay,g))hs++;else hi++;}
-  const h1=S.hatlar[0];let entered=0;
-  if(h1){const hp=S.puantaj[h1.id]||{};for(let g=1;g<=days;g++){const gd=hp[g]||{};if(gd.sabah!==''||gd.aksam!=='')entered++;}}
+  let entered=0;
+  const firstHat=S.hatlar[0];
+  if(firstHat){
+    const satirlar=S.satirlar[firstHat.id]||[];
+    const key=satirlar.length?satirlar[0].id:firstHat.id;
+    const hp=S.puantaj[key]||{};
+    for(let g=1;g<=days;g++) if(hp[g]) entered++;
+  }
   document.getElementById('statsGrid').innerHTML=`
     <div class="sc"><div class="scl">Toplam Gün</div><div class="scv" style="color:var(--ac)">${days}</div><div class="scs">${hi} hafta içi · ${hs} H.sonu</div></div>
     <div class="sc"><div class="scl">Girilen Gün</div><div class="scv" style="color:var(--pu)">${entered}</div><div class="scs">${days-entered} gün boş</div></div>
@@ -651,17 +612,16 @@ function renderPuantaj(){
   else if(S.tab==='gec')c.innerHTML=buildGec();
   else c.innerHTML=buildGece();
 
-  // Attach cell click listeners
-  c.querySelectorAll('.cc[data-hat]').forEach(el=>{
+  c.querySelectorAll('.cc[data-cell]').forEach(el=>{
     el.addEventListener('click',function(e){
       e.stopPropagation();
-      openCellDrop(this,this.dataset.hat,this.dataset.gun,this.dataset.tip);
+      openCellDrop(this,this.dataset.satir||'',this.dataset.hat,this.dataset.gun);
     });
   });
 }
 
 function dHdrs(days){
-  let h='<th class="lh">Hat / Servis</th>';
+  let h='<th class="lh">Hat / Araç</th>';
   for(let g=1;g<=days;g++){
     const we=isWE(S.ay,g),tod=isToday(S.ay,g),d=dow(S.ay,g);
     h+=`<th class="${we?'we':''}${tod?' tod':''}">${g}<br><span style="font-size:9px;opacity:.6">${gAdi(d)}</span></th>`;
@@ -674,18 +634,23 @@ function buildNormal(){
   if(!S.hatlar.length)return'<div class="empty"><p>Bu firmaya hat eklenmemiş.<br>Hat Yönetimi menüsünden ekleyin.</p></div>';
   let rows='';
   for(const hat of S.hatlar){
-    const hp=S.puantaj[hat.id]||{};
-    rows+=`<tr class="hr"><td class="lc" colspan="${days+2}" style="border-left:3px solid ${hat.renk||'#5b8dee'}">${hat.ad} <span style="font-size:11px;color:var(--tx3);margin-left:6px">${hat.tip} · ${fTL(hat.gunluk_ucret)}/gün</span></td></tr>`;
-    for(const[tip,label]of[['sabah','☀️ SABAH'],['aksam','🌙 AKŞAM']]){
+    rows+=`<tr class="hr"><td class="lc" colspan="${days+2}" style="border-left:3px solid ${hat.renk||'#5b8dee'}">${hat.ad} <span style="font-size:11px;color:var(--tx3);margin-left:6px">${fTL(hat.gunluk_ucret)}/gün</span> <span class="row-add-btn" onclick="addSatir('${hat.id}')">+ Araç/Şoför Ekle</span></td></tr>`;
+    const satirlar=S.satirlar[hat.id]||[];
+    if(!satirlar.length){
+      rows+=`<tr><td class="lc" colspan="${days+2}" style="color:var(--tx3);font-style:italic;font-size:11px">Bu hatta henüz araç/şoför satırı yok. "+ Araç/Şoför Ekle" ile ekleyin.</td></tr>`;
+      continue;
+    }
+    for(const satir of satirlar){
+      const hp=S.puantaj[satir.id]||{};
       let tot=0,cells='';
       for(let g=1;g<=days;g++){
-        const we=isWE(S.ay,g),tod=isToday(S.ay,g),gd=hp[g]||{},val=gd[tip]||'';
+        const we=isWE(S.ay,g),tod=isToday(S.ay,g),val=hp[g]||'';
         tot+=pV(val);
-        const matchedSofor=S.soforler.find(s=>s.plaka===val||s.ad===val);
-        const tip_title=matchedSofor?`${matchedSofor.ad}${matchedSofor.firma_adi?' · '+matchedSofor.firma_adi:''}`:(val||'Boş');
-        cells+=`<td class="${we?'we':''}${tod?' tod':''}"><div class="cc ${cCls(val)}" data-hat="${hat.id}" data-gun="${g}" data-tip="${tip}" title="${tip_title}">${cLabel(val)}</div></td>`;
+        const matchedSofor=S.soforler.find(s=>s.ad===val);
+        const title=matchedSofor?`Vekil: ${matchedSofor.ad}${matchedSofor.firma_adi?' · '+matchedSofor.firma_adi:''}`:(val||'Boş');
+        cells+=`<td class="${we?'we':''}${tod?' tod':''}"><div class="cc ${cCls(val)}" data-cell="1" data-satir="${satir.id}" data-hat="${hat.id}" data-gun="${g}" title="${title}">${cLabel(val)}</div></td>`;
       }
-      rows+=`<tr><td class="rl">${label}</td>${cells}<td class="lc" style="color:var(--gn);font-weight:700">${tot||''}</td></tr>`;
+      rows+=`<tr class="satir-row"><td class="lc" style="position:relative;padding-right:50px">${satir.ad}<div class="row-actions"><button onclick="editSatir('${satir.id}','${hat.id}')" title="Düzenle">✎</button><button onclick="deleteSatir('${satir.id}','${hat.id}')" title="Sil">✕</button></div></td>${cells}<td class="lc" style="color:var(--gn);font-weight:700">${tot||''}</td></tr>`;
     }
   }
   return`<div class="tw"><table class="pt"><thead><tr>${dHdrs(days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -699,14 +664,13 @@ function buildGec(){
     const gm=S.gecMesai[sf.id]||{};let tot=0,cells='';
     for(let g=1;g<=days;g++){
       const we=isWE(S.ay,g),val=gm[g]||'';tot+=pV(val);
-      cells+=`<td class="${we?'we':''}"><div class="cc ${cCls(val)}" data-role="gec" data-sofor="${sf.id}" data-gun="${g}" onclick="openGecDrop(this,'${sf.id}',${g})" title="${val||'Boş'}">${cLabel(val)}</div></td>`;
+      cells+=`<td class="${we?'we':''}"><div class="cc ${cCls(val)}" onclick="openGecDrop(this,'${sf.id}',${g})" title="${val||'Boş'}">${cLabel(val)}</div></td>`;
     }
-    rows+=`<tr><td class="lc"><strong>${sf.ad}</strong><br><span style="font-size:11px;color:var(--tx2)">${sf.firma_adi||''}</span></td>${cells}<td class="lc" style="color:var(--yw);font-weight:700">${tot||''}</td></tr>`;
+    rows+=`<tr><td class="lc"><strong>${sf.ad}</strong><br><span style="font-size:11px;color:var(--tx2)">${sf.firma_adi||''}${sf.plaka?' · '+sf.plaka:''}</span></td>${cells}<td class="lc" style="color:var(--yw);font-weight:700">${tot||''}</td></tr>`;
   }
   return`<div class="card" style="margin-bottom:12px;padding:10px 14px;display:flex;align-items:center;gap:10px"><span class="badge byc">20:00 Geç Mesai</span></div>
   <div class="tw"><table class="pt"><thead><tr>${dHdrs(days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
-
 function buildGece(){
   const days=dIM(S.ay);
   const satirlar=[{id:'giris',label:'Giriş 20:00'},{id:'cikis',label:'Çıkış 04:00'}];
@@ -722,36 +686,20 @@ function buildGece(){
   return`<div class="card" style="margin-bottom:12px;padding:10px 14px;display:flex;align-items:center;gap:10px"><span class="badge brc">04:00 Gece</span></div>
   <div class="tw"><table class="pt"><thead><tr>${dHdrs(days)}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
-
-// Geç mesai hücre dropdown
 function openGecDrop(el,soforId,gun){
-  S.activeCellEl=el;
-  S.activeCellData={type:'gec',soforId,gun};
-  const drop=document.getElementById('cellDrop');
-  const rect=el.getBoundingClientRect();
-  drop.style.display='block';
-  drop.style.top=(rect.bottom+window.scrollY)+'px';
-  drop.style.left=(rect.left+window.scrollX)+'px';
+  S.activeCellEl=el;S.activeCellData={type:'gec',soforId,gun};
+  const drop=document.getElementById('cellDrop');const rect=el.getBoundingClientRect();
+  drop.style.display='block';drop.style.top=(rect.bottom+window.scrollY)+'px';drop.style.left=(rect.left+window.scrollX)+'px';
   document.getElementById('dropSearch').style.display='none';
   const list=document.getElementById('dropList');
   const cur=(S.gecMesai[soforId]||{})[gun]||'';
   list.innerHTML=[{v:'1',l:'1 — Tam gün'},{v:'0.5',l:'0.5 — Yarım gün'},{v:'X',l:'X — Yok'},{v:'',l:'— Temizle'}].map(o=>`<div class="cdi ${cur===o.v?'sel':''}" onclick="setGecVal('${soforId}',${gun},'${o.v}')">${o.l}</div>`).join('');
 }
-async function setGecVal(soforId,gun,val){
-  closeCellDrop();
-  document.getElementById('dropSearch').style.display='';
-  await saveGM(soforId,gun,val);
-  renderPuantaj();renderStats();
-}
-
+async function setGecVal(soforId,gun,val){closeCellDrop();document.getElementById('dropSearch').style.display='';await saveGM(soforId,gun,val);renderPuantaj();renderStats();}
 function openGeceTipDrop(el,tip,gun){
-  S.activeCellEl=el;
-  S.activeCellData={type:'gece',tip,gun};
-  const drop=document.getElementById('cellDrop');
-  const rect=el.getBoundingClientRect();
-  drop.style.display='block';
-  drop.style.top=(rect.bottom+window.scrollY)+'px';
-  drop.style.left=(rect.left+window.scrollX)+'px';
+  S.activeCellEl=el;S.activeCellData={type:'gece',tip,gun};
+  const drop=document.getElementById('cellDrop');const rect=el.getBoundingClientRect();
+  drop.style.display='block';drop.style.top=(rect.bottom+window.scrollY)+'px';drop.style.left=(rect.left+window.scrollX)+'px';
   document.getElementById('dropSearch').style.display='none';
   const list=document.getElementById('dropList');
   const cur=((S.geceMesai[tip]||{})[gun]||{}).deger||'';
@@ -759,48 +707,31 @@ function openGeceTipDrop(el,tip,gun){
   if(S.soforler.length){html+='<div class="cdi-sep"></div><div class="cdi-header">Şoför ile</div>';for(const s of S.soforler)html+=`<div class="cdi" onclick="setGeceVal('${tip}',${gun},'1','${s.id}')">👤 ${s.ad}</div>`;}
   list.innerHTML=html;
 }
-async function setGeceVal(tip,gun,val,soforId){
-  closeCellDrop();
-  document.getElementById('dropSearch').style.display='';
-  await saveGece(tip,gun,val,soforId);
-  renderPuantaj();renderStats();
-}
+async function setGeceVal(tip,gun,val,soforId){closeCellDrop();document.getElementById('dropSearch').style.display='';await saveGece(tip,gun,val,soforId);renderPuantaj();renderStats();}
 
 // ═══════════════════════════════════
 // ÖZET
 // ═══════════════════════════════════
-function getSoforFiyat(soforId,hatId,tip){
-  const sf=S.soforFiyatlar.find(f=>f.sofor_id===soforId&&f.hat_id===hatId&&f.tip===tip);
-  if(sf) return sf.ucret;
-  const hf=S.fiyatlar.find(f=>f.hat_id===hatId&&f.tip===tip);
-  return hf?hf.ucret:0;
-}
-
 function hesaplaOzet(){
   const days=dIM(S.ay);
-  let toplam=0;
-  const detay={};
+  let toplam=0;const detay={};
   for(const hat of S.hatlar){
-    const hp=S.puantaj[hat.id]||{};
-    for(let g=1;g<=days;g++){
-      const gd=hp[g]||{};
-      for(const tip of['sabah','aksam']){
-        const val=gd[tip]||'';const v=pV(val);if(v<=0)continue;
-        // sofor_id bulalım
-        const ptRow=S.puantaj[hat.id]?.[g];
-        const ucret=hat.gunluk_ucret||0;
-        toplam+=ucret*v;
-        if(!detay[hat.id])detay[hat.id]={gun:0,tutar:0};
-        detay[hat.id].gun+=v;detay[hat.id].tutar+=ucret*v;
+    const satirlar=S.satirlar[hat.id]||[];
+    let hatGun=0,hatTutar=0;
+    for(const satir of satirlar){
+      const hp=S.puantaj[satir.id]||{};
+      for(let g=1;g<=days;g++){
+        const v=pV(hp[g]||'');
+        if(v>0){hatGun+=v;hatTutar+=hat.gunluk_ucret*v;}
       }
     }
+    toplam+=hatTutar;
+    detay[hat.id]={gun:hatGun,tutar:hatTutar};
   }
-  // geç mesai
   for(const soforId in S.gecMesai){for(const g in S.gecMesai[soforId]){const v=pV(S.gecMesai[soforId][g]);if(v>0){const sf=S.soforFiyatlar.find(f=>f.sofor_id===soforId&&f.tip==='gec_mesai');toplam+=(sf?.ucret||0)*v;}}}
   const kdvli=toplam*1.2;
   return{toplam,kdvli,detay};
 }
-
 function renderOzet(){
   const{toplam,kdvli,detay}=hesaplaOzet();
   document.getElementById('ozetGrid').innerHTML=`
@@ -815,11 +746,10 @@ function renderOzet(){
     <div class="card">
       <div class="ct">Hat Özeti</div>
       ${S.hatlar.map(h=>{
-        const hp=S.puantaj[h.id]||{};const days=dIM(S.ay);let gun=0;
-        for(let g=1;g<=days;g++){const gd=hp[g]||{};if(pV(gd.sabah)>0||pV(gd.aksam)>0)gun++;}
+        const d=detay[h.id]||{gun:0,tutar:0};
         return`<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bd)">
           <span style="display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:${h.renk||'#5b8dee'};display:inline-block"></span>${h.ad}</span>
-          <span style="font-size:12px;color:var(--gn)">${gun} gün · ${fTL(gun*h.gunluk_ucret)}</span></div>`;
+          <span style="font-size:12px;color:var(--gn)">${d.gun} gün · ${fTL(d.tutar)}</span></div>`;
       }).join('')}
     </div>`;
 }
@@ -831,53 +761,50 @@ function updateSoforRaporSelect(){
   const sel=document.getElementById('raporSoforSelect');
   sel.innerHTML=S.soforler.length?'<option value="">— Şoför seçin —</option>'+S.soforler.map(s=>`<option value="${s.id}">${s.ad}${s.firma_adi?' ('+s.firma_adi+')':''}</option>`).join(''):'<option value="">Şoför yok</option>';
 }
-
 function renderSoforRapor(){
   const soforId=document.getElementById('raporSoforSelect').value;
   const con=document.getElementById('soforRaporContent');
   if(!soforId){con.innerHTML='<div class="empty"><p>Raporu görmek için şoför seçin</p></div>';return;}
   const sf=S.soforler.find(s=>s.id===soforId);
   const days=dIM(S.ay);
-  let toplam=0;
-  let detayRows='';
-  // Normal puantaj
+  let toplam=0,detayRows='';
   for(const hat of S.hatlar){
-    const hp=S.puantaj[hat.id]||{};
-    for(const tip of['sabah','aksam']){
+    const satirlar=S.satirlar[hat.id]||[];
+    for(const satir of satirlar){
+      const hp=S.puantaj[satir.id]||{};
       let gun=0;
       for(let g=1;g<=days;g++){
-        const gd=hp[g]||{};
-        const val=gd[tip]||'';
+        const val=hp[g]||'';
         if(val&&val!=='1'&&val!=='0.5'&&val!=='X'){
-          const isMatch=(sf.plaka&&val===sf.plaka)||(val.toLowerCase()===sf.ad.toLowerCase());
-          if(isMatch) gun+=1;
+          if(val.toLowerCase()===sf.ad.toLowerCase()) gun+=1;
         }
       }
       if(gun>0){
-        const ucret=getSoforFiyat(soforId,hat.id,tip);
+        const sfFiyat=S.soforFiyatlar.find(f=>f.sofor_id===soforId&&f.hat_id===hat.id);
+        const ucret=sfFiyat?sfFiyat.ucret:hat.gunluk_ucret;
         const tutar=ucret*gun;toplam+=tutar;
-        detayRows+=`<tr><td>${hat.ad}</td><td>${tip==='sabah'?'☀️ Sabah':'🌙 Akşam'}</td><td style="text-align:center">${gun}</td><td style="text-align:right">${fTL(ucret)}</td><td style="text-align:right;color:var(--gn)">${fTL(tutar)}</td></tr>`;
+        detayRows+=`<tr><td>${hat.ad}</td><td>${satir.ad}</td><td style="text-align:center">${gun}</td><td style="text-align:right">${fTL(ucret)}</td><td style="text-align:right;color:var(--gn)">${fTL(tutar)}</td></tr>`;
       }
     }
   }
-  // Geç mesai
   const gm=S.gecMesai[soforId]||{};let gecGun=0;
   for(const g in gm) gecGun+=pV(gm[g]);
   if(gecGun>0){
-    const ucret=getSoforFiyat(soforId,null,'gec_mesai');
+    const sfFiyat=S.soforFiyatlar.find(f=>f.sofor_id===soforId&&f.tip==='gec_mesai');
+    const ucret=sfFiyat?.ucret||0;
     const tutar=ucret*gecGun;toplam+=tutar;
-    detayRows+=`<tr><td>Geç Mesai</td><td>🌙 20:00</td><td style="text-align:center">${gecGun}</td><td style="text-align:right">${fTL(ucret)}</td><td style="text-align:right;color:var(--gn)">${fTL(tutar)}</td></tr>`;
+    detayRows+=`<tr><td>Geç Mesai</td><td>20:00</td><td style="text-align:center">${gecGun}</td><td style="text-align:right">${fTL(ucret)}</td><td style="text-align:right;color:var(--gn)">${fTL(tutar)}</td></tr>`;
   }
   con.innerHTML=`
     <div class="card">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-        <div><div style="font-size:16px;font-weight:700">${sf.ad}</div><div style="font-size:12px;color:var(--tx2)">${sf.firma_adi||''} · ${mLabel(S.ay)}</div></div>
+        <div><div style="font-size:16px;font-weight:700">${sf.ad}</div><div style="font-size:12px;color:var(--tx2)">${sf.firma_adi||''}${sf.plaka?' · '+sf.plaka:''} · ${mLabel(S.ay)}</div></div>
         <div style="margin-left:auto;text-align:right"><div style="font-size:20px;font-weight:800;color:var(--ac)">${fTL(toplam)}</div><div style="font-size:11px;color:var(--tx3)">Toplam Hak Ediş</div></div>
       </div>
       ${detayRows?`<table class="ft" style="width:100%">
-        <thead><tr><th>Hat</th><th>Vardiya</th><th style="text-align:center">Gün</th><th style="text-align:right">Birim</th><th style="text-align:right">Tutar</th></tr></thead>
+        <thead><tr><th>Hat</th><th>Araç/Satır</th><th style="text-align:center">Gün</th><th style="text-align:right">Birim</th><th style="text-align:right">Tutar</th></tr></thead>
         <tbody>${detayRows}</tbody>
-      </table>`:'<div class="empty" style="padding:20px"><p>Bu şoför için bu ayda kayıt bulunamadı</p></div>'}
+      </table>`:'<div class="empty" style="padding:20px"><p>Bu şoför için bu ayda kayıt bulunamadı.<br>Puantaj tablosunda bir hücreye bu şoförü vekil olarak girin.</p></div>'}
     </div>`;
 }
 
@@ -904,32 +831,33 @@ async function saveFirma(id){
   closeMo();await loadFirmalar();renderFirmalar();toast('Firma kaydedildi','s');
 }
 async function deleteFirma(id){
-  if(!confirm('Bu firmayı silmek istiyor musunuz?'))return;
-  await db.del('firmalar',id);await loadFirmalar();renderFirmalar();toast('Silindi');
+  if(!confirm('Bu firmayı silmek istiyor musunuz? Firmaya ait tüm hatlar ve veriler silinecek.'))return;
+  await db.del('firmalar',id);
+  if(S.firma?.id===id) S.firma=null;
+  await loadFirmalar();renderFirmalar();toast('Silindi');
 }
 
 // ═══════════════════════════════════
 // HATLAR
 // ═══════════════════════════════════
 function renderHatlar(){
-  document.getElementById('hatCount').textContent=S.hatlar.length+' hat';
-  document.getElementById('hatList').innerHTML=S.hatlar.length?S.hatlar.map(h=>`
-    <div class="li"><div class="lid" style="background:${h.renk||'#5b8dee'}"></div>
-    <div class="lii"><div class="lin">${h.ad} <span class="badge bac" style="margin-left:5px">${h.tip}</span></div>
-    <div class="lis">${fTL(h.gunluk_ucret)}/gün</div></div>
-    <div class="lia"><button class="btn bg2 bxs" onclick="openHatModal('${h.id}')">Düzenle</button><button class="btn bd2 bxs" onclick="deleteHat('${h.id}')">Sil</button></div></div>`).join('')
-    :'<div class="empty"><p>Hat eklenmemiş</p></div>';
+  if(!S.firma){document.getElementById('hatList').innerHTML='<div class="empty"><p>Önce firma seçin</p></div>';document.getElementById('hatCount').textContent='0 hat';return;}
+  document.getElementById('hatCount').textContent=S.hatlar.length+' hat — '+S.firma.ad;
+  document.getElementById('hatList').innerHTML=S.hatlar.length?S.hatlar.map(h=>{
+    const satirSayisi=(S.satirlar[h.id]||[]).length;
+    return`<div class="li"><div class="lid" style="background:${h.renk||'#5b8dee'}"></div>
+    <div class="lii"><div class="lin">${h.ad}</div>
+    <div class="lis">${fTL(h.gunluk_ucret)}/gün · ${satirSayisi} araç/şoför satırı</div></div>
+    <div class="lia"><button class="btn bg2 bxs" onclick="openHatModal('${h.id}')">Düzenle</button><button class="btn bd2 bxs" onclick="deleteHat('${h.id}')">Sil</button></div></div>`;
+  }).join('')
+    :'<div class="empty"><p>Hat eklenmemiş. Sağ üstten ekleyin.</p></div>';
 }
 function openHatModal(id){
+  if(!S.firma){toast('Önce firma seçin','e');return;}
   const h=id?S.hatlar.find(x=>x.id===id):null;
-  openMo(h?'Hat Düzenle':'Yeni Hat',`
+  openMo(h?'Hat Düzenle':'Yeni Hat ('+S.firma.ad+')',`
     <div class="fg2">
       <div class="fg fgf"><label class="fl">Hat Adı</label><input class="fi" id="hAd" value="${h?.ad||''}" placeholder="Sincan - Plevne"></div>
-      <div class="fg"><label class="fl">Tip</label><select class="fs" id="hTip">
-        <option value="27lik" ${h?.tip==='27lik'?'selected':''}>27'lik</option>
-        <option value="18lik" ${h?.tip==='18lik'?'selected':''}>18'lik</option>
-        <option value="ek" ${h?.tip==='ek'?'selected':''}>Ek Hat</option>
-      </select></div>
       <div class="fg"><label class="fl">Günlük Ücret (₺)</label><input class="fi" type="number" id="hUcret" value="${h?.gunluk_ucret||0}"></div>
       <div class="fg"><label class="fl">Renk</label><input class="fi" type="color" id="hRenk" value="${h?.renk||'#5b8dee'}"></div>
     </div>`,
@@ -938,11 +866,11 @@ function openHatModal(id){
 async function saveHat(id){
   const ad=document.getElementById('hAd').value.trim();
   if(!ad){toast('Hat adı gerekli','e');return;}
-  const data={firma_id:S.firma.id,ad,tip:document.getElementById('hTip').value,gunluk_ucret:parseFloat(document.getElementById('hUcret').value)||0,renk:document.getElementById('hRenk').value};
+  const data={firma_id:S.firma.id,ad,tip:'genel',gunluk_ucret:parseFloat(document.getElementById('hUcret').value)||0,renk:document.getElementById('hRenk').value,sira:S.hatlar.length};
   if(id)await db.upd('hatlar',id,data);else await db.ins('hatlar',data);
   closeMo();await loadFirmaData();renderHatlar();toast('Hat kaydedildi','s');
 }
-async function deleteHat(id){if(!confirm('Bu hattı silmek istiyor musunuz?'))return;await db.del('hatlar',id);await loadFirmaData();renderHatlar();toast('Silindi');}
+async function deleteHat(id){if(!confirm('Bu hattı silmek istiyor musunuz? Tüm satırları ve verileri de silinecek.'))return;await db.del('hatlar',id);await loadFirmaData();renderHatlar();toast('Silindi');}
 
 // ═══════════════════════════════════
 // ŞOFÖRLER
@@ -979,29 +907,28 @@ async function deleteSofor(id){if(!confirm('Silmek istiyor musunuz?'))return;awa
 // FİYAT AYARLARI
 // ═══════════════════════════════════
 function renderFiyatlar(){
-  if(!S.firma){document.getElementById('fiyatTablosu').innerHTML='<p style="color:var(--tx3)">Firma seçin</p>';return;}
+  if(!S.firma){document.getElementById('fiyatTablosu').innerHTML='<p style="color:var(--tx3)">Önce firma seçin</p>';document.getElementById('soforFiyatTablosu').innerHTML='';return;}
   document.getElementById('fiyatFirmaAd').textContent=S.firma.ad;
-  // Hat bazlı fiyatlar
-  const tipler=[{id:'sabah',l:'Sabah'},{id:'aksam',l:'Akşam'},{id:'gec_mesai',l:'Geç Mesai'},{id:'gece',l:'Gece'}];
-  let tbl=`<table class="ft"><thead><tr><th>Hat</th>${tipler.map(t=>`<th>${t.l} (₺)</th>`).join('')}</tr></thead><tbody>`;
-  for(const hat of S.hatlar){
-    tbl+=`<tr><td><strong>${hat.ad}</strong></td>`;
-    for(const tip of tipler){
-      const existing=S.fiyatlar.find(f=>f.hat_id===hat.id&&f.tip===tip.id);
-      tbl+=`<td><input type="number" value="${existing?.ucret||''}" placeholder="0" onchange="saveFiyat('${hat.id}','${tip.id}',this.value)"></td>`;
+  if(!S.hatlar.length){document.getElementById('fiyatTablosu').innerHTML='<p style="color:var(--tx3);font-size:13px">Bu firmaya hat eklenmemiş.</p>';}
+  else{
+    let tbl='<table class="ft"><thead><tr><th>Hat</th><th>Günlük Ücret (₺)</th></tr></thead><tbody>';
+    for(const hat of S.hatlar){
+      tbl+=`<tr><td><strong>${hat.ad}</strong></td><td><input type="number" value="${hat.gunluk_ucret||0}" onchange="updateHatUcret('${hat.id}',this.value)"></td></tr>`;
     }
-    tbl+='</tr>';
+    tbl+='</tbody></table>';
+    document.getElementById('fiyatTablosu').innerHTML=tbl;
   }
-  tbl+='</tbody></table>';
-  document.getElementById('fiyatTablosu').innerHTML=tbl;
-  // Şoför bazlı fiyatlar
   renderSoforFiyatlar();
 }
-
+async function updateHatUcret(hatId,val){
+  await db.upd('hatlar',hatId,{gunluk_ucret:parseFloat(val)||0});
+  const h=S.hatlar.find(x=>x.id===hatId);if(h)h.gunluk_ucret=parseFloat(val)||0;
+  renderStats();toast('Güncellendi','s');
+}
 function renderSoforFiyatlar(){
   const con=document.getElementById('soforFiyatTablosu');
-  if(!S.soforFiyatlar.length){con.innerHTML='<p style="color:var(--tx3);font-size:13px">Henüz şoför bazlı fiyat girilmemiş.</p>';return;}
-  let html='<table class="ft"><thead><tr><th>Şoför</th><th>Hat</th><th>Vardiya</th><th>Ücret (₺)</th><th></th></tr></thead><tbody>';
+  if(!S.soforFiyatlar.length){con.innerHTML='<p style="color:var(--tx3);font-size:13px">Henüz özel fiyat tanımlanmamış.</p>';return;}
+  let html='<table class="ft"><thead><tr><th>Şoför</th><th>Hat</th><th>Tip</th><th>Ücret (₺)</th><th></th></tr></thead><tbody>';
   for(const sf of S.soforFiyatlar){
     const s=S.soforler.find(x=>x.id===sf.sofor_id);
     const h=S.hatlar.find(x=>x.id===sf.hat_id);
@@ -1010,25 +937,16 @@ function renderSoforFiyatlar(){
   html+='</tbody></table>';
   con.innerHTML=html;
 }
-
-async function saveFiyat(hatId,tip,ucret){
-  if(!S.firma)return;
-  await db.upsert('fiyatlar',{firma_id:S.firma.id,hat_id:hatId,tip,ucret:parseFloat(ucret)||0},'firma_id,hat_id,tip');
-  S.fiyatlar=await db.get('fiyatlar',{firma_id:S.firma.id},'&select=*');
-  toast('Güncellendi','s');
-}
-
 function openSoforFiyatModal(){
-  if(!S.soforler.length||!S.hatlar.length){toast('Önce şoför ve hat ekleyin','e');return;}
-  const tipler=['sabah','aksam','gec_mesai','gece'];
-  openMo('Şoför Fiyatı Ekle',`
+  if(!S.soforler.length){toast('Önce şoför ekleyin','e');return;}
+  const tipler=[{v:'hat',l:'Hat ücreti (özel)'},{v:'gec_mesai',l:'Geç Mesai'},{v:'gece',l:'Gece'}];
+  openMo('Özel Fiyat Ekle',`
     <div class="fg"><label class="fl">Şoför</label><select class="fs" id="sfSofor">${S.soforler.map(s=>`<option value="${s.id}">${s.ad}</option>`).join('')}</select></div>
-    <div class="fg"><label class="fl">Hat</label><select class="fs" id="sfHat"><option value="">— Genel (hat fark etmez) —</option>${S.hatlar.map(h=>`<option value="${h.id}">${h.ad}</option>`).join('')}</select></div>
-    <div class="fg"><label class="fl">Vardiya</label><select class="fs" id="sfTip">${tipler.map(t=>`<option value="${t}">${t}</option>`).join('')}</select></div>
+    <div class="fg"><label class="fl">Hat (opsiyonel)</label><select class="fs" id="sfHat"><option value="">— Genel (hat fark etmez) —</option>${S.hatlar.map(h=>`<option value="${h.id}">${h.ad}</option>`).join('')}</select></div>
+    <div class="fg"><label class="fl">Tip</label><select class="fs" id="sfTip">${tipler.map(t=>`<option value="${t.v}">${t.l}</option>`).join('')}</select></div>
     <div class="fg"><label class="fl">Günlük Ücret (₺)</label><input class="fi" type="number" id="sfUcret" placeholder="0"></div>`,
   [{l:'İptal',c:'bg2',fn:'closeMo()'},{l:'Ekle',c:'bp',fn:'saveSoforFiyat()'}]);
 }
-
 async function saveSoforFiyat(){
   const soforId=document.getElementById('sfSofor').value;
   const hatId=document.getElementById('sfHat').value||null;
@@ -1051,7 +969,6 @@ function openMo(title,body,btns){
   document.getElementById('mo').classList.add('open');
 }
 function closeMo(){document.getElementById('mo').classList.remove('open');}
-
 function toast(msg,type=''){
   const tc=document.getElementById('tc');
   const t=document.createElement('div');
@@ -1062,9 +979,8 @@ function toast(msg,type=''){
   tc.appendChild(t);
   setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},2500);
 }
-
 function exportJSON(){
-  const blob=new Blob([JSON.stringify({firma:S.firma?.ad,ay:mLabel(S.ay),puantaj:S.puantaj,tarih:new Date().toLocaleString('tr-TR')},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({firma:S.firma?.ad,ay:mLabel(S.ay),hatlar:S.hatlar,satirlar:S.satirlar,puantaj:S.puantaj,ozet:hesaplaOzet(),tarih:new Date().toLocaleString('tr-TR')},null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`puantaj_${S.firma?.ad}_${S.ay}.json`;a.click();
   toast('İndirildi','s');
