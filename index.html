@@ -418,9 +418,7 @@ function cLabel(v){
   if(v==='1')return'1';
   if(v==='0.5')return'½';
   if(v==='X')return'X';
-  // şoför adı — kısat
-  const parts=v.split('/');
-  return parts[parts.length-1].trim().slice(0,10);
+  return v.slice(0,12); // plaka veya kısa metin
 }
 
 // ═══════════════════════════════════
@@ -564,11 +562,13 @@ function buildDropList(q){
     if(q&&!v.label.toLowerCase().includes(q.toLowerCase()))continue;
     html+=`<div class="cdi ${cur===v.val?'sel':''}" onclick="selectCellVal('${v.val}',null)"><span class="cc ${v.cls}" style="width:24px;height:20px">${v.val==='0.5'?'½':v.val||'—'}</span>${v.label}</div>`;
   }
-  const filteredSoforler=S.soforler.filter(s=>!q||s.ad.toLowerCase().includes(q.toLowerCase())||(s.firma_adi||'').toLowerCase().includes(q.toLowerCase()));
+  const filteredSoforler=S.soforler.filter(s=>!q||s.ad.toLowerCase().includes(q.toLowerCase())||(s.firma_adi||'').toLowerCase().includes(q.toLowerCase())||(s.plaka||'').toLowerCase().includes(q.toLowerCase()));
   if(filteredSoforler.length){
-    html+='<div class="cdi-sep"></div><div class="cdi-header">Şoför Seç</div>';
+    html+='<div class="cdi-sep"></div><div class="cdi-header">Şoför / Plaka Seç</div>';
     for(const s of filteredSoforler){
-      html+=`<div class="cdi" onclick="selectCellVal('${s.ad}','${s.id}')"><span style="font-size:16px">👤</span><span><div style="font-size:12px;font-weight:600">${s.ad}</div><div style="font-size:11px;color:var(--tx3)">${s.firma_adi||''}</div></span></div>`;
+      const cellVal=s.plaka||s.ad;
+      const isSel=cur===cellVal;
+      html+=`<div class="cdi ${isSel?'sel':''}" onclick="selectCellVal('${cellVal.replace(/'/g,"\\'")}','${s.id}')"><span style="font-size:16px">🚗</span><span><div style="font-size:12px;font-weight:600">${s.plaka||s.ad}</div><div style="font-size:11px;color:var(--tx3)">${s.ad}${s.firma_adi?' · '+s.firma_adi:''}</div></span></div>`;
     }
   }
   list.innerHTML=html;
@@ -681,7 +681,9 @@ function buildNormal(){
       for(let g=1;g<=days;g++){
         const we=isWE(S.ay,g),tod=isToday(S.ay,g),gd=hp[g]||{},val=gd[tip]||'';
         tot+=pV(val);
-        cells+=`<td class="${we?'we':''}${tod?' tod':''}"><div class="cc ${cCls(val)}" data-hat="${hat.id}" data-gun="${g}" data-tip="${tip}" title="${val||'Boş'}">${cLabel(val)}</div></td>`;
+        const matchedSofor=S.soforler.find(s=>s.plaka===val||s.ad===val);
+        const tip_title=matchedSofor?`${matchedSofor.ad}${matchedSofor.firma_adi?' · '+matchedSofor.firma_adi:''}`:(val||'Boş');
+        cells+=`<td class="${we?'we':''}${tod?' tod':''}"><div class="cc ${cCls(val)}" data-hat="${hat.id}" data-gun="${g}" data-tip="${tip}" title="${tip_title}">${cLabel(val)}</div></td>`;
       }
       rows+=`<tr><td class="rl">${label}</td>${cells}<td class="lc" style="color:var(--gn);font-weight:700">${tot||''}</td></tr>`;
     }
@@ -846,9 +848,9 @@ function renderSoforRapor(){
       for(let g=1;g<=days;g++){
         const gd=hp[g]||{};
         const val=gd[tip]||'';
-        // Şoför bu hücrede mi? deger şoför adı içeriyor mu veya sofor_id eşleşiyor mu?
-        if(val&&val!=='1'&&val!=='0.5'&&val!=='X'&&val.toLowerCase().includes(sf.ad.toLowerCase())){
-          gun+=pV('1');
+        if(val&&val!=='1'&&val!=='0.5'&&val!=='X'){
+          const isMatch=(sf.plaka&&val===sf.plaka)||(val.toLowerCase()===sf.ad.toLowerCase());
+          if(isMatch) gun+=1;
         }
       }
       if(gun>0){
@@ -949,7 +951,7 @@ function renderSoforler(){
   document.getElementById('soforCount').textContent=S.soforler.length+' şoför';
   document.getElementById('soforList').innerHTML=S.soforler.length?S.soforler.map(s=>`
     <div class="li"><div class="lid" style="background:var(--pu)"></div>
-    <div class="lii"><div class="lin">${s.ad}</div><div class="lis">${s.firma_adi||'—'} ${s.telefon?'· '+s.telefon:''}</div></div>
+    <div class="lii"><div class="lin">${s.ad}</div><div class="lis">${s.firma_adi||'—'} ${s.plaka?'· <strong style=\"color:var(--ac)\">'+s.plaka+'</strong>':''} ${s.telefon?'· '+s.telefon:''}</div></div>
     <div class="lia"><button class="btn bg2 bxs" onclick="openSoforModal('${s.id}')">Düzenle</button><button class="btn bd2 bxs" onclick="deleteSofor('${s.id}')">Sil</button></div></div>`).join('')
     :'<div class="empty"><p>Şoför eklenmemiş</p></div>';
 }
@@ -959,6 +961,7 @@ function openSoforModal(id){
     <div class="fg2">
       <div class="fg fgf"><label class="fl">Ad Soyad</label><input class="fi" id="sAd" value="${s?.ad||''}"></div>
       <div class="fg"><label class="fl">Firma Adı</label><input class="fi" id="sFirma" value="${s?.firma_adi||''}" placeholder="Gold Tur, Saraylı..."></div>
+      <div class="fg"><label class="fl">Plaka</label><input class="fi" id="sPlaka" value="${s?.plaka||''}" placeholder="06 ABC 123"></div>
       <div class="fg"><label class="fl">Telefon</label><input class="fi" id="sTel" value="${s?.telefon||''}" placeholder="05xx xxx xx xx"></div>
     </div>`,
   [{l:'İptal',c:'bg2',fn:'closeMo()'},{l:s?'Güncelle':'Ekle',c:'bp',fn:`saveSofor('${id||''}')`}]);
@@ -966,7 +969,7 @@ function openSoforModal(id){
 async function saveSofor(id){
   const ad=document.getElementById('sAd').value.trim();
   if(!ad){toast('Ad gerekli','e');return;}
-  const data={ad,firma_adi:document.getElementById('sFirma').value.trim(),telefon:document.getElementById('sTel').value.trim()};
+  const data={ad,firma_adi:document.getElementById('sFirma').value.trim(),plaka:document.getElementById('sPlaka').value.trim(),telefon:document.getElementById('sTel').value.trim()};
   if(id)await db.upd('soforler',id,data);else await db.ins('soforler',data);
   closeMo();S.soforler=await db.get('soforler',{},'&select=*&order=ad');renderSoforler();updateSoforRaporSelect();toast('Şoför kaydedildi','s');
 }
